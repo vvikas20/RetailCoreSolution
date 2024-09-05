@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RetailCore.BusinessObjects\RetailCore.BusinessObjects.csproj" />
+    <ProjectReference Include="..\RetailCore.Entities\RetailCore.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

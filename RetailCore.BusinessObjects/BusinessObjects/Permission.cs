@@ -3,21 +3,29 @@ using System.Collections.Generic;
 
 namespace RetailCore.BusinessObjects.BusinessObjects;
 
-public class Permission
+public partial class Permission
 {
     public Guid PermissionId { get; set; }
 
     public string PermissionName { get; set; } = null!;
 
-    public string PermissionDisplayName { get; set; } = null!;
+    public Guid? PermissionTypeId { get; set; }
 
-    public Guid PermissionTypeId { get; set; }
+    public bool? IsDeleted { get; set; }
 
-    public string PermissionData { get; set; } = null!;
+    public DateTime? CreatedDate { get; set; }
 
-    public bool IsActive { get; set; }
+    public Guid? CreatedBy { get; set; }
 
-    public virtual PermissionType PermissionType { get; set; } = null!;
+    public Guid? ModifiedBy { get; set; }
+
+    public DateTime? ModifiedDate { get; set; }
+
+    public virtual User? CreatedByNavigation { get; set; }
+
+    public virtual User? ModifiedByNavigation { get; set; }
+
+    public virtual PermissionType? PermissionType { get; set; }
 
     public virtual ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
 }

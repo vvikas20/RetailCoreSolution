@@ -15,6 +15,5 @@ namespace RetailCore.ServiceContracts
 		BusinessObject.User AddUser(BusinessObject.User user);
 		BusinessObject.User VerifyUser(string username, string password);
 		BusinessObject.User GetUserById(Guid currentUser);
-		bool AddUserRole(Guid userId, Guid roleId);
 	}
 }

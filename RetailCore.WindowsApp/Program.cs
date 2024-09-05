@@ -47,7 +47,6 @@ namespace RetailCore.WindowsApp
 			services.AddTransient<IRoleLevelRepository, RoleLevelRepository>();
 			services.AddTransient<IRoleRepository, RoleRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
-			services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 
 
 			services.AddTransient<IRoleLevelService, RoleLevelService>();

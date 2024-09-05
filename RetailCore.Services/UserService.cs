@@ -2,6 +2,7 @@
 using RetailCore.Entities.EntityModels;
 using RetailCore.Interfaces.DataAccess;
 using RetailCore.Interfaces.Repository;
+using RetailCore.Mapper;
 using RetailCore.ServiceContracts;
 using System.Security.Cryptography;
 
@@ -15,57 +16,26 @@ namespace RetailCore.Services
 
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IUserRepository _userRepository;
-		private readonly IUserRoleRepository _userRoleRepository;
 
-		public UserService(IUnitOfWork unitOfWork, IUserRepository userRepository, IUserRoleRepository userRoleRepository)
+		public UserService(IUnitOfWork unitOfWork, IUserRepository userRepository)
 		{
 			this._unitOfWork = unitOfWork;
 			this._userRepository = userRepository;
-			this._userRoleRepository = userRoleRepository;
 		}
 
 		public BusinessObjects.BusinessObjects.User AddUser(BusinessObjects.BusinessObjects.User user)
 		{
 			var saltAndHash = CreateHash(user.Password);
 
-			this._userRepository.Add(new Entities.EntityModels.User
+			var userEntity = user.ToEntityModel();
+			if (userEntity != null)
 			{
-				UserId = user.UserId,
-				Username = user.Username,
-				FirstName = user.FirstName,
-				MiddleName = user.MiddleName,
-				LastName = user.LastName,
-				Email = user.Email,
-				Salt = Convert.FromBase64String(saltAndHash.Salt),
-				PasswordHash = Convert.FromBase64String(saltAndHash.Hash),
-				IsActive = user.IsActive,
-				Verified = user.Verified,
-				CreatedBy = user.CreatedBy,
-				CreatedOn = user.CreatedOn,
-				ModifiedBy = user.ModifiedBy,
-				ModifiedOn = user.ModifiedOn
-			});
-
-			this.AddUserRole(user.UserId, user.RoleId);
-
-			this._unitOfWork.Commit();
+				userEntity.PasswordSalt = Convert.FromBase64String(saltAndHash.Salt);
+				userEntity.PasswordHash = Convert.FromBase64String(saltAndHash.Hash);
+				this._userRepository.Add(userEntity);
+				this._unitOfWork.Commit();
+			}
 			return user;
-		}
-
-		public bool AddUserRole(Guid userId, Guid roleId)
-		{
-			if (roleId == default(Guid)) return false;
-
-			this._userRoleRepository.Add(new Entities.EntityModels.UserRole
-			{
-				UserRoleId = Guid.NewGuid(),
-				UserId = userId,
-				RoleId = roleId
-			});
-
-			this._unitOfWork.Commit();
-
-			return true;
 		}
 
 		public BusinessObjects.BusinessObjects.User GetAdminUser()
@@ -74,21 +44,7 @@ namespace RetailCore.Services
 			if (adminUserEntity == null)
 				return null;
 			else
-				return new BusinessObjects.BusinessObjects.User
-				{
-					UserId = adminUserEntity.UserId,
-					Username = adminUserEntity.Username,
-					FirstName = adminUserEntity.FirstName,
-					MiddleName = adminUserEntity.MiddleName,
-					LastName = adminUserEntity.LastName,
-					Email = adminUserEntity.Email,
-					IsActive = adminUserEntity.IsActive,
-					Verified = adminUserEntity.Verified,
-					CreatedBy = adminUserEntity.CreatedBy,
-					CreatedOn = adminUserEntity.CreatedOn,
-					ModifiedBy = adminUserEntity.ModifiedBy,
-					ModifiedOn = adminUserEntity.ModifiedOn
-				};
+				return adminUserEntity?.ToBusinessObject();
 		}
 
 		public IEnumerable<BusinessObjects.BusinessObjects.User> GetUsers()
@@ -97,21 +53,7 @@ namespace RetailCore.Services
 
 			foreach (var item in this._userRepository.GetAll())
 			{
-				users.Add(new BusinessObjects.BusinessObjects.User
-				{
-					UserId = item.UserId,
-					Username = item.Username,
-					FirstName = item.FirstName,
-					MiddleName = item.MiddleName,
-					LastName = item.LastName,
-					Email = item.Email,
-					IsActive = item.IsActive,
-					Verified = item.Verified,
-					CreatedBy = item.CreatedBy,
-					CreatedOn = item.CreatedOn,
-					ModifiedBy = item.ModifiedBy,
-					ModifiedOn = item.ModifiedOn
-				});
+				users.Add(item.ToBusinessObject());
 			}
 
 			return users.AsEnumerable();
@@ -125,23 +67,9 @@ namespace RetailCore.Services
 		public BusinessObjects.BusinessObjects.User VerifyUser(string username, string password)
 		{
 			var existingUser = _userRepository.Get(x => x.Username == username);
-			if (existingUser != null && VerifyPassword(password, Convert.ToBase64String(existingUser.Salt), Convert.ToBase64String(existingUser.PasswordHash)))
+			if (existingUser != null && VerifyPassword(password, Convert.ToBase64String(existingUser.PasswordSalt), Convert.ToBase64String(existingUser.PasswordHash)))
 			{
-				return new BusinessObjects.BusinessObjects.User
-				{
-					UserId = existingUser.UserId,
-					Username = existingUser.Username,
-					FirstName = existingUser.FirstName,
-					MiddleName = existingUser.MiddleName,
-					LastName = existingUser.LastName,
-					Email = existingUser.Email,
-					IsActive = existingUser.IsActive,
-					Verified = existingUser.Verified,
-					CreatedBy = existingUser.CreatedBy,
-					CreatedOn = existingUser.CreatedOn,
-					ModifiedBy = existingUser.ModifiedBy,
-					ModifiedOn = existingUser.ModifiedOn
-				};
+				return existingUser.ToBusinessObject();
 			}
 
 			return null;
@@ -149,32 +77,18 @@ namespace RetailCore.Services
 
 		public BusinessObjects.BusinessObjects.User GetUserById(Guid currentUser)
 		{
-			var userData = this._userRepository.LoadUserData(currentUser);
-			if (userData != null)
+			var userEntity = this._userRepository.LoadUserData(currentUser);
+			if (userEntity != null)
 			{
-				return new BusinessObjects.BusinessObjects.User
+				var user = userEntity.ToBusinessObject();
+				if (user != null)
 				{
-					UserId = userData.UserId,
-					Username = userData.Username,
-					FirstName = userData.FirstName,
-					MiddleName = userData.MiddleName,
-					LastName = userData.LastName,
-					Email = userData.Email,
-					IsActive = userData.IsActive,
-					Verified = userData.Verified,
-					CreatedBy = userData.CreatedBy,
-					CreatedOn = userData.CreatedOn,
-					ModifiedBy = userData.ModifiedBy,
-					ModifiedOn = userData.ModifiedOn,
-					UserRoles = userData.UserRoles.Select(x => new BusinessObjects.BusinessObjects.UserRole
-					{
-						UserRoleId = x.UserRoleId,
-						UserId = x.UserId,
-						RoleId = x.RoleId,
-						Role = new BusinessObjects.BusinessObjects.Role { RoleDisplayName = x.Role.RoleDisplayName, RoleLevel = new BusinessObjects.BusinessObjects.RoleLevel { RoleLevelDisplayName = x.Role.RoleLevel.RoleLevelDisplayName } },
-						User = new BusinessObjects.BusinessObjects.User()
-					}).ToList()
-				};
+					user.Role = userEntity.Role?.ToBusinessObject();
+					user.CreatedByNavigation = userEntity.CreatedByNavigation?.ToBusinessObject();
+					user.ModifiedByNavigation = userEntity.ModifiedByNavigation?.ToBusinessObject();
+
+					return user;
+				}
 			}
 
 			return null;

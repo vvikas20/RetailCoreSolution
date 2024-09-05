@@ -30,7 +30,6 @@ namespace RetailCore.WindowsApp
 			{
 				RoleId = Guid.Parse(this.tbxRoleID.Text),
 				RoleName = this.textBox1.Text,
-				RoleDisplayName = this.textBox2.Text,
 				RoleLevelId = Guid.Parse(Convert.ToString(this.cbxRoleLevel.SelectedValue)),
 				CreatedBy = adminUser.UserId,
 				CreatedDate = DateTime.Now,
@@ -55,7 +54,7 @@ namespace RetailCore.WindowsApp
 			this.textBox1.Text = string.Empty;
 			this.textBox2.Text = string.Empty;
 			this.cbxRoleLevel.DataSource = this._roleLevelService.GetRoleLevels();
-			this.cbxRoleLevel.DisplayMember = "RoleLevelDisplayName";
+			this.cbxRoleLevel.DisplayMember = "RoleLevelName";
 			this.cbxRoleLevel.ValueMember = "RoleLevelId";
 		}
 	}

@@ -1,6 +1,7 @@
 ﻿using RetailCore.BusinessObjects.BusinessObjects;
 using RetailCore.Interfaces.DataAccess;
 using RetailCore.Interfaces.Repository;
+using RetailCore.Mapper;
 using RetailCore.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -23,16 +24,7 @@ namespace RetailCore.Services
 
 		public Role AddRole(Role role)
 		{
-			_roleRepository.Add(new Entities.EntityModels.Role
-			{
-				RoleId = role.RoleId,
-				RoleName = role.RoleName,
-				RoleDisplayName = role.RoleDisplayName,
-				RoleLevelId = role.RoleLevelId,
-				CreatedBy = role.CreatedBy,
-				CreatedDate = role.CreatedDate
-			});
-
+			_roleRepository.Add(role.ToEntityModel());
 			_unitOfWork.Commit();
 
 			return role;
@@ -49,17 +41,7 @@ namespace RetailCore.Services
 
 			foreach (var item in _roleRepository.GetAll())
 			{
-				roles.Add(new Role
-				{
-					RoleId = item.RoleId,
-					RoleName = item.RoleName,
-					RoleDisplayName = item.RoleDisplayName,
-					IsActive = item.IsActive,
-					CreatedBy = item.CreatedBy,
-					CreatedDate = item.CreatedDate,
-					ModifiiedBy = item.ModifiiedBy,
-					ModifiedDate = item.ModifiedDate
-				});
+				roles.Add(item.ToBusinessObject());
 			}
 
 			return roles;

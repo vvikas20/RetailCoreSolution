@@ -18,7 +18,7 @@ namespace RetailCore.Repository
 
 		public User LoadUserData(Guid currentUser)
 		{
-			return base.dbset.Include(x => x.UserRoles).Include(x => x.CreatedByNavigation).Include(x => x.ModifiedByNavigation).FirstOrDefault(x => x.UserId == currentUser);
+			return base.dbset.Include(x => x.Role).Include(x => x.CreatedByNavigation).Include(x => x.ModifiedByNavigation).FirstOrDefault(x => x.UserId == currentUser);
 		}
 	}
 }

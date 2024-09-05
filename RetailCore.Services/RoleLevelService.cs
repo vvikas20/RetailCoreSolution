@@ -1,6 +1,7 @@
 ﻿using RetailCore.BusinessObjects.BusinessObjects;
 using RetailCore.Interfaces.DataAccess;
 using RetailCore.Interfaces.Repository;
+using RetailCore.Mapper;
 using RetailCore.ServiceContracts;
 
 namespace RetailCore.Services
@@ -18,14 +19,7 @@ namespace RetailCore.Services
 
 		public RoleLevel AddRoleLevel(RoleLevel roleLevel)
 		{
-			this._roleLevelRepository.Add(new Entities.EntityModels.RoleLevel
-			{
-				RoleLevelId = roleLevel.RoleLevelId,
-				RoleLevelName = roleLevel.RoleLevelName,
-				RoleLevelDisplayName = roleLevel.RoleLevelDisplayName,
-				CreatedBy = roleLevel.CreatedBy,
-				CreatedOn = roleLevel.CreatedOn,
-			});
+			this._roleLevelRepository.Add(roleLevel.ToEntityModel());
 			this._unitOfWork.Commit();
 			return roleLevel;
 		}
@@ -40,16 +34,7 @@ namespace RetailCore.Services
 			IList<RoleLevel> roleLevels = new List<RoleLevel>();
 			foreach (var item in this._roleLevelRepository.GetAll())
 			{
-				roleLevels.Add(new RoleLevel
-				{
-					RoleLevelId = item.RoleLevelId,
-					RoleLevelName = item.RoleLevelName,
-					RoleLevelDisplayName = item.RoleLevelDisplayName,
-					CreatedBy = item.CreatedBy,
-					CreatedOn = item.CreatedOn,
-					ModifiedBy = item.ModifiedBy,
-					ModifiedOn = item.ModifiedOn,
-				});
+				roleLevels.Add(item.ToBusinessObject());
 			}
 			return roleLevels;
 		}

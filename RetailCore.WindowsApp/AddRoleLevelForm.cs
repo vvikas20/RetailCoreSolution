@@ -25,9 +25,8 @@ namespace RetailCore.WindowsApp
 			{
 				RoleLevelId = Guid.Parse(this.tbxRoleLevelID.Text),
 				RoleLevelName = this.textBoxRoleLevelName.Text,
-				RoleLevelDisplayName = this.tbxRoleLevelDName.Text,
 				CreatedBy = adminUser.UserId,
-				CreatedOn = DateTime.Now,
+				CreatedDate = DateTime.Now,
 			});
 
 			if (addedRoleLevel.RoleLevelId != default(Guid))

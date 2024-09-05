@@ -1,4 +1,5 @@
 ﻿using RetailCore.ServiceContracts;
+using System.Data;
 
 namespace RetailCore.WindowsApp
 {
@@ -39,30 +40,65 @@ namespace RetailCore.WindowsApp
 			tabControl1.TabPages["tabPageRoles"].Enabled = userCount != 0 && roleLevelCount > 0;
 			tabControl1.TabPages["tabPageRoleLevels"].Enabled = userCount != 0;
 
+			DataTable usersDatatable = new DataTable();
+			usersDatatable.Columns.Add("UserId");
+			usersDatatable.Columns.Add("FirstName");
+			usersDatatable.Columns.Add("LastName");
+			usersDatatable.Columns.Add("Username");
+			usersDatatable.Columns.Add("Email");
+			usersDatatable.Columns.Add("IsDeleted");
+			usersDatatable.Columns.Add("CreatedDate");
+			usersDatatable.Columns.Add("ModifiedDate");
 
+			foreach (var user in this._userService.GetUsers())
+			{
+				usersDatatable.Rows.Add(user.UserId, user.FirstName, user.LastName, user.Username, user.Email, user.IsDeleted, user.CreatedDate, user.ModifiedDate);
+			}
 
-			this.dataGridViewUsers.DataSource = this._userService.GetUsers();
-			this.dataGridViewRoleLevels.DataSource = this._roleLevelService.GetRoleLevels();
-			this.dataGridViewRoles.DataSource = this._roleService.GetRoles();
+			this.dataGridViewUsers.DataSource = usersDatatable;
+
+			DataTable roleLevelDatatable = new DataTable();
+			roleLevelDatatable.Columns.Add("RoleLevelId");
+			roleLevelDatatable.Columns.Add("RoleLevelName");
+			roleLevelDatatable.Columns.Add("IsDeleted");
+			roleLevelDatatable.Columns.Add("CreatedDate");
+			roleLevelDatatable.Columns.Add("ModifiedDate");
+
+			foreach (var roleLevel in this._roleLevelService.GetRoleLevels())
+			{
+				roleLevelDatatable.Rows.Add(roleLevel.RoleLevelId, roleLevel.RoleLevelName, roleLevel.IsDeleted, roleLevel.CreatedDate, roleLevel.ModifiedDate);
+			}
+
+			this.dataGridViewRoleLevels.DataSource = roleLevelDatatable;
+
+			DataTable roleDatatable = new DataTable();
+			roleDatatable.Columns.Add("RoleId");
+			roleDatatable.Columns.Add("RoleName");
+			roleDatatable.Columns.Add("IsDeleted");
+			roleDatatable.Columns.Add("CreatedDate");
+			roleDatatable.Columns.Add("ModifiedDate");
+
+			foreach (var role in this._roleService.GetRoles())
+			{
+				roleDatatable.Rows.Add(role.RoleId, role.RoleName, role.IsDeleted, role.CreatedDate, role.ModifiedDate);
+			}
+
+			this.dataGridViewRoles.DataSource = roleDatatable;
 
 			var userData = this._userService.GetUserById(CurrentUser);
 			if (userData != null)
 			{
-				var userRole = userData.UserRoles.Single();
 
 				textBoxUserId.Text = userData.UserId.ToString();
 				textBoxUsername.Text = userData.Username;
-				textBoxRole.Text = $"{userRole.Role.RoleDisplayName} [{userRole.Role.RoleLevel.RoleLevelDisplayName}]";
+				textBoxRole.Text = $"{userData.Role.RoleName}";
 				textBoxFName.Text = userData.FirstName;
-				textBoxMName.Text = userData.MiddleName;
 				textBoxLName.Text = userData.LastName;
 				textBoxEmail.Text = userData.Email;
-				checkBox1.Checked = userData.IsActive;
-				checkBox2.Checked = userData.Verified;
 				textBoxCreatedBy.Text = $"{userData.CreatedByNavigation?.FirstName} {userData.CreatedByNavigation?.LastName}";
-				textBoxCreatedDate.Text = userData.CreatedOn.ToString();
+				textBoxCreatedDate.Text = userData.CreatedDate.ToString();
 				textBoxModifiedBy.Text = $"{userData.ModifiedByNavigation?.FirstName} {userData.ModifiedByNavigation?.LastName}";
-				textBoxModifiedDate.Text = userData.ModifiedOn.ToString();
+				textBoxModifiedDate.Text = userData.ModifiedDate.ToString();
 			}
 		}
 
@@ -95,39 +131,32 @@ namespace RetailCore.WindowsApp
 			Guid superAdminRoleId = Guid.NewGuid();
 			Guid superAmdinUserId = Guid.NewGuid();
 
-			this._userService.AddUser(new BusinessObjects.BusinessObjects.User
-			{
-				UserId = superAmdinUserId,
-				Username = "sa",
-				FirstName = "Administrator",
-				MiddleName = string.Empty,
-				LastName = string.Empty,
-				Email = "vsvikassingh49@gmail.com",
-				Password = "Microsoft#1234",
-				IsActive = true,
-				Verified = true
-			});
-
 			this._roleLevelService.AddRoleLevel(new BusinessObjects.BusinessObjects.RoleLevel
 			{
 				RoleLevelId = superAdminRoleLevelId,
 				RoleLevelName = "RL_SUPER_ADMIN",
-				RoleLevelDisplayName = "SUPER ADMIN",
-				CreatedBy = superAmdinUserId,
-				CreatedOn = DateTime.Now,
+				CreatedDate = DateTime.Now,
 			});
 
 			this._roleService.AddRole(new BusinessObjects.BusinessObjects.Role
 			{
 				RoleId = superAdminRoleId,
 				RoleName = "R_SUPER_ADMIN",
-				RoleDisplayName = "SUPER ADMIN",
 				RoleLevelId = superAdminRoleLevelId,
-				CreatedBy = superAmdinUserId,
 				CreatedDate = DateTime.Now,
 			});
 
-			this._userService.AddUserRole(superAmdinUserId, superAdminRoleId);
+			this._userService.AddUser(new BusinessObjects.BusinessObjects.User
+			{
+				UserId = superAmdinUserId,
+				Username = "sa",
+				FirstName = "Super",
+				LastName = "Admin",
+				Email = "vsvikassingh49@gmail.com",
+				Password = "Microsoft#1234",
+				RoleId = superAdminRoleId
+			});
+
 			this.CurrentUser = superAmdinUserId;
 
 			MessageBox.Show("Administrator added successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -28,14 +28,11 @@ namespace RetailCore.WindowsApp
 				Username = tbxUsername.Text,
 				RoleId = Guid.Parse(Convert.ToString(this.cbxRole.SelectedValue)),
 				FirstName = tbxFirstName.Text,
-				MiddleName = tbxMName.Text,
 				LastName = tbxLName.Text,
 				Email = tbxEmail.Text,
 				Password = tbxPassword.Text,
-				IsActive = checkBoxActive.Checked,
-				Verified = checkBoxVerified.Checked,
 				CreatedBy = adminUser.UserId,
-				CreatedOn = DateTime.Now
+				CreatedDate = DateTime.Now
 			});
 			this.Close();
 		}
@@ -53,7 +50,7 @@ namespace RetailCore.WindowsApp
 			checkBoxActive.Checked = checkBoxVerified.Checked = true;
 
 			this.cbxRole.DataSource = this._roleService.GetRoles();
-			this.cbxRole.DisplayMember = "RoleDisplayName";
+			this.cbxRole.DisplayMember = "RoleName";
 			this.cbxRole.ValueMember = "RoleId";
 		}
 	}

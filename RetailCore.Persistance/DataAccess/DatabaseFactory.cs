@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Persistance.DataAccess
 {
-    public class DatabaseFactory : Disposable, IDatabaseFactory
-    {
-        private DevelopmentDiaryContext dataContext;
-        public IDBContext Get()
-        {
-            return dataContext ?? (dataContext = new DevelopmentDiaryContext());
-        }
-        protected override void DisposeCore()
-        {
-            if (dataContext != null)
-                dataContext.Dispose();
-        }
-    }
+	public class DatabaseFactory : Disposable, IDatabaseFactory
+	{
+		private RetailCoreContext dataContext;
+		public IDBContext Get()
+		{
+			return dataContext ?? (dataContext = new RetailCoreContext());
+		}
+		protected override void DisposeCore()
+		{
+			if (dataContext != null)
+				dataContext.Dispose();
+		}
+	}
 }

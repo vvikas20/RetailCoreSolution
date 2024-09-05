@@ -9,15 +9,15 @@ public partial class RoleLevel
 
     public string RoleLevelName { get; set; } = null!;
 
-    public string RoleLevelDisplayName { get; set; } = null!;
+    public bool? IsDeleted { get; set; }
+
+    public DateTime? CreatedDate { get; set; }
 
     public Guid? CreatedBy { get; set; }
 
-    public DateTime? CreatedOn { get; set; }
-
     public Guid? ModifiedBy { get; set; }
 
-    public DateTime? ModifiedOn { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 
     public virtual User? CreatedByNavigation { get; set; }
 

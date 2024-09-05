@@ -40,6 +40,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{E1272F00-FEC5-4BFB-8CCE-9DB8332B72BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{C9D17F64-7FE6-4132-AE0B-3429264A4A9A}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\RetailCoreDBSchema01.sql = Resources\RetailCoreDBSchema01.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{37F825FC-A635-4519-8553-91937E5F9A4B}"
 EndProject
@@ -54,7 +57,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RetailCoreUI", "RetailCoreU
 		RetailCoreUI\ReadMe.txt = RetailCoreUI\ReadMe.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailCore.WebApp", "RetailCore.WebApp\RetailCore.WebApp.csproj", "{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.WebApp", "RetailCore.WebApp\RetailCore.WebApp.csproj", "{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

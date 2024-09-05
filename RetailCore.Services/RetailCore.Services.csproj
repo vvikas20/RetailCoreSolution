@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RetailCore.Interfaces\RetailCore.Interfaces.csproj" />
+    <ProjectReference Include="..\RetailCore.Mapper\RetailCore.Mapper.csproj" />
     <ProjectReference Include="..\RetailCore.ServiceContracts\RetailCore.ServiceContracts.csproj" />
   </ItemGroup>
 
