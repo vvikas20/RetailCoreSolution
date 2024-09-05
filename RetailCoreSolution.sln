@@ -41,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{C9D17F64-7FE6-4132-AE0B-3429264A4A9A}"
 	ProjectSection(SolutionItems) = preProject
+		Resources\retailcore.pdf = Resources\retailcore.pdf
 		Resources\RetailCoreDBSchema01.sql = Resources\RetailCoreDBSchema01.sql
 	EndProjectSection
 EndProject
