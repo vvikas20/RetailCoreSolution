@@ -4,14 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="EntityModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\RetailCore.SourceGenerator\RetailCore.SourceGenerator.csproj" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

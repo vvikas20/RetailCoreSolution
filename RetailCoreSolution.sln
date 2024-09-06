@@ -60,6 +60,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RetailCoreUI", "RetailCoreU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.WebApp", "RetailCore.WebApp\RetailCore.WebApp.csproj", "{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{E2393396-D343-43B8-8398-EE75409CBD43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailCore.SourceGenerator", "RetailCore.SourceGenerator\RetailCore.SourceGenerator.csproj", "{F075CAAA-4EC5-4CAA-89A7-5DB30408B2F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +134,10 @@ Global
 		{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F075CAAA-4EC5-4CAA-89A7-5DB30408B2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F075CAAA-4EC5-4CAA-89A7-5DB30408B2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F075CAAA-4EC5-4CAA-89A7-5DB30408B2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F075CAAA-4EC5-4CAA-89A7-5DB30408B2F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +160,7 @@ Global
 		{43B7A942-CFD6-479C-81A0-F1392DBA2E61} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
 		{B783A71A-0C83-4BB3-BC64-28D52C3DD198} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
 		{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
+		{F075CAAA-4EC5-4CAA-89A7-5DB30408B2F2} = {E2393396-D343-43B8-8398-EE75409CBD43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A96C250B-AEF0-49B3-A567-46097720006A}
