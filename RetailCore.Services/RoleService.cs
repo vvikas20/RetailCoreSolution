@@ -11,40 +11,74 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Services
 {
-	public class RoleService : IRoleService
-	{
-		IUnitOfWork _unitOfWork;
-		IRoleRepository _roleRepository;
+    public class RoleService : IRoleService
+    {
+        IUnitOfWork _unitOfWork;
+        IRoleRepository _roleRepository;
 
-		public RoleService(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
-		{
-			_unitOfWork = unitOfWork;
-			_roleRepository = roleRepository;
-		}
+        public RoleService(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
+        {
+            _unitOfWork = unitOfWork;
+            _roleRepository = roleRepository;
+        }
 
-		public Role AddRole(Role role)
-		{
-			_roleRepository.Add(role.ToEntityModel());
-			_unitOfWork.Commit();
+        public Role AddRole(Role role)
+        {
+            _roleRepository.Add(role.ToEntityModel());
+            _unitOfWork.Commit();
 
-			return role;
-		}
+            return role;
+        }
 
-		public int GetRoleCount()
-		{
-			return this._roleRepository.GetAll().Count();
-		}
+        public bool DeleteRole(Guid roleId)
+        {
+            var role = _roleRepository.GetById(roleId);
+            if (role != null)
+            {
+                _roleRepository.Delete(role);
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
+        }
 
-		public IEnumerable<Role> GetRoles()
-		{
-			IList<Role> roles = new List<Role>();
+        public Role GetRoleById(Guid roleId)
+        {
+            var role = _roleRepository.GetById(roleId);
+            if (role != null)
+            {
+                return role.ToBusinessObject();
+            }
+            return null;
+        }
 
-			foreach (var item in _roleRepository.GetAll())
-			{
-				roles.Add(item.ToBusinessObject());
-			}
+        public int GetRoleCount()
+        {
+            return this._roleRepository.GetAll().Count();
+        }
 
-			return roles;
-		}
-	}
+        public IEnumerable<Role> GetRoles()
+        {
+            IList<Role> roles = new List<Role>();
+
+            foreach (var item in _roleRepository.GetAll())
+            {
+                roles.Add(item.ToBusinessObject());
+            }
+
+            return roles;
+        }
+
+        public Role UpdateRole(Role role)
+        {
+            var existingRole = _roleRepository.GetById(role.RoleId);
+            if (existingRole != null)
+            {
+                _roleRepository.Update(role.ToEntityModel(existingRole));
+                _unitOfWork.Commit();
+                return role;
+            }
+            return null;
+        }
+    }
 }

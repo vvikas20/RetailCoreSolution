@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Interfaces.Repository
 {
-	public interface IRoleLevelRepository : IRepository<RetailCore.Entities.EntityModels.RoleLevel>
-	{
 
-	}
+    public interface IPermissionRepository : IRepository<RetailCore.Entities.EntityModels.Permission>
+    {
+
+    }
 }

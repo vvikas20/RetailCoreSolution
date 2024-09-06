@@ -11,7 +11,10 @@ namespace RetailCore.ServiceContracts
 	public interface IRoleLevelService
 	{
 		IEnumerable<BusinessObject.RoleLevel> GetRoleLevels();
-		BusinessObject.RoleLevel AddRoleLevel(BusinessObject.RoleLevel roleLevel);
-		int GetRoleLevelCount();
+        BusinessObject.RoleLevel GetRoleLevelById(Guid roleLevelId);
+        BusinessObject.RoleLevel AddRoleLevel(BusinessObject.RoleLevel roleLevel);
+        BusinessObject.RoleLevel UpdateRoleLevel(BusinessObject.RoleLevel roleLevel);	
+        bool DeleteRoleLevel(Guid roleLevelId);
+        int GetRoleLevelCount();
 	}
 }

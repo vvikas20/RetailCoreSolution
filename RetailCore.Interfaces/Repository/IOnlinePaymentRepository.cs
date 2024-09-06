@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Interfaces.Repository
 {
-	public interface IRoleLevelRepository : IRepository<RetailCore.Entities.EntityModels.RoleLevel>
-	{
+    public interface IOnlinePaymentRepository : IRepository<RetailCore.Entities.EntityModels.OnlinePayment>
+    {
 
-	}
+    }
 }

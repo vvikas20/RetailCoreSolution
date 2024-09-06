@@ -11,7 +11,10 @@ namespace RetailCore.ServiceContracts
 	public interface IRoleService
 	{
 		IEnumerable<BusinessObject.Role> GetRoles();
-		BusinessObject.Role AddRole(BusinessObject.Role role);
-		int GetRoleCount();
+        BusinessObject.Role GetRoleById(Guid roleId);
+        BusinessObject.Role AddRole(BusinessObject.Role role);
+        BusinessObject.Role UpdateRole(BusinessObject.Role role);
+        bool DeleteRole(Guid roleId);
+        int GetRoleCount();
 	}
 }

@@ -7,13 +7,15 @@ using BusinessObject = RetailCore.BusinessObjects.BusinessObjects;
 
 namespace RetailCore.ServiceContracts
 {
-	public interface IUserService
-	{
-		IEnumerable<BusinessObject.User> GetUsers();
-		int GetUserCount();
-		BusinessObject.User GetAdminUser();
-		BusinessObject.User AddUser(BusinessObject.User user);
-		BusinessObject.User VerifyUser(string username, string password);
-		BusinessObject.User GetUserById(Guid currentUser);
-	}
+    public interface IUserService
+    {
+        IEnumerable<BusinessObject.User> GetUsers();
+        BusinessObject.User GetAdminUser();
+        BusinessObject.User AddUser(BusinessObject.User user);
+        BusinessObject.User GetUserById(Guid currentUser);
+        BusinessObject.User UpdateUser(BusinessObject.User user);
+        bool DeleteUser(Guid id);
+        BusinessObject.User VerifyUser(string username, string password);
+        int GetUserCount();
+    }
 }

@@ -10,8 +10,4 @@
     <Folder Include="EntityModels\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RetailCore.SourceGenerator\RetailCore.SourceGenerator.csproj" />
-  </ItemGroup>
-
 </Project>
