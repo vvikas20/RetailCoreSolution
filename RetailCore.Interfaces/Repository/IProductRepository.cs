@@ -1,4 +1,5 @@
-﻿using RetailCore.Interfaces.DataAccess;
+﻿using RetailCore.BusinessObjects.BusinessObjects;
+using RetailCore.Interfaces.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace RetailCore.Interfaces.Repository
 {
     public interface IProductRepository : IRepository<RetailCore.Entities.EntityModels.Product>
     {
-
+        IEnumerable<Entities.EntityModels.Product> GetAllProductFull();
     }
 }

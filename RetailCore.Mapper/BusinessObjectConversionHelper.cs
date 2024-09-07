@@ -107,5 +107,41 @@ namespace RetailCore.Mapper
             return roleLevelPermissionTypeMappingEntity;
 
         }
+
+        public static Entities.EntityModels.ProductCategory ToEntityModel(this BusinessObj.ProductCategory productCategory, Entities.EntityModels.ProductCategory? existingProductCategoryEntity = null)
+        {
+            var productCategoryEntity = existingProductCategoryEntity ?? new EntityObj.ProductCategory();
+
+            productCategoryEntity.ProductCategoryId = productCategory.ProductCategoryId;
+            productCategoryEntity.CategoryName = productCategory.CategoryName;
+            productCategoryEntity.IsDeleted = productCategory.IsDeleted;
+            productCategoryEntity.CreatedBy = productCategory.CreatedBy;
+            productCategoryEntity.CreatedDate = productCategory.CreatedDate;
+            productCategoryEntity.ModifiedBy = productCategory.ModifiedBy;
+            productCategoryEntity.ModifiedDate = productCategory.ModifiedDate;
+
+            return productCategoryEntity;
+
+        }
+
+        public static Entities.EntityModels.Product ToEntityModel(this BusinessObj.Product product, Entities.EntityModels.Product? existingProductEntity = null)
+        {
+            var productEntity = existingProductEntity ?? new EntityObj.Product();
+
+            productEntity.ProductId = product.ProductId;
+            productEntity.ProductName = product.ProductName;
+            productEntity.Description = product.Description;
+            productEntity.Price = product.Price;
+            productEntity.Stock = product.Stock;
+            productEntity.CategoryId = product.CategoryId;
+            productEntity.IsDeleted = product.IsDeleted;
+            productEntity.CreatedDate = product.CreatedDate;
+            productEntity.CreatedBy = product.CreatedBy;
+            productEntity.ModifiedBy = product.ModifiedBy;
+            productEntity.ModifiedDate = product.ModifiedDate;
+
+            return productEntity;
+
+        }
     }
 }

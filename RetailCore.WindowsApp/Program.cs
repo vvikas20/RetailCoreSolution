@@ -52,20 +52,26 @@ namespace RetailCore.WindowsApp
             services.AddTransient<IRoleLevelPermissionTypeMappingRepository, RoleLevelPermissionTypeMappingRepository>();
             services.AddTransient<IRolePermissionRepository, RolePermissionRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
 
-			services.AddTransient<IRoleLevelService, RoleLevelService>();
+            services.AddTransient<IRoleLevelService, RoleLevelService>();
             services.AddTransient<IPermissionTypeService, PermissionTypeService>();
             services.AddTransient<IPermissionService, PermissionService>();
             services.AddTransient<IRoleService, RoleService>();
 			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IProductService, ProductService>();
 
-			services.AddSingleton<LoginForm>();
+            services.AddSingleton<LoginForm>();
 			services.AddSingleton<MainForm>();
 			services.AddTransient<AddUserForm>();
 			services.AddTransient<AddRoleLevelForm>();
 			services.AddTransient<AddRoleForm>();
+			services.AddTransient<AddProductCategoryForm>();
+            services.AddTransient<AddProductForm>();
 
-		}
+        }
 	}
 }

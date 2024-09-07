@@ -11,13 +11,18 @@ namespace RetailCore.WindowsApp
         private readonly IUserService _userService;
         private readonly IPermissionTypeService _permissionTypeService;
         private readonly IPermissionService _permissionService;
+        private readonly IProductCategoryService _productCategoryService;
+        private readonly IProductService _productService;
 
         private readonly AddUserForm addUserForm;
         private readonly AddRoleLevelForm addRoleLevelForm;
         private readonly AddRoleForm addRoleForm;
+        private readonly AddProductCategoryForm addProductCategoryForm;
+        private readonly AddProductForm addProductForm;
 
         public MainForm(ICurrentUserService currentUserService, IRoleService roleService, IRoleLevelService roleLevelService, IUserService userService, IPermissionTypeService permissionTypeService, IPermissionService permissionService,
-                        AddUserForm addUserForm, AddRoleLevelForm addRoleLevelForm, AddRoleForm addRoleForm)
+            IProductCategoryService productCategoryService, IProductService productService,
+                        AddUserForm addUserForm, AddRoleLevelForm addRoleLevelForm, AddRoleForm addRoleForm, AddProductCategoryForm addProductCategoryForm, AddProductForm addProductForm)
         {
             InitializeComponent();
 
@@ -27,10 +32,14 @@ namespace RetailCore.WindowsApp
             this._userService = userService;
             this._permissionTypeService = permissionTypeService;
             this._permissionService = permissionService;
+            this._productCategoryService = productCategoryService;
+            this._productService = productService;
 
             this.addUserForm = addUserForm;
             this.addRoleLevelForm = addRoleLevelForm;
             this.addRoleForm = addRoleForm;
+            this.addProductCategoryForm = addProductCategoryForm;
+            this.addProductForm = addProductForm;
         }
 
         private void SetupUI()
@@ -47,6 +56,8 @@ namespace RetailCore.WindowsApp
 
             tabControl1.TabPages["tabPageRoles"].Enabled = userCount != 0 && roleLevelCount > 0;
             tabControl1.TabPages["tabPageRoleLevels"].Enabled = userCount != 0;
+            tabControl1.TabPages["tabPageManageCategory"].Enabled = userCount != 0;
+            tabControl1.TabPages["tabPageManageProduct"].Enabled = userCount != 0;
 
             DataTable usersDatatable = new DataTable();
             usersDatatable.Columns.Add("UserId");
@@ -127,6 +138,37 @@ namespace RetailCore.WindowsApp
                 }
             }
             dataGridViewPermissions.DataSource = userPermissionDatatable;
+
+            DataTable productCategoryDatatable = new DataTable();
+            productCategoryDatatable.Columns.Add("Category Id");
+            productCategoryDatatable.Columns.Add("Name");
+            productCategoryDatatable.Columns.Add("IsDeleted");
+            productCategoryDatatable.Columns.Add("CreatedDate");
+            productCategoryDatatable.Columns.Add("ModifiedDate");
+
+            foreach (var category in this._productCategoryService.GetProductCategories())
+            {
+                productCategoryDatatable.Rows.Add(category.ProductCategoryId, category.CategoryName, category.IsDeleted, category.CreatedDate, category.ModifiedDate);
+            }
+
+            this.dataGridViewProductCategory.DataSource = productCategoryDatatable;
+
+            DataTable productDatatable = new DataTable();
+
+            productDatatable.Columns.Add("ProductId");
+            productDatatable.Columns.Add("ProductName");
+            productDatatable.Columns.Add("Description");
+            productDatatable.Columns.Add("CategoryId");
+            productDatatable.Columns.Add("IsDeleted");
+            productDatatable.Columns.Add("CreatedDate");
+            productDatatable.Columns.Add("ModifiedDate");
+
+            foreach (var products in _productService.GetProducts())
+            {
+                productDatatable.Rows.Add(products.ProductId, products.ProductName, products.Description, products.Category?.CategoryName, products.IsDeleted, products.CreatedDate, products.ModifiedDate);
+            }
+
+            dataGridViewProducts.DataSource = productDatatable;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -149,6 +191,18 @@ namespace RetailCore.WindowsApp
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             addUserForm.ShowDialog();
+            SetupUI();
+        }
+
+        private void buttonAddProdCategory_Click(object sender, EventArgs e)
+        {
+            addProductCategoryForm.ShowDialog();
+            SetupUI();
+        }
+
+        private void buttonAddProduct_Click(object sender, EventArgs e)
+        {
+            addProductForm.ShowDialog();
             SetupUI();
         }
 

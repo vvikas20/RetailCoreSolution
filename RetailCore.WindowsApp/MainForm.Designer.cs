@@ -43,6 +43,14 @@
             buttonAddRoleLevel = new Button();
             dataGridViewRoleLevels = new DataGridView();
             tabPageRoles = new TabPage();
+            tabPageManageCategory = new TabPage();
+            tableLayoutPanel6 = new TableLayoutPanel();
+            buttonAddProdCategory = new Button();
+            dataGridViewProductCategory = new DataGridView();
+            tabPageManageProduct = new TabPage();
+            tableLayoutPanel7 = new TableLayoutPanel();
+            button3 = new Button();
+            dataGridViewProducts = new DataGridView();
             tabPageMyProfile = new TabPage();
             panel2 = new Panel();
             splitContainer1 = new SplitContainer();
@@ -89,6 +97,12 @@
             tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRoleLevels).BeginInit();
             tabPageRoles.SuspendLayout();
+            tabPageManageCategory.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProductCategory).BeginInit();
+            tabPageManageProduct.SuspendLayout();
+            tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).BeginInit();
             tabPageMyProfile.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -104,15 +118,15 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(btnAddRole, 0, 0);
             tableLayoutPanel1.Controls.Add(dataGridViewRoles, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(3, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.93269253F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 92.06731F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(786, 416);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -131,9 +145,9 @@
             dataGridViewRoles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewRoles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewRoles.Dock = DockStyle.Fill;
-            dataGridViewRoles.Location = new Point(3, 36);
+            dataGridViewRoles.Location = new Point(3, 38);
             dataGridViewRoles.Name = "dataGridViewRoles";
-            dataGridViewRoles.Size = new Size(780, 377);
+            dataGridViewRoles.Size = new Size(780, 375);
             dataGridViewRoles.TabIndex = 0;
             // 
             // tabControl1
@@ -141,6 +155,8 @@
             tabControl1.Controls.Add(tabPageUsers);
             tabControl1.Controls.Add(tabPageRoleLevels);
             tabControl1.Controls.Add(tabPageRoles);
+            tabControl1.Controls.Add(tabPageManageCategory);
+            tabControl1.Controls.Add(tabPageManageProduct);
             tabControl1.Controls.Add(tabPageMyProfile);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
@@ -151,6 +167,7 @@
             // 
             // tabPageUsers
             // 
+            tabPageUsers.BackColor = Color.Transparent;
             tabPageUsers.Controls.Add(tableLayoutPanel2);
             tabPageUsers.Location = new Point(4, 24);
             tabPageUsers.Name = "tabPageUsers";
@@ -158,21 +175,19 @@
             tabPageUsers.Size = new Size(792, 422);
             tabPageUsers.TabIndex = 1;
             tabPageUsers.Text = "Manage Users";
-            tabPageUsers.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(dataGridViewUsers, 0, 1);
             tableLayoutPanel2.Controls.Add(panel1, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 2;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10.0961542F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 89.90385F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Size = new Size(786, 416);
             tableLayoutPanel2.TabIndex = 1;
             // 
@@ -181,9 +196,9 @@
             dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewUsers.Dock = DockStyle.Fill;
-            dataGridViewUsers.Location = new Point(3, 45);
+            dataGridViewUsers.Location = new Point(3, 43);
             dataGridViewUsers.Name = "dataGridViewUsers";
-            dataGridViewUsers.Size = new Size(780, 368);
+            dataGridViewUsers.Size = new Size(780, 370);
             dataGridViewUsers.TabIndex = 0;
             // 
             // panel1
@@ -193,12 +208,12 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(780, 36);
+            panel1.Size = new Size(780, 34);
             panel1.TabIndex = 1;
             // 
             // btnAddUser
             // 
-            btnAddUser.Location = new Point(144, 5);
+            btnAddUser.Location = new Point(138, 4);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.Size = new Size(75, 27);
             btnAddUser.TabIndex = 3;
@@ -208,7 +223,7 @@
             // 
             // buttonInitializeSystem
             // 
-            buttonInitializeSystem.Location = new Point(3, 5);
+            buttonInitializeSystem.Location = new Point(3, 4);
             buttonInitializeSystem.Name = "buttonInitializeSystem";
             buttonInitializeSystem.Size = new Size(135, 27);
             buttonInitializeSystem.TabIndex = 2;
@@ -218,6 +233,7 @@
             // 
             // tabPageRoleLevels
             // 
+            tabPageRoleLevels.BackColor = Color.MistyRose;
             tabPageRoleLevels.Controls.Add(tableLayoutPanel4);
             tabPageRoleLevels.Location = new Point(4, 24);
             tabPageRoleLevels.Name = "tabPageRoleLevels";
@@ -225,20 +241,19 @@
             tabPageRoleLevels.Size = new Size(792, 422);
             tabPageRoleLevels.TabIndex = 2;
             tabPageRoleLevels.Text = "Manage Role Levels";
-            tabPageRoleLevels.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel4
             // 
             tableLayoutPanel4.ColumnCount = 1;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.Controls.Add(buttonAddRoleLevel, 0, 0);
             tableLayoutPanel4.Controls.Add(dataGridViewRoleLevels, 0, 1);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 2;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 7.93269253F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 92.06731F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.Size = new Size(786, 416);
             tableLayoutPanel4.TabIndex = 1;
             // 
@@ -257,13 +272,14 @@
             dataGridViewRoleLevels.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewRoleLevels.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewRoleLevels.Dock = DockStyle.Fill;
-            dataGridViewRoleLevels.Location = new Point(3, 36);
+            dataGridViewRoleLevels.Location = new Point(3, 38);
             dataGridViewRoleLevels.Name = "dataGridViewRoleLevels";
-            dataGridViewRoleLevels.Size = new Size(780, 377);
+            dataGridViewRoleLevels.Size = new Size(780, 375);
             dataGridViewRoleLevels.TabIndex = 0;
             // 
             // tabPageRoles
             // 
+            tabPageRoles.BackColor = Color.MistyRose;
             tabPageRoles.Controls.Add(tableLayoutPanel1);
             tabPageRoles.Location = new Point(4, 24);
             tabPageRoles.Name = "tabPageRoles";
@@ -271,17 +287,107 @@
             tabPageRoles.Size = new Size(792, 422);
             tabPageRoles.TabIndex = 0;
             tabPageRoles.Text = "Manage Roles";
-            tabPageRoles.UseVisualStyleBackColor = true;
+            // 
+            // tabPageManageCategory
+            // 
+            tabPageManageCategory.BackColor = Color.Transparent;
+            tabPageManageCategory.Controls.Add(tableLayoutPanel6);
+            tabPageManageCategory.Location = new Point(4, 24);
+            tabPageManageCategory.Name = "tabPageManageCategory";
+            tabPageManageCategory.Size = new Size(792, 422);
+            tabPageManageCategory.TabIndex = 4;
+            tabPageManageCategory.Text = "Manage Product Category";
+            // 
+            // tableLayoutPanel6
+            // 
+            tableLayoutPanel6.ColumnCount = 1;
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel6.Controls.Add(buttonAddProdCategory, 0, 0);
+            tableLayoutPanel6.Controls.Add(dataGridViewProductCategory, 0, 1);
+            tableLayoutPanel6.Dock = DockStyle.Fill;
+            tableLayoutPanel6.Location = new Point(0, 0);
+            tableLayoutPanel6.Name = "tableLayoutPanel6";
+            tableLayoutPanel6.RowCount = 2;
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel6.Size = new Size(792, 422);
+            tableLayoutPanel6.TabIndex = 1;
+            // 
+            // buttonAddProdCategory
+            // 
+            buttonAddProdCategory.Location = new Point(3, 3);
+            buttonAddProdCategory.Name = "buttonAddProdCategory";
+            buttonAddProdCategory.Size = new Size(141, 27);
+            buttonAddProdCategory.TabIndex = 1;
+            buttonAddProdCategory.Text = "Add Product Category";
+            buttonAddProdCategory.UseVisualStyleBackColor = true;
+            buttonAddProdCategory.Click += buttonAddProdCategory_Click;
+            // 
+            // dataGridViewProductCategory
+            // 
+            dataGridViewProductCategory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProductCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProductCategory.Dock = DockStyle.Fill;
+            dataGridViewProductCategory.Location = new Point(3, 38);
+            dataGridViewProductCategory.Name = "dataGridViewProductCategory";
+            dataGridViewProductCategory.Size = new Size(786, 381);
+            dataGridViewProductCategory.TabIndex = 0;
+            // 
+            // tabPageManageProduct
+            // 
+            tabPageManageProduct.BackColor = Color.Transparent;
+            tabPageManageProduct.Controls.Add(tableLayoutPanel7);
+            tabPageManageProduct.Location = new Point(4, 24);
+            tabPageManageProduct.Name = "tabPageManageProduct";
+            tabPageManageProduct.Padding = new Padding(3);
+            tabPageManageProduct.Size = new Size(792, 422);
+            tabPageManageProduct.TabIndex = 5;
+            tabPageManageProduct.Text = "Manage Product";
+            // 
+            // tableLayoutPanel7
+            // 
+            tableLayoutPanel7.ColumnCount = 1;
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel7.Controls.Add(button3, 0, 0);
+            tableLayoutPanel7.Controls.Add(dataGridViewProducts, 0, 1);
+            tableLayoutPanel7.Dock = DockStyle.Fill;
+            tableLayoutPanel7.Location = new Point(3, 3);
+            tableLayoutPanel7.Name = "tableLayoutPanel7";
+            tableLayoutPanel7.RowCount = 2;
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel7.Size = new Size(786, 416);
+            tableLayoutPanel7.TabIndex = 1;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(3, 3);
+            button3.Name = "button3";
+            button3.Size = new Size(108, 27);
+            button3.TabIndex = 1;
+            button3.Text = "Add Product";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += buttonAddProduct_Click;
+            // 
+            // dataGridViewProducts
+            // 
+            dataGridViewProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProducts.Dock = DockStyle.Fill;
+            dataGridViewProducts.Location = new Point(3, 38);
+            dataGridViewProducts.Name = "dataGridViewProducts";
+            dataGridViewProducts.Size = new Size(780, 375);
+            dataGridViewProducts.TabIndex = 0;
             // 
             // tabPageMyProfile
             // 
+            tabPageMyProfile.BackColor = Color.Transparent;
             tabPageMyProfile.Controls.Add(panel2);
             tabPageMyProfile.Location = new Point(4, 24);
             tabPageMyProfile.Name = "tabPageMyProfile";
             tabPageMyProfile.Size = new Size(792, 422);
             tabPageMyProfile.TabIndex = 3;
             tabPageMyProfile.Text = "My Profile";
-            tabPageMyProfile.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -294,6 +400,7 @@
             // 
             // splitContainer1
             // 
+            splitContainer1.BackColor = SystemColors.GradientInactiveCaption;
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.Location = new Point(0, 0);
             splitContainer1.Name = "splitContainer1";
@@ -341,7 +448,7 @@
             tableLayoutPanel5.Controls.Add(label4, 0, 4);
             tableLayoutPanel5.Controls.Add(label3, 0, 3);
             tableLayoutPanel5.Controls.Add(label2, 0, 2);
-            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Dock = DockStyle.Top;
             tableLayoutPanel5.Location = new Point(0, 0);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 13;
@@ -684,6 +791,12 @@
             tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewRoleLevels).EndInit();
             tabPageRoles.ResumeLayout(false);
+            tabPageManageCategory.ResumeLayout(false);
+            tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProductCategory).EndInit();
+            tabPageManageProduct.ResumeLayout(false);
+            tableLayoutPanel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).EndInit();
             tabPageMyProfile.ResumeLayout(false);
             panel2.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
@@ -750,5 +863,13 @@
         private SplitContainer splitContainer1;
         private GroupBox groupBox1;
         private DataGridView dataGridViewPermissions;
+        private TabPage tabPageManageCategory;
+        private TabPage tabPageManageProduct;
+        private TableLayoutPanel tableLayoutPanel6;
+        private Button buttonAddProdCategory;
+        private DataGridView dataGridViewProductCategory;
+        private TableLayoutPanel tableLayoutPanel7;
+        private Button button3;
+        private DataGridView dataGridViewProducts;
     }
 }
