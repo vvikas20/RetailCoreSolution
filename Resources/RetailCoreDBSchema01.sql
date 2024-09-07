@@ -1,6 +1,6 @@
 USE [RetailCore]
 GO
-/****** Object:  Table [dbo].[Address]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Address]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -27,7 +27,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[AuditLog]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[AuditLog]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -50,7 +50,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Cart]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Cart]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -71,7 +71,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[CartItem]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[CartItem]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -94,7 +94,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Coupon]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Coupon]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +118,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[OnlinePayment]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[OnlinePayment]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -143,7 +143,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Order]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Order]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +170,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[OrderItem]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[OrderItem]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +194,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[PaymentMethod]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[PaymentMethod]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -216,7 +216,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Permission]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Permission]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -226,20 +226,21 @@ BEGIN
 CREATE TABLE [dbo].[Permission](
 	[PermissionId] [uniqueidentifier] NOT NULL,
 	[PermissionName] [nvarchar](100) NOT NULL,
+	[PermissionDisplayName] [nvarchar](100) NOT NULL,
 	[PermissionTypeId] [uniqueidentifier] NULL,
 	[IsDeleted] [bit] NULL,
 	[CreatedDate] [datetime] NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedDate] [datetime] NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Permissi__EFA6FB2F9628D209] PRIMARY KEY CLUSTERED 
 (
 	[PermissionId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[PermissionType]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[PermissionType]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -261,7 +262,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Product]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Product]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -287,7 +288,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductAttribute]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductAttribute]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -309,7 +310,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductAttributeMapping]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductAttributeMapping]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -331,7 +332,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductCategory]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductCategory]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -353,7 +354,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductImage]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductImage]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -376,7 +377,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductReview]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductReview]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -399,7 +400,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductTag]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductTag]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -421,7 +422,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[ProductTagMapping]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[ProductTagMapping]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -443,7 +444,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Role]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Role]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -466,7 +467,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[RoleLevel]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[RoleLevel]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -476,19 +477,44 @@ BEGIN
 CREATE TABLE [dbo].[RoleLevel](
 	[RoleLevelId] [uniqueidentifier] NOT NULL,
 	[RoleLevelName] [nvarchar](100) NOT NULL,
+	[RoleLevelDisplayName] [nvarchar](100) NULL,
+	[RoleLevel] [int] NOT NULL,
 	[IsDeleted] [bit] NULL,
 	[CreatedDate] [datetime] NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedDate] [datetime] NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__RoleLeve__934E77C9ECE234A4] PRIMARY KEY CLUSTERED 
 (
 	[RoleLevelId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[RolePermission]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[RoleLevelPermissionTypeMapping]    Script Date: 09/07/2024 5:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RoleLevelPermissionTypeMapping]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[RoleLevelPermissionTypeMapping](
+	[Id] [uniqueidentifier] NOT NULL,
+	[RoleLevelId] [uniqueidentifier] NOT NULL,
+	[PermissionTypeId] [uniqueidentifier] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[RolePermission]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -510,7 +536,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Shipping]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Shipping]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -535,7 +561,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -567,7 +593,7 @@ CREATE TABLE [dbo].[User](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Wishlist]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[Wishlist]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -588,7 +614,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[WishlistProduct]    Script Date: 09/06/2024 3:17:43 AM ******/
+/****** Object:  Table [dbo].[WishlistProduct]    Script Date: 09/07/2024 5:51:32 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -742,17 +768,17 @@ END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__Permissio__Permi__73BA3083]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[Permission] ADD  DEFAULT (newid()) FOR [PermissionId]
+ALTER TABLE [dbo].[Permission] ADD  CONSTRAINT [DF__Permissio__Permi__73BA3083]  DEFAULT (newid()) FOR [PermissionId]
 END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__Permissio__IsDel__75A278F5]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[Permission] ADD  DEFAULT ((0)) FOR [IsDeleted]
+ALTER TABLE [dbo].[Permission] ADD  CONSTRAINT [DF__Permissio__IsDel__75A278F5]  DEFAULT ((0)) FOR [IsDeleted]
 END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__Permissio__Creat__76969D2E]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[Permission] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+ALTER TABLE [dbo].[Permission] ADD  CONSTRAINT [DF__Permissio__Creat__76969D2E]  DEFAULT (getdate()) FOR [CreatedDate]
 END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__Permissio__Permi__6D0D32F4]') AND type = 'D')
@@ -892,17 +918,32 @@ END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RoleLevel__RoleL__5EBF139D]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[RoleLevel] ADD  DEFAULT (newid()) FOR [RoleLevelId]
+ALTER TABLE [dbo].[RoleLevel] ADD  CONSTRAINT [DF__RoleLevel__RoleL__5EBF139D]  DEFAULT (newid()) FOR [RoleLevelId]
 END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RoleLevel__IsDel__5FB337D6]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[RoleLevel] ADD  DEFAULT ((0)) FOR [IsDeleted]
+ALTER TABLE [dbo].[RoleLevel] ADD  CONSTRAINT [DF__RoleLevel__IsDel__5FB337D6]  DEFAULT ((0)) FOR [IsDeleted]
 END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RoleLevel__Creat__60A75C0F]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[RoleLevel] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+ALTER TABLE [dbo].[RoleLevel] ADD  CONSTRAINT [DF__RoleLevel__Creat__60A75C0F]  DEFAULT (getdate()) FOR [CreatedDate]
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RoleLevelPer__Id__7720AD13]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping] ADD  DEFAULT (newid()) FOR [Id]
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RoleLevel__IsDel__7814D14C]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping] ADD  DEFAULT ((0)) FOR [IsDeleted]
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RoleLevel__Creat__7908F585]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping] ADD  DEFAULT (getdate()) FOR [CreatedDate]
 END
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF__RolePermi__RoleP__7B5B524B]') AND type = 'D')
@@ -1144,8 +1185,11 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[Permission] CHECK CONSTRAINT [FK__Permissio__Modif__787EE5A0]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__Permissio__Permi__74AE54BC]') AND parent_object_id = OBJECT_ID(N'[dbo].[Permission]'))
-ALTER TABLE [dbo].[Permission]  WITH CHECK ADD FOREIGN KEY([PermissionTypeId])
+ALTER TABLE [dbo].[Permission]  WITH CHECK ADD  CONSTRAINT [FK__Permissio__Permi__74AE54BC] FOREIGN KEY([PermissionTypeId])
 REFERENCES [dbo].[PermissionType] ([PermissionTypeId])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__Permissio__Permi__74AE54BC]') AND parent_object_id = OBJECT_ID(N'[dbo].[Permission]'))
+ALTER TABLE [dbo].[Permission] CHECK CONSTRAINT [FK__Permissio__Permi__74AE54BC]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__Permissio__Creat__6FE99F9F]') AND parent_object_id = OBJECT_ID(N'[dbo].[PermissionType]'))
 ALTER TABLE [dbo].[PermissionType]  WITH CHECK ADD  CONSTRAINT [FK__Permissio__Creat__6FE99F9F] FOREIGN KEY([CreatedBy])
@@ -1316,8 +1360,11 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[Role] CHECK CONSTRAINT [FK__Role__ModifiedBy__6A30C649]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__Role__RoleLevelI__66603565]') AND parent_object_id = OBJECT_ID(N'[dbo].[Role]'))
-ALTER TABLE [dbo].[Role]  WITH CHECK ADD FOREIGN KEY([RoleLevelId])
+ALTER TABLE [dbo].[Role]  WITH CHECK ADD  CONSTRAINT [FK__Role__RoleLevelI__66603565] FOREIGN KEY([RoleLevelId])
 REFERENCES [dbo].[RoleLevel] ([RoleLevelId])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__Role__RoleLevelI__66603565]') AND parent_object_id = OBJECT_ID(N'[dbo].[Role]'))
+ALTER TABLE [dbo].[Role] CHECK CONSTRAINT [FK__Role__RoleLevelI__66603565]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RoleLevel__Creat__619B8048]') AND parent_object_id = OBJECT_ID(N'[dbo].[RoleLevel]'))
 ALTER TABLE [dbo].[RoleLevel]  WITH CHECK ADD  CONSTRAINT [FK__RoleLevel__Creat__619B8048] FOREIGN KEY([CreatedBy])
@@ -1332,6 +1379,22 @@ REFERENCES [dbo].[User] ([UserId])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RoleLevel__Modif__628FA481]') AND parent_object_id = OBJECT_ID(N'[dbo].[RoleLevel]'))
 ALTER TABLE [dbo].[RoleLevel] CHECK CONSTRAINT [FK__RoleLevel__Modif__628FA481]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RoleLevel__Creat__7BE56230]') AND parent_object_id = OBJECT_ID(N'[dbo].[RoleLevelPermissionTypeMapping]'))
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[User] ([UserId])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RoleLevel__Modif__7CD98669]') AND parent_object_id = OBJECT_ID(N'[dbo].[RoleLevelPermissionTypeMapping]'))
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping]  WITH CHECK ADD FOREIGN KEY([ModifiedBy])
+REFERENCES [dbo].[User] ([UserId])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RoleLevel__Permi__7AF13DF7]') AND parent_object_id = OBJECT_ID(N'[dbo].[RoleLevelPermissionTypeMapping]'))
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping]  WITH CHECK ADD FOREIGN KEY([PermissionTypeId])
+REFERENCES [dbo].[PermissionType] ([PermissionTypeId])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RoleLevel__RoleL__79FD19BE]') AND parent_object_id = OBJECT_ID(N'[dbo].[RoleLevelPermissionTypeMapping]'))
+ALTER TABLE [dbo].[RoleLevelPermissionTypeMapping]  WITH CHECK ADD FOREIGN KEY([RoleLevelId])
+REFERENCES [dbo].[RoleLevel] ([RoleLevelId])
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RolePermi__Creat__7F2BE32F]') AND parent_object_id = OBJECT_ID(N'[dbo].[RolePermission]'))
 ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD  CONSTRAINT [FK__RolePermi__Creat__7F2BE32F] FOREIGN KEY([CreatedBy])
@@ -1348,8 +1411,11 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK__RolePermi__Modif__00200768]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RolePermi__Permi__7D439ABD]') AND parent_object_id = OBJECT_ID(N'[dbo].[RolePermission]'))
-ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD FOREIGN KEY([PermissionId])
+ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD  CONSTRAINT [FK__RolePermi__Permi__7D439ABD] FOREIGN KEY([PermissionId])
 REFERENCES [dbo].[Permission] ([PermissionId])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RolePermi__Permi__7D439ABD]') AND parent_object_id = OBJECT_ID(N'[dbo].[RolePermission]'))
+ALTER TABLE [dbo].[RolePermission] CHECK CONSTRAINT [FK__RolePermi__Permi__7D439ABD]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__RolePermi__RoleI__7C4F7684]') AND parent_object_id = OBJECT_ID(N'[dbo].[RolePermission]'))
 ALTER TABLE [dbo].[RolePermission]  WITH CHECK ADD FOREIGN KEY([RoleId])
