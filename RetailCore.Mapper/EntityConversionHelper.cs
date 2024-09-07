@@ -47,6 +47,8 @@ namespace RetailCore.Mapper
 
             roleLevelObj.RoleLevelId = roleLevel.RoleLevelId;
             roleLevelObj.RoleLevelName = roleLevel.RoleLevelName;
+            roleLevelObj.RoleLevelDisplayName = roleLevel.RoleLevelDisplayName;
+            roleLevelObj.RoleLevel1 = roleLevel.RoleLevel1;
             roleLevelObj.IsDeleted = roleLevel.IsDeleted;
             roleLevelObj.CreatedBy = roleLevel.CreatedBy;
             roleLevelObj.CreatedDate = roleLevel.CreatedDate;
@@ -61,7 +63,9 @@ namespace RetailCore.Mapper
             var permissionObj = permissionObject ?? new BusinessObj.Permission();
 
             permissionObj.PermissionId = permission.PermissionId;
+            permissionObj.PermissionTypeId = permission.PermissionTypeId;
             permissionObj.PermissionName = permission.PermissionName;
+            permissionObj.PermissionDisplayName = permission.PermissionDisplayName;
             permissionObj.IsDeleted = permission.IsDeleted;
             permissionObj.CreatedBy = permission.CreatedBy;
             permissionObj.CreatedDate = permission.CreatedDate;
@@ -69,6 +73,37 @@ namespace RetailCore.Mapper
             permissionObj.ModifiedDate = permission.ModifiedDate;
 
             return permissionObj;
+        }
+
+        public static BusinessObj.PermissionType ToBusinessObject(this Entities.EntityModels.PermissionType permissionType, BusinessObj.PermissionType? permissionTypeObject = null)
+        {
+            var permissionTypeObj = permissionTypeObject ?? new BusinessObj.PermissionType();
+
+            permissionTypeObj.PermissionTypeId = permissionType.PermissionTypeId;
+            permissionTypeObj.TypeName = permissionType.TypeName;
+            permissionTypeObj.IsDeleted = permissionType.IsDeleted;
+            permissionTypeObj.CreatedBy = permissionType.CreatedBy;
+            permissionTypeObj.CreatedDate = permissionType.CreatedDate;
+            permissionTypeObj.ModifiedBy = permissionType.ModifiedBy;
+            permissionTypeObj.ModifiedDate = permissionType.ModifiedDate;
+
+            return permissionTypeObj;
+        }
+
+        public static BusinessObj.RoleLevelPermissionTypeMapping ToBusinessObject(this Entities.EntityModels.RoleLevelPermissionTypeMapping roleLevelPermissionTypeMapping, BusinessObj.RoleLevelPermissionTypeMapping? roleLevelPermissionTypeMappingObject = null)
+        {
+            var roleLevelPermissionTypeMappingObj = roleLevelPermissionTypeMappingObject ?? new BusinessObj.RoleLevelPermissionTypeMapping();
+
+            roleLevelPermissionTypeMappingObj.Id = roleLevelPermissionTypeMapping.Id;
+            roleLevelPermissionTypeMappingObj.RoleLevelId = roleLevelPermissionTypeMapping.RoleLevelId;
+            roleLevelPermissionTypeMappingObj.PermissionTypeId = roleLevelPermissionTypeMapping.PermissionTypeId;
+            roleLevelPermissionTypeMappingObj.IsDeleted = roleLevelPermissionTypeMapping.IsDeleted;
+            roleLevelPermissionTypeMappingObj.CreatedBy = roleLevelPermissionTypeMapping.CreatedBy;
+            roleLevelPermissionTypeMappingObj.CreatedDate = roleLevelPermissionTypeMapping.CreatedDate;
+            roleLevelPermissionTypeMappingObj.ModifiedBy = roleLevelPermissionTypeMapping.ModifiedBy;
+            roleLevelPermissionTypeMappingObj.ModifiedDate = roleLevelPermissionTypeMapping.ModifiedDate;
+
+            return roleLevelPermissionTypeMappingObj;
         }
     }
 }

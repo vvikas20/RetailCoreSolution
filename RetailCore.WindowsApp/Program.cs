@@ -43,14 +43,21 @@ namespace RetailCore.WindowsApp
 		{
 			services.AddSingleton<IDatabaseFactory, DatabaseFactory>();
 			services.AddSingleton<IUnitOfWork, UnitOfWork>();
+			services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
-			services.AddTransient<IRoleLevelRepository, RoleLevelRepository>();
+            services.AddTransient<IRoleLevelRepository, RoleLevelRepository>();
 			services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IPermissionTypeRepository, PermissionTypeRepository>();
+            services.AddTransient<IPermissionRepository, PermissionRepository>();
+            services.AddTransient<IRoleLevelPermissionTypeMappingRepository, RoleLevelPermissionTypeMappingRepository>();
+            services.AddTransient<IRolePermissionRepository, RolePermissionRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
 
 
 			services.AddTransient<IRoleLevelService, RoleLevelService>();
-			services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IPermissionTypeService, PermissionTypeService>();
+            services.AddTransient<IPermissionService, PermissionService>();
+            services.AddTransient<IRoleService, RoleService>();
 			services.AddTransient<IUserService, UserService>();
 
 			services.AddSingleton<LoginForm>();

@@ -24,4 +24,6 @@ public partial class PermissionType
     public virtual User? ModifiedByNavigation { get; set; }
 
     public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
+
+    public virtual ICollection<RoleLevelPermissionTypeMapping> RoleLevelPermissionTypeMappings { get; set; } = new List<RoleLevelPermissionTypeMapping>();
 }

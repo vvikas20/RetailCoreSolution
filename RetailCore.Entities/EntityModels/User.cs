@@ -127,6 +127,10 @@ public partial class User
 
     public virtual ICollection<RoleLevel> RoleLevelModifiedByNavigations { get; set; } = new List<RoleLevel>();
 
+    public virtual ICollection<RoleLevelPermissionTypeMapping> RoleLevelPermissionTypeMappingCreatedByNavigations { get; set; } = new List<RoleLevelPermissionTypeMapping>();
+
+    public virtual ICollection<RoleLevelPermissionTypeMapping> RoleLevelPermissionTypeMappingModifiedByNavigations { get; set; } = new List<RoleLevelPermissionTypeMapping>();
+
     public virtual ICollection<Role> RoleModifiedByNavigations { get; set; } = new List<Role>();
 
     public virtual ICollection<RolePermission> RolePermissionCreatedByNavigations { get; set; } = new List<RolePermission>();

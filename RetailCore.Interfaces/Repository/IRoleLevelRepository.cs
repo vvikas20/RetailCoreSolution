@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Interfaces.Repository
 {
-	public interface IRoleLevelRepository : IRepository<RetailCore.Entities.EntityModels.RoleLevel>
-	{
-
-	}
+    public interface IRoleLevelRepository : IRepository<RetailCore.Entities.EntityModels.RoleLevel>
+    {
+        IEnumerable<RetailCore.Entities.EntityModels.Permission> GetRoleLevelDefaultPermissions(Guid roleLevelId);
+        IEnumerable<RetailCore.Entities.EntityModels.PermissionType> GetRoleLevelDefaultPermissionTypes(Guid roleLevelId);
+    }
 }

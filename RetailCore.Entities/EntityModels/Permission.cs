@@ -9,6 +9,8 @@ public partial class Permission
 
     public string PermissionName { get; set; } = null!;
 
+    public string PermissionDisplayName { get; set; } = null!;
+
     public Guid? PermissionTypeId { get; set; }
 
     public bool? IsDeleted { get; set; }

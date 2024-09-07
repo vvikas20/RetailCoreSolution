@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RetailCore.BusinessObjects.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,8 @@ namespace RetailCore.ServiceContracts
         BusinessObject.RoleLevel UpdateRoleLevel(BusinessObject.RoleLevel roleLevel);	
         bool DeleteRoleLevel(Guid roleLevelId);
         int GetRoleLevelCount();
-	}
+        bool AddRoleLevelPermissionTypes(Guid roleLevelId, List<PermissionType> permissionTypes);
+        bool UpdateRoleLevelPermissionTypes(Guid roleLevelId, List<PermissionType> permissionTypes);
+        IEnumerable<Permission> GetRoleLevelPermissions(Guid roleLevelId);
+    }
 }

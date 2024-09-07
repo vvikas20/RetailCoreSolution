@@ -14,12 +14,18 @@ namespace RetailCore.Services
     public class RoleService : IRoleService
     {
         IUnitOfWork _unitOfWork;
+        ICurrentUserService _currentUserService;
         IRoleRepository _roleRepository;
+        IRoleLevelRepository _roleLevelRepository;
+        IRolePermissionRepository _rolePermissionRepository;
 
-        public RoleService(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
+        public RoleService(IUnitOfWork unitOfWork, ICurrentUserService currentUserService, IRoleRepository roleRepository, IRoleLevelRepository roleLevelRepository, IRolePermissionRepository rolePermissionRepository)
         {
             _unitOfWork = unitOfWork;
+            _currentUserService = currentUserService;
             _roleRepository = roleRepository;
+            _roleLevelRepository = roleLevelRepository;
+            _rolePermissionRepository = rolePermissionRepository;
         }
 
         public Role AddRole(Role role)
@@ -79,6 +85,72 @@ namespace RetailCore.Services
                 return role;
             }
             return null;
+        }
+
+        public bool AssignDefaultPermissionOnRole(Guid roleId)
+        {
+            var existingRole = _roleRepository.GetById(roleId);
+            if (existingRole != null)
+            {
+
+                foreach (var permission in _roleLevelRepository.GetRoleLevelDefaultPermissions((Guid)existingRole.RoleLevelId))
+                {
+                    _rolePermissionRepository.Add(new Entities.EntityModels.RolePermission()
+                    {
+                        RolePermissionId = Guid.NewGuid(),
+                        RoleId = roleId,
+                        PermissionId = permission.PermissionId,
+                        CreatedBy = _currentUserService.UserId,
+                        CreatedDate = DateTime.Now
+                    });
+                }
+
+                _unitOfWork.Commit();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool AssignPermissionsToRole(Guid roleId, List<Permission> permissions)
+        {
+            var existingRole = _roleRepository.GetById(roleId);
+            if (existingRole != null)
+            {
+                foreach (var permission in permissions)
+                {
+                    _rolePermissionRepository.Add(new Entities.EntityModels.RolePermission()
+                    {
+                        RolePermissionId = Guid.NewGuid(),
+                        RoleId = roleId,
+                        PermissionId = permission.PermissionId,
+                        CreatedBy = _currentUserService.UserId,
+                        CreatedDate = DateTime.Now
+                    });
+                }
+
+                _unitOfWork.Commit();
+                return true;
+            }
+
+            return false;
+        }
+
+        public IEnumerable<Permission> GetPermissionByRoleId(Guid roleId)
+        {
+            var existingRolePermissions = _roleRepository.GetPermissionByRoleId(roleId);
+            if (existingRolePermissions.Any())
+            {
+                IList<Permission> permissions = new List<Permission>();
+                foreach (var item in existingRolePermissions)
+                {
+                    var permissionObject = item.ToBusinessObject();
+                    permissionObject.PermissionType = item.PermissionType.ToBusinessObject();
+                    permissions.Add(permissionObject);
+                }
+                return permissions;
+            }
+            return new List<Permission>();
         }
     }
 }

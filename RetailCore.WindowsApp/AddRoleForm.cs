@@ -5,57 +5,73 @@ using RetailCore.Services;
 
 namespace RetailCore.WindowsApp
 {
-	public partial class AddRoleForm : Form
-	{
-		private readonly IRoleLevelService _roleLevelService;
-		private readonly IRoleService _roleService;
-		private readonly IUserService _userService;
+    public partial class AddRoleForm : Form
+    {
+        private readonly IRoleLevelService _roleLevelService;
+        private readonly IRoleService _roleService;
+        private readonly ICurrentUserService _currentUserService;
 
 
 
-		public AddRoleForm(IUnitOfWork unitOfWork, IRoleLevelService roleLevelService, IRoleService roleService, IUserService userService)
-		{
-			InitializeComponent();
+        public AddRoleForm(IUnitOfWork unitOfWork, IRoleLevelService roleLevelService, IRoleService roleService, ICurrentUserService currentUserService)
+        {
+            InitializeComponent();
 
-			this._roleLevelService = roleLevelService;
-			this._roleService = roleService;
-			this._userService = userService;
-		}
+            this._roleLevelService = roleLevelService;
+            this._roleService = roleService;
+            this._currentUserService = currentUserService;
+        }
 
-		private void btnSave_Click(object sender, EventArgs e)
-		{
-			var adminUser = _userService.GetAdminUser();
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var addedRole = this._roleService.AddRole(new Role
+            {
+                RoleId = Guid.Parse(this.tbxRoleID.Text),
+                RoleName = this.textBox1.Text,
+                RoleLevelId = Guid.Parse(Convert.ToString(this.cbxRoleLevel.SelectedValue)),
+                CreatedBy = _currentUserService.UserId,
+                CreatedDate = DateTime.Now,
+            });
 
-			var addedRole = this._roleService.AddRole(new Role
-			{
-				RoleId = Guid.Parse(this.tbxRoleID.Text),
-				RoleName = this.textBox1.Text,
-				RoleLevelId = Guid.Parse(Convert.ToString(this.cbxRoleLevel.SelectedValue)),
-				CreatedBy = adminUser.UserId,
-				CreatedDate = DateTime.Now,
-			});
 
-			if (addedRole.RoleId != default(Guid))
-			{
-				MessageBox.Show("Role Added Successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
+            //get all checked permissions
+            var checkedPermissions = checkedListBoxPermission.CheckedItems.Cast<Permission>().ToList();
+            _roleService.AssignPermissionsToRole(addedRole.RoleId, checkedPermissions);
 
-			this.Close();
-		}
+            if (addedRole.RoleId != default(Guid))
+            {
+                MessageBox.Show("Role Added Successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
-		private void AddRoleForm_FormClosing(object sender, FormClosingEventArgs e)
-		{
+            this.Close();
+        }
 
-		}
+        private void AddRoleForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
-		private void AddRoleForm_Load(object sender, EventArgs e)
-		{
-			this.tbxRoleID.Text = Guid.NewGuid().ToString();
-			this.textBox1.Text = string.Empty;
-			this.textBox2.Text = string.Empty;
-			this.cbxRoleLevel.DataSource = this._roleLevelService.GetRoleLevels();
-			this.cbxRoleLevel.DisplayMember = "RoleLevelName";
-			this.cbxRoleLevel.ValueMember = "RoleLevelId";
-		}
-	}
+        }
+
+        private void AddRoleForm_Load(object sender, EventArgs e)
+        {
+            this.tbxRoleID.Text = Guid.NewGuid().ToString();
+            this.textBox1.Text = string.Empty;
+            this.textBox2.Text = string.Empty;
+            this.cbxRoleLevel.DataSource = this._roleLevelService.GetRoleLevels();
+            this.cbxRoleLevel.DisplayMember = "RoleLevelName";
+            this.cbxRoleLevel.ValueMember = "RoleLevelId";
+        }
+
+        private void cbxRoleLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedRoleLevelId = ((RoleLevel)cbxRoleLevel.SelectedItem).RoleLevelId;
+            checkedListBoxPermission.DataSource = this._roleLevelService.GetRoleLevelPermissions(selectedRoleLevelId);
+            checkedListBoxPermission.DisplayMember = "PermissionDisplayName";
+            checkedListBoxPermission.ValueMember = "PermissionId";
+
+            for (int i = 0; i < checkedListBoxPermission.Items.Count; i++)
+            {
+                checkedListBoxPermission.SetItemChecked(i, true);
+            }
+        }
+    }
 }

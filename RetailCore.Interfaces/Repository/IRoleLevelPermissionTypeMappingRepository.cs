@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Interfaces.Repository
 {
-    public interface IRoleRepository : IRepository<RetailCore.Entities.EntityModels.Role>
+    public interface IRoleLevelPermissionTypeMappingRepository : IRepository<RetailCore.Entities.EntityModels.RoleLevelPermissionTypeMapping>
     {
-        IEnumerable<RetailCore.Entities.EntityModels.Permission> GetPermissionByRoleId(Guid roleId);
+
     }
 }

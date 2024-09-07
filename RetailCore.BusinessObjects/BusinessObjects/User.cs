@@ -15,7 +15,7 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public string Password { get; set; }
+    public string Password { get; set; } = null!;
 
     public byte[] PasswordHash { get; set; } = null!;
 
@@ -128,6 +128,10 @@ public partial class User
     public virtual ICollection<RoleLevel> RoleLevelCreatedByNavigations { get; set; } = new List<RoleLevel>();
 
     public virtual ICollection<RoleLevel> RoleLevelModifiedByNavigations { get; set; } = new List<RoleLevel>();
+
+    public virtual ICollection<RoleLevelPermissionTypeMapping> RoleLevelPermissionTypeMappingCreatedByNavigations { get; set; } = new List<RoleLevelPermissionTypeMapping>();
+
+    public virtual ICollection<RoleLevelPermissionTypeMapping> RoleLevelPermissionTypeMappingModifiedByNavigations { get; set; } = new List<RoleLevelPermissionTypeMapping>();
 
     public virtual ICollection<Role> RoleModifiedByNavigations { get; set; } = new List<Role>();
 

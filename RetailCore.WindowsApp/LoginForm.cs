@@ -8,15 +8,17 @@ namespace RetailCore.WindowsApp
 	public partial class LoginForm : Form
 	{
 		private readonly IUserService _userService;
+		private readonly ICurrentUserService _currentUserService;
 
-		private readonly MainForm _mainForm;
+        private readonly MainForm _mainForm;
 
-		public LoginForm(IUnitOfWork unitOfWork, MainForm mainForm, IUserService userService)
+		public LoginForm(IUnitOfWork unitOfWork, MainForm mainForm, IUserService userService, ICurrentUserService currentUserService)
 		{
 			InitializeComponent();
 
 			this._userService = userService;
-			this._mainForm = mainForm;
+            this._currentUserService = currentUserService;
+            this._mainForm = mainForm;
 		}
 
 		private void btnLogin_Click(object sender, EventArgs e)
@@ -26,8 +28,10 @@ namespace RetailCore.WindowsApp
 			if (existingUser != null)
 			{
 				MessageBox.Show("User logged in successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				this._mainForm.CurrentUser=existingUser.UserId;
-				this._mainForm.Show();
+				this._currentUserService.UserId = existingUser.UserId;
+                this._currentUserService.Username = existingUser.Username;
+
+                this._mainForm.Show();
 				this.Hide();
 				return;
 			}

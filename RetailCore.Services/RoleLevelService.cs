@@ -9,12 +9,16 @@ namespace RetailCore.Services
     public class RoleLevelService : IRoleLevelService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICurrentUserService _currentUserService;
         private readonly IRoleLevelRepository _roleLevelRepository;
+        private readonly IRoleLevelPermissionTypeMappingRepository _roleLevelPermissionTypeMappingRepository;
 
-        public RoleLevelService(IUnitOfWork unitOfWork, IRoleLevelRepository roleLevelRepository)
+        public RoleLevelService(IUnitOfWork unitOfWork, ICurrentUserService currentUserService, IRoleLevelRepository roleLevelRepository, IRoleLevelPermissionTypeMappingRepository roleLevelPermissionTypeMappingRepository)
         {
             _unitOfWork = unitOfWork;
+            _currentUserService = currentUserService;
             _roleLevelRepository = roleLevelRepository;
+            _roleLevelPermissionTypeMappingRepository = roleLevelPermissionTypeMappingRepository;
         }
 
         public RoleLevel AddRoleLevel(RoleLevel roleLevel)
@@ -69,6 +73,56 @@ namespace RetailCore.Services
                 this._unitOfWork.Commit();
             }
             return roleLevel;
+        }
+
+
+        public bool AddRoleLevelPermissionTypes(Guid roleLevelId, List<PermissionType> permissionTypes)
+        {
+            foreach (var item in permissionTypes)
+            {
+                this._roleLevelPermissionTypeMappingRepository.Add(new Entities.EntityModels.RoleLevelPermissionTypeMapping
+                {
+                    RoleLevelId = roleLevelId,
+                    PermissionTypeId = item.PermissionTypeId,
+                    CreatedBy = this._currentUserService.UserId,
+                    CreatedDate = DateTime.Now
+                });
+            }
+
+            return true;
+        }
+
+
+        public bool UpdateRoleLevelPermissionTypes(Guid roleLevelId, List<PermissionType> permissionTypes)
+        {
+            var existingRoleLevelPermissionMappings = this._roleLevelPermissionTypeMappingRepository.GetMany(x => x.RoleLevelId == roleLevelId);
+            foreach (var item in existingRoleLevelPermissionMappings)
+            {
+                this._roleLevelPermissionTypeMappingRepository.Delete(item);
+            }
+
+            foreach (var item in permissionTypes)
+            {
+                this._roleLevelPermissionTypeMappingRepository.Add(new Entities.EntityModels.RoleLevelPermissionTypeMapping
+                {
+                    RoleLevelId = roleLevelId,
+                    PermissionTypeId = item.PermissionTypeId,
+                    CreatedBy = this._currentUserService.UserId,
+                    CreatedDate = DateTime.Now
+                });
+            }
+
+            return true;
+        }
+
+        public IEnumerable<Permission> GetRoleLevelPermissions(Guid roleLevelId)
+        {
+            IList<Permission> permissionTypes = new List<Permission>();
+            foreach (var permission in _roleLevelRepository.GetRoleLevelDefaultPermissions(roleLevelId))
+            {
+                permissionTypes.Add(permission.ToBusinessObject());
+            }
+            return permissionTypes;
         }
     }
 }
