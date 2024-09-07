@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace RetailCore.Repository
 {
-	public class UserRepository : Repository<RetailCore.Entities.EntityModels.User>, RetailCore.Interfaces.Repository.IUserRepository
-	{
-		public UserRepository(IDatabaseFactory databaseFactory) : base(databaseFactory) { }
+    public class UserRepository : Repository<RetailCore.Entities.EntityModels.User>, RetailCore.Interfaces.Repository.IUserRepository
+    {
+        public UserRepository(IDatabaseFactory databaseFactory) : base(databaseFactory) { }
 
-		public User LoadUserData(Guid currentUser)
-		{
-			return base.dbset.Include(x => x.Role).Include(x => x.CreatedByNavigation).Include(x => x.ModifiedByNavigation).FirstOrDefault(x => x.UserId == currentUser);
-		}
-	}
+        public User LoadUserData(Guid currentUser)
+        {
+            return base.dbset.Include(x => x.Role).ThenInclude(x => x.RolePermissions).ThenInclude(x => x.Permission).Include(x => x.CreatedByNavigation).Include(x => x.ModifiedByNavigation).FirstOrDefault(x => x.UserId == currentUser);
+        }
+    }
 }

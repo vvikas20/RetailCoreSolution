@@ -1,5 +1,6 @@
 ﻿using RetailCore.ServiceContracts;
 using System.Data;
+using System.Windows.Forms;
 
 namespace RetailCore.WindowsApp
 {
@@ -58,6 +59,34 @@ namespace RetailCore.WindowsApp
             tabControl1.TabPages["tabPageRoleLevels"].Enabled = userCount != 0;
             tabControl1.TabPages["tabPageManageCategory"].Enabled = userCount != 0;
             tabControl1.TabPages["tabPageManageProduct"].Enabled = userCount != 0;
+            tabControl1.TabPages["tabPageManageProduct"].Enabled = userCount != 0;
+            tabControl1.TabPages["tabPageManageOrders"].Enabled = userCount != 0;
+
+
+            tabControl1.Controls.Clear();
+
+            if (userCount == 0 || _currentUserService.Permissions.Any(x => x.Equals("KEY_ADD_USER")))
+                tabControl1.Controls.Add(tabPageUsers);
+
+
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLE_LEVELS")))
+                tabControl1.Controls.Add(tabPageRoleLevels);
+
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLES")))
+                tabControl1.Controls.Add(tabPageRoles);
+
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_CATEGORIES")))
+                tabControl1.Controls.Add(tabPageManageCategory);
+
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_ADD_PRODUCT")))
+                tabControl1.Controls.Add(tabPageManageProduct);
+
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_VIEW_ORDERS") || x.Equals("KEY_TRACK_ORDERS")))
+                tabControl1.Controls.Add(tabPageManageOrders);
+
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ACCOUNT")))
+                tabControl1.Controls.Add(tabPageMyProfile);
+
 
             DataTable usersDatatable = new DataTable();
             usersDatatable.Columns.Add("UserId");
@@ -290,6 +319,24 @@ namespace RetailCore.WindowsApp
 
             MessageBox.Show("Administrator added successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.SetupUI();
+        }
+
+        private void dataGridViewRoles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLES")) == false)
+            {
+                MessageBox.Show("You do not have permission to edit role", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var row = dataGridViewRoles.Rows[e.RowIndex].DataBoundItem as DataRowView;
+            var roleId = Guid.Parse(row.Row["RoleId"].ToString());
+            var currentRow = _roleService.GetRoleById(roleId);
+            if (currentRow != null)
+            {
+                addRoleForm.SetUIForExistingRole(currentRow);
+                addRoleForm.ShowDialog();
+            }
         }
     }
 }

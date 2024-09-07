@@ -10,5 +10,6 @@ namespace RetailCore.ServiceContracts
     {
         Guid UserId { get; set; }
         string Username { get; set; }
+        List<string> Permissions { get; set; }
     }
 }

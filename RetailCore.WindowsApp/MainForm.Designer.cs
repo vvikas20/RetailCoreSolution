@@ -86,6 +86,7 @@
             tableLayoutPanel3 = new TableLayoutPanel();
             button2 = new Button();
             tabPage4 = new TabPage();
+            tabPageManageOrders = new TabPage();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRoles).BeginInit();
             tabControl1.SuspendLayout();
@@ -149,6 +150,7 @@
             dataGridViewRoles.Name = "dataGridViewRoles";
             dataGridViewRoles.Size = new Size(780, 375);
             dataGridViewRoles.TabIndex = 0;
+            dataGridViewRoles.CellDoubleClick += dataGridViewRoles_CellDoubleClick;
             // 
             // tabControl1
             // 
@@ -157,6 +159,7 @@
             tabControl1.Controls.Add(tabPageRoles);
             tabControl1.Controls.Add(tabPageManageCategory);
             tabControl1.Controls.Add(tabPageManageProduct);
+            tabControl1.Controls.Add(tabPageManageOrders);
             tabControl1.Controls.Add(tabPageMyProfile);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
@@ -770,6 +773,16 @@
             tabPage4.Size = new Size(200, 100);
             tabPage4.TabIndex = 0;
             // 
+            // tabPageManageOrder
+            // 
+            tabPageManageOrders.Location = new Point(4, 24);
+            tabPageManageOrders.Name = "tabPageManageOrders";
+            tabPageManageOrders.Padding = new Padding(3);
+            tabPageManageOrders.Size = new Size(792, 422);
+            tabPageManageOrders.TabIndex = 6;
+            tabPageManageOrders.Text = "Manage Orders";
+            tabPageManageOrders.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -871,5 +884,6 @@
         private TableLayoutPanel tableLayoutPanel7;
         private Button button3;
         private DataGridView dataGridViewProducts;
+        private TabPage tabPageManageOrders;
     }
 }

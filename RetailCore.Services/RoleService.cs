@@ -117,6 +117,7 @@ namespace RetailCore.Services
             var existingRole = _roleRepository.GetById(roleId);
             if (existingRole != null)
             {
+                _rolePermissionRepository.Delete(x => x.RoleId == roleId);
                 foreach (var permission in permissions)
                 {
                     _rolePermissionRepository.Add(new Entities.EntityModels.RolePermission()

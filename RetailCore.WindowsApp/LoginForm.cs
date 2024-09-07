@@ -9,15 +9,17 @@ namespace RetailCore.WindowsApp
 	{
 		private readonly IUserService _userService;
 		private readonly ICurrentUserService _currentUserService;
+		private readonly IRoleService _roleService;
 
         private readonly MainForm _mainForm;
 
-		public LoginForm(IUnitOfWork unitOfWork, MainForm mainForm, IUserService userService, ICurrentUserService currentUserService)
+		public LoginForm(IUnitOfWork unitOfWork, MainForm mainForm, IUserService userService, ICurrentUserService currentUserService, IRoleService roleService)
 		{
 			InitializeComponent();
 
 			this._userService = userService;
             this._currentUserService = currentUserService;
+            this._roleService = roleService;
             this._mainForm = mainForm;
 		}
 
@@ -28,8 +30,12 @@ namespace RetailCore.WindowsApp
 			if (existingUser != null)
 			{
 				MessageBox.Show("User logged in successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				this._currentUserService.UserId = existingUser.UserId;
+
+				var permissions = _roleService.GetPermissionByRoleId((Guid)existingUser.RoleId);
+
+                this._currentUserService.UserId = existingUser.UserId;
                 this._currentUserService.Username = existingUser.Username;
+				this._currentUserService.Permissions = permissions.Select(x => x.PermissionName).ToList();
 
                 this._mainForm.Show();
 				this.Hide();
