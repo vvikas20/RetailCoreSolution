@@ -43,6 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 	ProjectSection(SolutionItems) = preProject
 		Resources\retailcore.pdf = Resources\retailcore.pdf
 		Resources\RetailCoreDBSchema01.sql = Resources\RetailCoreDBSchema01.sql
+		Resources\UserRolePermissionMapping.xlsx = Resources\UserRolePermissionMapping.xlsx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{37F825FC-A635-4519-8553-91937E5F9A4B}"
@@ -62,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.WebApp", "Retail
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{E2393396-D343-43B8-8398-EE75409CBD43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailCore.SourceGenerator", "RetailCore.SourceGenerator\RetailCore.SourceGenerator.csproj", "{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.SourceGenerator", "RetailCore.SourceGenerator\RetailCore.SourceGenerator.csproj", "{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
