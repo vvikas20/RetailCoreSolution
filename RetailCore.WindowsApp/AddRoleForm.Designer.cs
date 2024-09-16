@@ -79,7 +79,7 @@
             tbxRoleID.Name = "tbxRoleID";
             tbxRoleID.ReadOnly = true;
             tbxRoleID.Size = new Size(246, 23);
-            tbxRoleID.TabIndex = 7;
+            tbxRoleID.TabIndex = 0;
             // 
             // label4
             // 
@@ -99,7 +99,7 @@
             textBox2.Location = new Point(123, 93);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(246, 23);
-            textBox2.TabIndex = 5;
+            textBox2.TabIndex = 3;
             // 
             // cbxRoleLevel
             // 
@@ -141,7 +141,7 @@
             btnSave.Location = new Point(123, 415);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(246, 24);
-            btnSave.TabIndex = 6;
+            btnSave.TabIndex = 5;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
@@ -152,7 +152,7 @@
             textBox1.Location = new Point(123, 63);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(246, 23);
-            textBox1.TabIndex = 4;
+            textBox1.TabIndex = 2;
             // 
             // label2
             // 
@@ -185,7 +185,7 @@
             checkedListBoxPermission.Location = new Point(123, 123);
             checkedListBoxPermission.Name = "checkedListBoxPermission";
             checkedListBoxPermission.Size = new Size(246, 286);
-            checkedListBoxPermission.TabIndex = 9;
+            checkedListBoxPermission.TabIndex = 4;
             // 
             // AddRoleForm
             // 

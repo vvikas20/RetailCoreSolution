@@ -55,14 +55,6 @@ namespace RetailCore.WindowsApp
 
             btnAddUser.Enabled = !(buttonInitializeSystem.Enabled = userCount == 0) && roleCount > 0;
 
-            tabControl1.TabPages["tabPageRoles"].Enabled = userCount != 0 && roleLevelCount > 0;
-            tabControl1.TabPages["tabPageRoleLevels"].Enabled = userCount != 0;
-            tabControl1.TabPages["tabPageManageCategory"].Enabled = userCount != 0;
-            tabControl1.TabPages["tabPageManageProduct"].Enabled = userCount != 0;
-            tabControl1.TabPages["tabPageManageProduct"].Enabled = userCount != 0;
-            tabControl1.TabPages["tabPageManageOrders"].Enabled = userCount != 0;
-
-
             tabControl1.Controls.Clear();
 
             if (userCount == 0 || _currentUserService.Permissions.Any(x => x.Equals("KEY_ADD_USER")))
@@ -70,19 +62,34 @@ namespace RetailCore.WindowsApp
 
 
             if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLE_LEVELS")))
+            {
                 tabControl1.Controls.Add(tabPageRoleLevels);
+                tabPageRoleLevels.Enabled = userCount != 0;
+            }
 
             if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLES")))
+            {
                 tabControl1.Controls.Add(tabPageRoles);
+                tabPageRoles.Enabled = userCount != 0 && roleLevelCount > 0;
+            }
 
             if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_CATEGORIES")))
+            {
                 tabControl1.Controls.Add(tabPageManageCategory);
+                tabPageManageCategory.Enabled = userCount != 0;
+            }
 
             if (_currentUserService.Permissions.Any(x => x.Equals("KEY_ADD_PRODUCT")))
+            {
                 tabControl1.Controls.Add(tabPageManageProduct);
+                tabPageManageProduct.Enabled = userCount != 0;
+            }
 
             if (_currentUserService.Permissions.Any(x => x.Equals("KEY_VIEW_ORDERS") || x.Equals("KEY_TRACK_ORDERS")))
+            {
                 tabControl1.Controls.Add(tabPageManageOrders);
+                tabPageManageOrders.Enabled = userCount != 0;
+            }
 
             if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ACCOUNT")))
                 tabControl1.Controls.Add(tabPageMyProfile);

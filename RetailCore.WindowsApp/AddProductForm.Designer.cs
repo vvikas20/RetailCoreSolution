@@ -87,7 +87,7 @@
             tbxProductName.Location = new Point(123, 33);
             tbxProductName.Name = "tbxProductName";
             tbxProductName.Size = new Size(203, 23);
-            tbxProductName.TabIndex = 7;
+            tbxProductName.TabIndex = 1;
             // 
             // label4
             // 
@@ -120,7 +120,7 @@
             cbxProductCategory.Location = new Point(123, 93);
             cbxProductCategory.Name = "cbxProductCategory";
             cbxProductCategory.Size = new Size(203, 23);
-            cbxProductCategory.TabIndex = 1;
+            cbxProductCategory.TabIndex = 3;
             // 
             // label2
             // 
@@ -191,7 +191,7 @@
             textBoxProductId.Name = "textBoxProductId";
             textBoxProductId.ReadOnly = true;
             textBoxProductId.Size = new Size(203, 23);
-            textBoxProductId.TabIndex = 19;
+            textBoxProductId.TabIndex = 0;
             // 
             // label3
             // 
@@ -210,7 +210,7 @@
             textBoxDescription.Location = new Point(123, 63);
             textBoxDescription.Name = "textBoxDescription";
             textBoxDescription.Size = new Size(203, 23);
-            textBoxDescription.TabIndex = 21;
+            textBoxDescription.TabIndex = 2;
             // 
             // AddProductForm
             // 

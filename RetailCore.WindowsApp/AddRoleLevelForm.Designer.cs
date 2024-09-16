@@ -79,7 +79,7 @@
             tbxRoleLevelID.Name = "tbxRoleLevelID";
             tbxRoleLevelID.ReadOnly = true;
             tbxRoleLevelID.Size = new Size(224, 23);
-            tbxRoleLevelID.TabIndex = 7;
+            tbxRoleLevelID.TabIndex = 0;
             // 
             // label4
             // 
@@ -99,7 +99,7 @@
             tbxRoleLevelDName.Location = new Point(150, 63);
             tbxRoleLevelDName.Name = "tbxRoleLevelDName";
             tbxRoleLevelDName.Size = new Size(224, 23);
-            tbxRoleLevelDName.TabIndex = 5;
+            tbxRoleLevelDName.TabIndex = 2;
             // 
             // label3
             // 
@@ -119,7 +119,7 @@
             btnSave.Location = new Point(150, 329);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(224, 24);
-            btnSave.TabIndex = 6;
+            btnSave.TabIndex = 5;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
@@ -130,7 +130,7 @@
             textBoxRoleLevelName.Location = new Point(150, 33);
             textBoxRoleLevelName.Name = "textBoxRoleLevelName";
             textBoxRoleLevelName.Size = new Size(224, 23);
-            textBoxRoleLevelName.TabIndex = 4;
+            textBoxRoleLevelName.TabIndex = 1;
             // 
             // label2
             // 
@@ -173,7 +173,7 @@
             textBoxRoleLevel.Location = new Point(150, 93);
             textBoxRoleLevel.Name = "textBoxRoleLevel";
             textBoxRoleLevel.Size = new Size(224, 23);
-            textBoxRoleLevel.TabIndex = 10;
+            textBoxRoleLevel.TabIndex = 3;
             // 
             // checkedListBoxPermissionTypes
             // 
@@ -182,7 +182,7 @@
             checkedListBoxPermissionTypes.Location = new Point(150, 123);
             checkedListBoxPermissionTypes.Name = "checkedListBoxPermissionTypes";
             checkedListBoxPermissionTypes.Size = new Size(224, 200);
-            checkedListBoxPermissionTypes.TabIndex = 11;
+            checkedListBoxPermissionTypes.TabIndex = 4;
             // 
             // AddRoleLevelForm
             // 

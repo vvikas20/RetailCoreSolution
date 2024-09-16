@@ -11,6 +11,6 @@ namespace RetailCore.Services
     {
         public Guid UserId { get; set; }
         public string Username { get; set; }
-        public List<string> Permissions { get; set; }
+        public List<string> Permissions { get; set; } = new List<string>();
     }
 }

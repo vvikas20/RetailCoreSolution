@@ -71,7 +71,7 @@
             tbxRoleID.Name = "tbxRoleID";
             tbxRoleID.ReadOnly = true;
             tbxRoleID.Size = new Size(246, 23);
-            tbxRoleID.TabIndex = 7;
+            tbxRoleID.TabIndex = 0;
             // 
             // label4
             // 
@@ -91,7 +91,7 @@
             textBoxCategoryDisplay.Location = new Point(123, 63);
             textBoxCategoryDisplay.Name = "textBoxCategoryDisplay";
             textBoxCategoryDisplay.Size = new Size(246, 23);
-            textBoxCategoryDisplay.TabIndex = 5;
+            textBoxCategoryDisplay.TabIndex = 2;
             // 
             // label3
             // 
@@ -111,7 +111,7 @@
             btnSave.Location = new Point(123, 93);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(246, 30);
-            btnSave.TabIndex = 6;
+            btnSave.TabIndex = 3;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
@@ -122,7 +122,7 @@
             textBoxCategoryName.Location = new Point(123, 33);
             textBoxCategoryName.Name = "textBoxCategoryName";
             textBoxCategoryName.Size = new Size(246, 23);
-            textBoxCategoryName.TabIndex = 4;
+            textBoxCategoryName.TabIndex = 1;
             // 
             // label2
             // 
