@@ -1,0 +1,74 @@
+<!-- <p>project-schedule works!</p> -->
+<div class="project-user-list">
+    <div class="main-heading d-block mb-2">
+      <div class="col-lg-6 page-heading w-100 p-0">
+        <h1 class="">Default User Permission/Roles Setting</h1>
+      </div>
+    </div>
+    <div class="advance-filter-wrapper">
+        <div class="row mx-0 w-100 align-items-center">
+            <div class="col-lg-2 col-md-4 col-sm-12 ">
+                <label class="mb-1 d-block" for="select">Parent Company</label>
+                <p-dropdown placeholder="Select Parent Company" />
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 ">
+                <label class="mb-1 d-block" for="select">Role Permission Level</label>
+                <p-dropdown placeholder="Select Role" />
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12 ">
+                <label class="mb-1 d-block" for="select">Default LogOut Time(Min)</label>
+                <input pInputText type="number" placeholder="10" />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="d-flex align-items-center mt-22 gap-2">
+                    <p-button label="Add" class="primarybtn"/>
+                    <p-button label="Cancel" class="tertiarybtn"/>
+                  </div>
+            </div>
+        </div>
+           
+    </div>
+    <div class="left-filter d-flex align-items-center gap-2 justify-content-between">
+      
+      
+    </div>
+    <div class="main-content mt-2">
+      <div class="card">
+        <div class="table_filter d-flex align-items-center justify-content-between">
+            <h2 class="mb-0">Current Default User Permission/ Roles Setting List</h2>
+          <div class="right-filter col-lg-6 p-0 justify-content-end d-flex align-items-center gap-2">
+            <div class="d-flex gap-2">
+                <p-autoComplete id="searchall" class="search" placeholder="Search here..." [style]="{ width: '18.875rem' }" />
+                <p-button label="Search" class="primarybtn " />
+            </div>
+            <p-button label="Export to Excel" icon="pi pi-file-excel" class="tertiarybtn"/>
+          </div>
+        </div>
+        <div class="tab-view-wrapper">
+          <div class="table">
+            <p-table [scrollable]="true" scrollHeight="400px" 
+              [tableStyle]="{ 'min-width': '100%' }">
+              <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="code">Parent Company<p-sortIcon field="code" /></th>
+                    <th pSortableColumn="code">Domain Name<p-sortIcon field="code" /></th>
+                    <th pSortableColumn="code">Roles/Permission Role<p-sortIcon field="code" /></th>
+                    <th pSortableColumn="code">Status<p-sortIcon field="code" /></th>
+                    <th pSortableColumn="code">Default LogOut Time(Min)<p-sortIcon field="code" /></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> <p-inputSwitch inputId="" /></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

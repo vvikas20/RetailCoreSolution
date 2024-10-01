@@ -1,0 +1,19 @@
+footer {position: fixed; bottom: 0; left: 0; right: 0; z-index: 111; width: 100%; height:32px; font-size: var(--value_12); font-family: var(--default-font);}
+.footer-body { padding: 8px 16px; width: 100%; background: #fff; color: var(--primary-black); border-top: var(--primary-border-color); height: 32px; line-height: var(--value_16); -webkit-transition:  0.3s ease-in-out; -o-transition:  0.3s ease-in-out; transition:  0.3s ease-in-out; box-shadow: 0px -1px 0px rgba(204, 204, 204, 0.8);
+    .copyright_text {display: block; float: left; text-align: left;
+        span {padding: 0 7px; margin: 0 0px; border-left: 1px solid var(--secondary-border-color);
+            &:first-child {padding-left: 0; margin-left: 0px; border-left: 0px;}
+        }
+        
+    }
+    .company_links {display: block; float: right;
+        a {position: relative;  margin: 0 8px; -webkit-transition:  0.2s ease-in-out; -o-transition:  0.2s ease-in-out; transition:  0.2s ease-in-out;
+            &:last-child {margin-right: 2px;}
+            &:after {position: absolute; content: ""; background: var(--secondary-border-color); width: 1px; height: 80%; top: 3px; bottom: 0; margin-left: 8px;}
+            &:before {position: absolute; content: ""; background: var(--primary-black); width: 100%; height: 1px; bottom: 0; -webkit-transition:  0.2s ease-in-out; -o-transition:  0.2s ease-in-out; transition:  0.2s ease-in-out;}
+            &:first-child {padding-left: 0; margin-left: 0px; border-left: 0px; }
+            &:last-child::after {content: none;}
+            &:hover:before {width: 0%;}
+        }
+    }
+}

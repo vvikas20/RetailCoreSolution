@@ -1,0 +1,22 @@
+::ng-deep .p-datatable .p-datatable-thead > tr > th{ background: #CFD5E3; color: var(--primary-black); font-size: var(--value_12); font-family: var(--default-font); line-height: var(--value_20);}
+.my-12 {margin: 12px 0;}
+.br-1 {border-right: 1px solid var(--secondary-border-color);}
+.head-info {font-size: var(--value_14); line-height: var(--value_20); color: var(--primary-grey); font-weight: normal; font-family: var(--default-font);}
+::ng-deep .project-user-list {
+    button.p-ripple.p-element.p-button.p-component {padding: 4px 12px; font-size: var(--value_14);}
+    .advance-filter-wrapper {background: #D3D3D3; border-radius: 4px; padding: 12px 16px; color: var(--primary-black); font-family: var(--default-font); font-size: var(--value_14); line-height: var(--value_16); margin: 8px 0; 
+        h5 {font-size: var(--value_15); font-family: var(--font-medium); font-weight: 500; color: var(--primary-black);}
+        button.p-ripple.p-element.p-button.p-component {min-width: 88px; padding: 7px 12px;}
+    }
+    .main-content {button.p-ripple.p-element.p-button.p-component {min-width: 72px; padding: 4px 12px;}
+    .table_filter {padding: 12px 8px; }
+    tbody.p-element.p-datatable-tbody {max-height: 208px;overflow-y: auto;}
+}
+.secondarybtn button.p-ripple.p-element.p-button.p-component {background: var(--secondary-border-color); color: #fff; min-width: 74px; }
+}
+::ng-deep .filter {
+background: var(--secondary-grey); padding: var(--value_10);
+.small button.p-ripple.p-element.p-button.p-component {padding: 4px 8px; font-size: var(--value_14); min-width: 102px;}
+}
+::ng-deep .p-dialog {.p-dialog-header {padding-top: 4px; padding-bottom: 3px; padding-left: 16px;} }
+::ng-deep .font-small {font-size: var(--value_14) !important;}

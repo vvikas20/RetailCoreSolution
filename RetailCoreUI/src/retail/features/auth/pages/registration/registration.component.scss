@@ -1,0 +1,13 @@
+::ng-deep .field-icon-left .p-inputtext{
+    padding-left: 2.5rem !important;
+}
+.field-icon-left{
+    position: relative;
+
+    .pi{
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0.75rem;
+        color: #6b7280;
+    }
+}

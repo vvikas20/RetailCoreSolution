@@ -1,0 +1,93 @@
+.navbar {padding: 13px 16px; -webkit-box-shadow: 0px 1px 4px 0px #00000026; box-shadow: 0px 1px 4px 0px #00000026; background: #fff;
+    .header {padding: 0 0 0 8px; position: relative; display: -webkit-box; display: -ms-flexbox; display: flex; width: 100%; -webkit-box-align: center; -ms-flex-align: center; align-items: center;}
+    .navbar-brand {margin: 0 0 0 30px; padding: 0; padding-right: 24px; border-right: 1px solid var(--secondary-border-color);}
+    .kcc_logo {width: 110px; height: 31px;}
+    .nav-link {padding: 0;}
+}
+.hamburger-wrapper {position: relative; display: block; height: 12px; 
+&:focus {border: none !important;}}
+.hamburger_menu {display: block; width: 18px; height: 2px; background: var(--menu-bg); position: relative; top: 5px;
+    &:before, &:after {position: absolute; content: ''; height: 2px; width: 100%; left: 0; background: var(--menu-bg); }
+    &:before {top: -5px;}
+    &:after {top: 5px;}
+}
+.navbar-expand-lg .navbar-collapse {-webkit-box-orient: horizontal;-webkit-box-direction: reverse;-ms-flex-flow: row-reverse;flex-flow: row-reverse; padding-left: 24px;}
+::ng-deep p-avatar.p-element {    position: relative;
+    display: block;
+    height: 30px;}
+::ng-deep .p-avatar.p-component.p-avatar-image.p-avatar-circle {
+    width: 28px;
+    height: 28px;
+}
+::ng-deep .dropdown-menu .p-element{    
+    height: 72px; display: flex; align-items: center; justify-content: center;
+}
+::ng-deep .dropdown-menu .p-avatar.p-component.p-avatar-image.p-avatar-circle {
+    width: 72px;
+    height: 72px;
+}
+.navbar-nav {gap: 8px; -webkit-box-align: center; -ms-flex-align: center; align-items: center; 
+.nav-item {display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: center;-ms-flex-align: center;align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; font-size: var(--value_14); font-family: var(--default-font); color: var(--primary-grey); line-height: var(--value_20);}}
+li.nav-item.project_name.br-1 { padding-right: 14px; margin-right: 6px;}
+.nav-item.br-1 {margin: 0 24px 0 0; padding: 0 24px 0 12px; position: relative;
+    &:after {position: absolute; content: ''; right: 0; height: 32px; width: 1px; background: var(--primary-grey);}}
+::ng-deep .p-dropdown {height: 32px; margin-bottom: 0 !important;
+    .p-inputtext {height: 32px; padding: 9px 11px; font-size: var(--value_12);}
+    .p-dropdown-trigger {
+        width: 1.25rem;
+        padding-right: 0.75rem;
+        svg {width: 10px; height: 10px;}
+    }
+    .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {padding: 0.5rem;}
+    li.p-dropdown-empty-message.ng-star-inserted {font-size: var(--value_12);}
+}
+::ng-deep .p-inputtext:focus, ::ng-deep .p-dropdown:not(.p-disabled).p-focus {height: 32px !important;}
+.dropdown-toggle::after { display:none; }
+ul.dropdown-menu.show {
+    &:after { position: absolute; content: '';     border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid #939598;
+        top: -6px;
+        right: 0.3rem;
+    }
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {right: 0; left: auto; top: 110%; min-width: 5rem;}
+.dropdown-item {font-size: var(--value_12); font-family: var(--default-font); color: var(--primary-grey);}
+
+::ng-deep p-button.p-element.nav-link {
+    button.p-ripple.p-element.p-button.p-component {padding: 0; background: transparent; min-width: 0px; border: none; display: block;
+    &:focus {-webkit-box-shadow: none;box-shadow: none;}
+    }
+}
+::ng-deep .p-listbox .p-listbox-header { padding: 0px; border: 0px; background: none; color: var(--primary-black); position: relative;
+    
+}
+::ng-deep  p-autocomplete.p-element {position: relative;
+    .p-listbox .p-listbox-header .p-listbox-filter {height: 32px; padding: 6px;}
+    .p-listbox-list-wrapper {position: absolute; width: 100%;  height: 0;
+    .p-listbox-list {background: #fff; 
+    li {font-size: var(--value_14); color: var(--primary-black);}}
+    }
+}
+::ng-deep {input.p-element.p-autocomplete-input.p-inputtext {height: 32px; padding: 6px 8px;} &:focus {border: 1px solid var(--secondary-border-color) !important;}}
+::ng-deep .search input.p-element.p-autocomplete-input{background: url(/svg/search.svg) no-repeat; background-size: 20px; background-position: left 9px top 6px; padding-left: 30px; font-size: var(--value_12); }
+::ng-deep .announcement .p-dialog-top-right {.p-dialog-content {
+        padding: 0px; max-height: 404px;
+    }
+    .p-dialog-header {padding: var(--value_12); padding-bottom: 0px;}
+    .p-element.p-dialog.p-component {top: 8%; right: 2%;}
+}
+::ng-deep .notification-wrapper {
+    &:first-child {padding-top: 16px;}
+    padding: 4px 18px; background: var(--primary-white);
+    svg { width: 18px; height: 18px; fill: var(--primary-grey); }
+    h4 {color: var(--primary-black); font-family: var(--default-font); font-size: var(--value_14); font-weight: 400; line-height: var(--value_16);  padding-left: 1.35rem;}
+    p {color: var(--primary-grey); font-family: var(--default-font); font-size: var(--value_12); font-weight: 300; line-height: var(--value_16);}
+    .p-divider.p-divider-horizontal {margin: 0.25rem 0;}
+    h4.admin {background-repeat: no-repeat;background-size: 18px; background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzMzOF8xNjgpIj4gPHBhdGggZD0iTTkgNC41QzkuODI1IDQuNSAxMC41IDUuMTc1IDEwLjUgNkMxMC41IDYuODI1IDkuODI1IDcuNSA5IDcuNUM4LjE3NSA3LjUgNy41IDYuODI1IDcuNSA2QzcuNSA1LjE3NSA4LjE3NSA0LjUgOSA0LjVaTTkgMTJDMTEuMDI1IDEyIDEzLjM1IDEyLjk2NzUgMTMuNSAxMy41SDQuNUM0LjY3MjUgMTIuOTYgNi45ODI1IDEyIDkgMTJaTTkgM0M3LjM0MjUgMyA2IDQuMzQyNSA2IDZDNiA3LjY1NzUgNy4zNDI1IDkgOSA5QzEwLjY1NzUgOSAxMiA3LjY1NzUgMTIgNkMxMiA0LjM0MjUgMTAuNjU3NSAzIDkgM1pNOSAxMC41QzYuOTk3NSAxMC41IDMgMTEuNTA1IDMgMTMuNVYxNUgxNVYxMy41QzE1IDExLjUwNSAxMS4wMDI1IDEwLjUgOSAxMC41WiIgZmlsbD0iIzk5OTk5OSIvPiA8L2c+IDxkZWZzPiA8Y2xpcFBhdGggaWQ9ImNsaXAwXzMzOF8xNjgiPiA8cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIGZpbGw9IndoaXRlIi8+IDwvY2xpcFBhdGg+IDwvZGVmcz4gPC9zdmc+Cg==");}
+    h4.document {background-repeat: no-repeat;background-size: 18px; background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzMzOF8xNzEpIj4KPHBhdGggZD0iTTMuOTgwNzggMTYuNDUwM0MzLjYwMTkzIDE2LjQ1MDMgMy4yODEyNSAxNi4yOTI4IDMuMDE4NzUgMTUuOTc3OEMyLjc1NjI1IDE1LjY2MjggMi42MjUgMTUuMjc4IDIuNjI1IDE0LjgyMzRWMi43NzczMkMyLjYyNSAyLjMyMjcgMi43NTYyNSAxLjkzNzg5IDMuMDE4NzUgMS42MjI4OUMzLjI4MTI1IDEuMzA3ODkgMy42MDE5MyAxLjE1MDM5IDMuOTgwNzggMS4xNTAzOUgxMS44NDEzTDE1LjM3NSA1LjM5MDc2VjE0LjgyMzRDMTUuMzc1IDE1LjI3OCAxNS4yNDM3IDE1LjY2MjggMTQuOTgxMiAxNS45Nzc4QzE0LjcxODcgMTYuMjkyOCAxNC4zOTggMTYuNDUwMyAxNC4wMTkyIDE2LjQ1MDNIMy45ODA3OFpNMy45ODA3OCAxNS4xMDA0SDE0LjAxOTJDMTQuMDg2NSAxNS4xMDA0IDE0LjE0MTggMTUuMDc0NCAxNC4xODUxIDE1LjAyMjVDMTQuMjI4MyAxNC45NzA1IDE0LjI1IDE0LjkwNDIgMTQuMjUgMTQuODIzNFY2LjEwMDM3SDExLjI1VjIuNTAwMzdIMy45ODA3OEMzLjkxMzQ2IDIuNTAwMzcgMy44NTgxNyAyLjUyNjMzIDMuODE0ODkgMi41NzgyNkMzLjc3MTYyIDIuNjMwMTkgMy43NDk5OCAyLjY5NjU1IDMuNzQ5OTggMi43NzczMlYxNC44MjM0QzMuNzQ5OTggMTQuOTA0MiAzLjc3MTYyIDE0Ljk3MDUgMy44MTQ4OSAxNS4wMjI1QzMuODU4MTcgMTUuMDc0NCAzLjkxMzQ2IDE1LjEwMDQgMy45ODA3OCAxNS4xMDA0Wk01LjQzNzUgMTIuODUwM0gxMi41NjI1VjExLjUwMDRINS40Mzc1VjEyLjg1MDNaTTUuNDM3NSA2LjEwMDM3SDguOTk5OThWNC43NTAzOUg1LjQzNzVWNi4xMDAzN1pNNS40Mzc1IDkuNDc1MzVIMTIuNTYyNVY4LjEyNTM5SDUuNDM3NVY5LjQ3NTM1WiIgZmlsbD0iIzk5OTk5OSIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzMzOF8xNzEiPgo8cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==");}
+    h4.notvisible {background-repeat: no-repeat;background-size: 18px; background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzM0MV8xNzQpIj4KPHBhdGggZD0iTTcgMTNDNS40MDg3IDEzIDMuODgyNTggMTIuMzY3OSAyLjc1NzM2IDExLjI0MjZDMS42MzIxNCAxMC4xMTc0IDEgOC41OTEzIDEgN0MxIDUuNDA4NyAxLjYzMjE0IDMuODgyNTggMi43NTczNiAyLjc1NzM2QzMuODgyNTggMS42MzIxNCA1LjQwODcgMSA3IDFWMTNaIiBmaWxsPSIjOTk5OTk5Ii8+CjxwYXRoIGQ9Ik04LjkxMjExIDIuMzgyNThDOS41MTgyIDIuNjM0MzMgMTAuMDY5IDMuMDAyNjEgMTAuNTMzMiAzLjQ2NjUzTDExLjIzOTkgMi43NTk3OEMxMC42ODI5IDIuMjAzMSAxMC4wMjIxIDEuNzYxMTUgOS4yOTQ4NiAxLjQ1ODk4TDguOTEyMTEgMi4zODI1OFoiIGZpbGw9IiM5OTk5OTkiLz4KPHBhdGggZD0iTTEyLjk5OTEgNy4wMDA0OEMxMi45OTk0IDYuMjEyNTggMTIuODQzNyA1LjQzMjQzIDEyLjU0MDggNC43MDUwOEwxMS42MTcyIDUuMDg3NjNDMTEuODY5NiA1LjY5Mzc3IDExLjk5OTQgNi4zNDM5IDExLjk5OTEgNy4wMDA0OEgxMi45OTkxWiIgZmlsbD0iIzk5OTk5OSIvPgo8cGF0aCBkPSJNMTUgMTJDMTUgMTEuNDA2NyAxNC44MjQxIDEwLjgyNjYgMTQuNDk0NCAxMC4zMzMzQzE0LjE2NDggOS44Mzk5NCAxMy42OTYyIDkuNDU1NDMgMTMuMTQ4MSA5LjIyODM2QzEyLjU5OTkgOS4wMDEzIDExLjk5NjcgOC45NDE4OSAxMS40MTQ3IDkuMDU3NjVDMTAuODMyOCA5LjE3MzQgMTAuMjk4MiA5LjQ1OTEyIDkuODc4NjggOS44Nzg2OEM5LjQ1OTEyIDEwLjI5ODIgOS4xNzM0IDEwLjgzMjggOS4wNTc2NSAxMS40MTQ3QzguOTQxODkgMTEuOTk2NyA5LjAwMTMgMTIuNTk5OSA5LjIyODM2IDEzLjE0ODFDOS40NTU0MyAxMy42OTYyIDkuODM5OTQgMTQuMTY0OCAxMC4zMzMzIDE0LjQ5NDRDMTAuODI2NiAxNC44MjQxIDExLjQwNjcgMTUgMTIgMTVDMTIuNzk1NCAxNC45OTkxIDEzLjU1NzkgMTQuNjgyOCAxNC4xMjA0IDE0LjEyMDRDMTQuNjgyOCAxMy41NTc5IDE0Ljk5OTEgMTIuNzk1NCAxNSAxMlpNMTQgMTJDMTMuOTk4MSAxMi4zNTU5IDEzLjkwMDIgMTIuNzA0NyAxMy43MTY2IDEzLjAwOTVMMTAuOTkwNSAxMC4yODM1QzExLjI5NTMgMTAuMDk5OCAxMS42NDQxIDEwLjAwMTkgMTIgMTBDMTIuNTMwMyAxMC4wMDA2IDEzLjAzODYgMTAuMjExNSAxMy40MTM2IDEwLjU4NjRDMTMuNzg4NSAxMC45NjE0IDEzLjk5OTQgMTEuNDY5OCAxNCAxMlpNMTAgMTJDMTAuMDAxOSAxMS42NDQxIDEwLjA5OTggMTEuMjk1MyAxMC4yODM1IDEwLjk5MDVMMTMuMDA5NSAxMy43MTY2QzEyLjcwNDcgMTMuOTAwMiAxMi4zNTU5IDEzLjk5ODEgMTIgMTRDMTEuNDY5OCAxMy45OTk0IDEwLjk2MTQgMTMuNzg4NSAxMC41ODY0IDEzLjQxMzZDMTAuMjExNSAxMy4wMzg2IDEwLjAwMDYgMTIuNTMwMyAxMCAxMloiIGZpbGw9IiM5OTk5OTkiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8zNDFfMTc0Ij4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");}
+
+}
+::ng-deep .notification-wrapper.unread {  background: #f9f9f9;}
+::ng-deep .notification-wrapper.read {background: var(--primary-white);}

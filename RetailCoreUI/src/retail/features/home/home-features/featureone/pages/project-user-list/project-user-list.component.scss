@@ -1,0 +1,12 @@
+::ng-deep .p-datatable .p-datatable-thead > tr > th{ background: #CFD5E3; color: var(--primary-black); font-size: var(--value_12); font-family: var(--default-font); line-height: var(--value_20);}
+.my-12 {margin: 12px 0;}
+.br-1 {border-right: 1px solid var(--secondary-border-color);}
+.head-info {font-size: var(--value_14); line-height: var(--value_20); color: var(--primary-grey); font-weight: normal; font-family: var(--default-font);}
+::ng-deep .project-user-list {
+    .p-dialog {width: 52vw !important;}
+    .p-dialog .p-dialog-header { padding: var(--value_16);
+        span {color: var(--primary-black); font-size: var(--value_18); font-weight: 500; font-family: var(--font-medium);}
+        button.p-ripple.p-element.p-button.p-component {min-width: 20px;}
+    }
+    .p-dialog .p-dialog-content {padding: var(--value_16); padding-top: 0px;}
+}

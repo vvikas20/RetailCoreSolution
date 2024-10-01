@@ -1,0 +1,69 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+dist/
+tmp/
+out-tsc/
+build/
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+.vscode/
+*.code-workspace
+
+# Angular CLI specific
+.angular/
+.angular-cache/
+.angular-build/
+
+# Private files
+.env
+*.env
+
+# System files
+.DS_Store
+Thumbs.db
+.vscode/
+.vscode-test/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Local env files
+*.local
+
+# Mac system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Output of 'ng build --prod'
+/dist/
+
+# Temp folders
+tmp/
+temp/
+/.vs

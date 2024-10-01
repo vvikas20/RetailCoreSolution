@@ -1,0 +1,10 @@
+<retail-header></retail-header>
+<retail-sidebar></retail-sidebar>
+
+<div class="content-wrapper">
+    <div [ngClass]="['content ' + toggleStateClass]">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<retail-footer></retail-footer>

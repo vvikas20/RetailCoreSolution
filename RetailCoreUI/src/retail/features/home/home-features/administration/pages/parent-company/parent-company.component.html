@@ -1,0 +1,179 @@
+<!-- <p>Parent company product setting!</p> -->
+<div class="project-user-list">
+  <div class="main-heading d-block mb-2">
+    <div class="col-lg-6 page-heading w-100 p-0">
+      <h1 class="">Parent Company - Product Settings</h1>
+    </div>
+  </div>
+  <div class="left-filter d-flex align-items-center gap-2 justify-content-between">
+    <div class="d-flex gap-2  ">
+      <p-autoComplete id="searchall" class="search" placeholder="Search here..." [style]="{ width: '18.875rem' }" />
+      <p-button label="Search" class="primarybtn " />
+    </div>
+    <p-button label="Export to Excel" icon="pi pi-file-excel" class="tertiarybtn" />
+  </div>
+  <div class="main-content mt-2">
+    <div class="card">
+      <div class="table_filter d-flex align-items-center justify-content-between">
+        <h2 class="mb-0">Product Mapping List</h2>
+      </div>
+      <div class="tab-view-wrapper">
+        <div class="table">
+          <p-table [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '100%' }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="code">Parent Company Name<p-sortIcon field="code" /></th>
+                <th pSortableColumn="code">Domain<p-sortIcon field="code" /></th>
+                <th pSortableColumn="code">Enable Auto Approval<p-sortIcon field="code" /></th>
+                <th pSortableColumn="code">View Mapped Product<p-sortIcon field="code" /></th>
+                <th pSortableColumn="code">Last Modified Date<p-sortIcon field="code" /></th>
+                <th pSortableColumn="code">Last Modified By<p-sortIcon field="code" /></th>
+                <th pSortableColumn="code">Created By<p-sortIcon field="code" /></th>
+                <th alignFrozen="right" pFrozenColumn>Actions </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td></td>
+                <td> </td>
+                <td> </td>
+                <td><a (click)="mappedproduct()">View</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <a (click)="editParent()">
+                    <i>
+                      <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.92738 3.48795L8.30088 4.83735L1.93943 11.1988V12.5723H3.28883L9.67437 6.18675L11.0479 7.53614L4.1081 14.5H0.0117188V10.4036L6.92738 3.48795ZM11.0479 7.53614L6.92738 3.48795L9.33702 1.07831C9.72256 0.692771 10.1846 0.5 10.723 0.5C11.2609 0.5 11.7145 0.692771 12.084 1.07831L13.4334 2.45181C13.8029 2.82129 13.9876 3.27108 13.9876 3.8012C13.9876 4.33133 13.8029 4.78112 13.4334 5.1506L11.0479 7.53614Z"
+                          fill="#666666" />
+                      </svg>
+                    </i>
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog header="View Mapped Products" [(visible)]="maped" [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '42vw' }" [draggable]="false"
+  [resizable]="false">
+  <p-table [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '100%' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Company Name</th>
+        <th>Product Type</th>
+        <th>Sub Product</th>
+        <th>Brand</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+<p-dialog header="Update Product Access" [(visible)]="edit" [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '42vw' }" [draggable]="false"
+  [resizable]="false">
+  <div class="row mx-0 bt-1 bb-1 py-1">
+    <div class="col-lg-3 col-md-3 col-sm-12 font-small pl-0">
+      <label for="addedby" class="color-grey">Added By</label>
+      <p class="color-black">John Doe</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 font-small">
+      <label for="addedby" class="color-grey">Added On</label>
+      <p class="color-black">12/05/2024</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 font-small">
+      <label for="addedby" class="color-grey">Modified By</label>
+      <p class="color-black">Adam Smith</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 font-small pr-0">
+      <label for="addedby" class="color-grey">Modified On</label>
+      <p class="color-black">14/05/2024</p>
+    </div>
+  </div>
+  <div class="row mx-0 w-100 py-3">
+
+    <div class="col-lg-12 color-black mb-1 font-small">
+      <h4>Map Here</h4>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+      <div class="d-flex align-items-center flex-row justify-content-between">
+        <label class="mb-0 nowrap" for="status">Parent Company Name </label>
+        <input pInputText type="text" placeholder="Search" class="w-60" />
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+      <div class="d-flex align-items-center flex-row justify-content-between">
+        <label class="mb-0 nowrap" for="status">Domain Name</label>
+        <input pInputText type="text" placeholder="Search" class="w-60" />
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+      <div class="d-flex align-items-center flex-row justify-content-between">
+        <label class="mb-0 nowrap" for="status">Product Type</label>
+        <p-treeSelect class="w-60" containerStyleClass="w-full" display="chip" [metaKeySelection]="false"
+          selectionMode="checkbox" placeholder="Select Product Type" />
+        <!-- <p-dropdown placeholder="Select Product Type" class="w-60" /> -->
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+      <div class="d-flex align-items-center flex-row justify-content-between">
+        <label class="mb-0 nowrap" for="status">Brand</label>
+        <p-dropdown placeholder="Select Brand" class="w-60" />
+      </div>
+    </div>
+    <div class="col-12 col-md-12 col-sm-12 d-flex align-items-center w-100 mb-2">
+      <p-inputSwitch inputId="auto-approve" />
+      <label class="mb-0" for="auto-approve">Auto approve all user request for this parent company</label>
+      <input type="hidden" formControlName="hdnEditId">
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-3 text-right">
+      <p-button label="Cancel" class="tertiarybtn mr-2" />
+      <p-button label="Save" class="primarybtn" />
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <p class="m-0 font-small">Selected Products List For Access</p>
+      <p-table [tableStyle]="{ 'min-width': '100%' }" [scrollable]="true" scrollHeight="180px">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Product Type</th>
+            <th>Sub Product</th>
+            <th>Brand</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <tr>
+            <td>Horizon</td>
+            <td>All</td>
+            <td>Brand1</td>
+          </tr>
+          <tr>
+            <td>Horizon</td>
+            <td>All</td>
+            <td>Brand1</td>
+          </tr>
+          <tr>
+            <td>Horizon</td>
+            <td>All</td>
+            <td>Brand1</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</p-dialog>

@@ -1,0 +1,73 @@
+::ng-deep .dashboard {
+    .p-panel.p-panel-toggleable .p-panel-header, .head_body h4 {padding: 6px 14px; background: white; border: none; font-size: var(--value_16); font-family: var(--default-font); font-weight: 400; color: var(--primary-black);}
+    .p-panel .p-panel-header .p-panel-title {font-weight: 400;}
+    .p-panel .p-panel-content {padding: 12px 16px;  padding-top: 0px;
+    .color-blue.font-small {a:first-child {margin-left: 0px !important;}}
+    h5 {font-size: var(--value_14); font-family: var(--font-medium); font-weight: 500; color: var(--primary-black);
+    }
+}
+
+
+}
+::ng-deep .dashboard-card {
+    
+    .p-card-body {padding: 16px; border-radius: 4px;}
+    .p-card-content {padding: 0; }
+    p {font-size: var(--value_12); font-family: var(--default-font); line-height: var(--value_16); color: var(--primary-black); margin: 0;
+    a {color: var(--link-color);}}
+    .list-group {margin-top: 12px;}
+    ul, li, .p-card-footer p {font-size: var(--value_14); font-family: var(--default-font); line-height: var(--value_16); color: var(--primary-black);}
+    li {margin-bottom: 0.675rem;}
+    .p-card-footer {padding-top: 1rem; border-top: 1px solid var(--primary-border-color); 
+        p {margin: 0;}
+    a {text-decoration: underline;}}
+    .p-panel-toggleable.p-panel-expanded>.p-toggleable-content:not(.ng-animating) { }
+}
+::ng-deep .dashboard-card .p-panel-toggleable  {.p-panel-content { &:after {display: none;} transition: display 2s ease-in-out;}}
+::ng-deep .dashboard-card .p-panel-expanded { 
+    .p-panel-content { position: relative;     min-height: 120px; height: calc(100vh - 412px); max-height: 100%; overflow-y: auto;
+    &:after {content: "";  background-size: contain; background-repeat: no-repeat; width: 68px; height: 68px; display: block; position: absolute; bottom: 5px; right: 24px; transition: display 2s ease-in-out;}
+}
+}
+::ng-deep .dashboard-card.common{ .p-panel-expanded {  .p-panel-content {&:after {content: none;}} }}
+::ng-deep .dashboard-card .p-panel-expanded {
+    .p-panel-content {
+    &:after { background-image: url("/svg/dashboard-price.svg"); opacity: 10%;  transition: display 2s ease-in-out;}
+    }
+}
+::ng-deep .dashboard-card.time  .p-panel-expanded {
+    .p-panel-content {
+    &:after { background-image: url("/svg/dashboard-time.svg"); opacity: 60%; }
+    }
+}
+::ng-deep .dashboard-card.file {
+    // &:after { background: url("/svg/dashboard-file.svg") no-repeat; opacity: 60%; }
+    h2 {font-size: var(--value_16); color: var(--primary-black); font-family: var(--font-medium); font-weight: 500; margin-bottom: 0; line-height: var(--value_16);}
+    .p-divider.p-divider-horizontal {margin: 0.5rem 0;}
+    .p-card-content { 
+        h2 {font-size: var(--value_14); color: var(--primary-black); font-family: var(--default-font); font-weight: normal;}
+    li, a {text-transform: uppercase;} }
+}
+::ng-deep .welcome-note {
+    h1 {font-size: var(--value_18); color: var(--primary-black); font-family: var(--font-medium); font-weight: 500; margin-bottom: 8px; line-height: var(--value_18);}
+    p {font-size: var(--value_12); color: var(--primary-black); font-family: var(--default-font); font-weight: 400; line-height: var(--value_16);
+    a {font-weight: 500; font-family: var(--font-medium);}}
+}
+::ng-deep .announement {
+    .p-panel.p-panel-toggleable .p-panel-header {padding-bottom: 0px; border-bottom: 1px solid var(--primary-border-color);}
+    .p-panel .p-panel-content {padding: 6px 16px 12px 16px; min-height: 82px; height: auto;}
+    .head_body {margin-bottom: 3px;}
+    .card_body {
+        .date {font-size: var(--value_10); line-height: 16px; font-family: var(--default-font);}
+        h5 {font-size: var(--value_12); color: var(--primary-black); font-family: var(--font-medium); font-weight: 500; line-height: var(--value_16);}
+        p{font-size: var(--value_12); font-family: var(--default-font); font-weight: 400; line-height: var(--value_16); color: var(--primary-grey); margin: 0;
+            overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+    }
+}
+::ng-deep .dialog-wrapper {max-height: 400px;
+    .modal_body { border-bottom: 1px solid var(--primary-border-color); padding: 14px 0; 
+        .date {font-size: var(--value_10); line-height: 16px; font-family: var(--default-font);}
+        h5 {font-size: var(--value_12); color: var(--primary-black); font-family: var(--font-medium); font-weight: 500; line-height: var(--value_16);}
+        p{font-size: var(--value_12); font-family: var(--default-font); font-weight: 400; line-height: var(--value_16); color: var(--primary-grey); margin: 0; }
+    }
+}

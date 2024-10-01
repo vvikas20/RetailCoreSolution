@@ -1,0 +1,17 @@
+::ng-deep .sidebar { top: 59px; margin: 8px 0 12px 8px; border-radius: var(--value_8); padding: var(--value_12); background: var(--menu-bg); width: 3.625rem; height: 100%; max-height: calc(100vh - 112px); overflow-y: hidden; overflow-x: auto; transition: width 0.3s ease-in-out; }
+::ng-deep .sidebar.open { width: 10.938rem; transition: width 0.3s ease-in-out;
+span {display: block !important; -webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
+}
+.menu_item { margin-bottom: 1rem; 
+    a {display: flex; align-items: center; gap: var(--value_8);  text-decoration: none; padding: 6px; &:hover {text-decoration: none;}-webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
+    i {display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;-webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
+    span {font-size: var(--value_14); font-family: var(--font-medium); color: #ffffff; font-weight: 500; display: none; -webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
+}
+::ng-deep .menu_item.active { 
+    a{background: #ffffff; border-radius: 4px; 
+        span {color: var(--menu-bg) !important;}
+        i { svg {fill: var(--menu-bg);}
+            path {fill: var(--menu-bg);}}
+    } 
+
+}

@@ -1,0 +1,758 @@
+<!-- <p>project-schedule works!</p> -->
+<div class="main-heading">
+    <div class="page-heading">
+        <h1>Project Schedule</h1>
+    </div>
+    <div class="tabs_wrapper">
+        <p-button routerLink="/home/featureone/my-project" label="Project Info" class="tertiarybtn" />
+        <p-button label="User" class="tertiarybtn" />
+        <p-button label="Quotes" class="tertiarybtn" />
+        <p-button label="Orders" class="tertiarybtn" />
+        <p-button label="Support Request" class="tertiarybtn" />
+        <p-button label="Activities" class="tertiarybtn" />
+    </div>
+</div>
+<!-- <form [formGroup]="scheduleForm" (ngSubmit)="add()"> -->
+    <div class="advance-filter-wrapper">
+        <div class="row mx-0 w-100">
+            <div class="col-lg-4 col-md-4 col-sm-6 br-1">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="productfamily">Select Product Configurator</label>
+                    <p-dropdown placeholder="Product Family" [options]="lstProdFamily" [(ngModel)]="selectedProduct"
+                        [showClear]="false" optionLabel="name" filterBy="name" class="product_config" />
+                </div>
+            </div>            
+            <div class="col-lg-3">
+                <div class="flex flex-row gap-2">
+                    <label></label>
+                    <p-button label="Configure" class="primarybtn" (click)="displayProductConfiguration(this.selectedProduct)" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-dialog header="Configure Product" [modal]="true" [(visible)]="configureProductDialog" [style]="{ width: '55rem' }"
+        [maximizable]="true" class="product-configurator-dialog">
+        <div class="row m-1 bg-light" *ngIf="reConfigureProduct">
+            <div class="col-3"><label class="mb-0 nowrap" for="productfamily">Select Product Configurator</label></div>
+            <div class="col-3"> <p-dropdown placeholder="Product Family" [options]="lstProdFamily"
+                    [(ngModel)]="selectedProduct" [showClear]="false" optionLabel="name" filterBy="name"
+                    class="product_config" /></div>
+            <div class="col-3"><p-button label="Configure" class="primarybtn" (click)="displayProductConfiguration(this.selectedProduct)" />
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-4 body-content">
+            <div id="viewer"></div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" [text]="true" severity="secondary" (click)="hideProductConfiguration()" />
+            <!-- <p-button label="Save" [outlined]="true" severity="secondary" (click)="addProductToQueue()" /> -->
+        </ng-template>
+    </p-dialog>
+<form [formGroup]="scheduleActionForm" (ngSubmit)="actionFormSubmit()">
+    <div class="filter_wrapper">
+        <div class="row mx-0 w-100 align-items-center">
+            <div class="col-lg-2 col-md-2 col-sm-6 br-1">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="selectaction">Select Action</label>
+                    <p-dropdown placeholder="Action" [options]="lstProjectAction" formControlName="selectedAction"
+                        (ngModelChange)='projectActionChange($event)' optionLabel="name" filterBy="name"
+                        [showClear]="false" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-6" [hidden]="actionProjectState">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="selectproject">Select Project</label>
+                    <p-dropdown placeholder="Project" [options]="lstProjectInfo" formControlName="selectedProject"
+                        (ngModelChange)='fillProjectSchedule($event)' optionLabel="name" filterBy="name"
+                        [showClear]="false" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6" [hidden]="actionScheduleState">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="selectschedules">Select Schedules</label>
+                    <p-dropdown placeholder="Schedules" [options]="lstProjectSchedule"
+                        formControlName="selectedSchedule" optionLabel="name" filterBy="name" [showClear]="false" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6" [hidden]="actionQuoteTypeState">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="selectschedules">Select Quote Type</label>
+                    <p-dropdown placeholder="Schedules" [options]="lstProjectQuoteTypes" class="w-178"
+                        formControlName="selectedQuotation" optionLabel="name" filterBy="name" [showClear]="true" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6" [hidden]="actionQuoteState">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="selectschedules">Existing Quote List</label>
+                    <p-dropdown placeholder="Schedules" [options]="lstProjectSchedule"
+                        formControlName="selectedSchedule" optionLabel="name" filterBy="name" [showClear]="true" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-6" [hidden]="actionQuoteMulState">
+                <div class="d-flex align-items-center flex-row gap-2">
+                    <label class="mb-0 nowrap" for="selectschedules">Select Quotation</label>
+                    <p-dropdown placeholder="Schedules" [options]="lstProjectSchedule"
+                        formControlName="selectedQuotations" optionLabel="name" filterBy="name" [showClear]="true" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex flex-row gap-2">
+                    <label></label>
+                    <p-button label="{{buttonLabel}}" type="submit" class="primarybtn"></p-button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="main-content">
+    <div class="card height_custom">
+        <div class="tab-view-wrapper">
+            <div class="tab-view">
+                <!-- <p-tabView [scrollable]="true"> <p-tabPanel> <ng-template pTemplate="header"> <div class="flex align-items-center gap-2"> <i class="mr-1"> <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M7.88441 3.48795L9.25791 4.83735L2.89646 11.1988V12.5723H4.24586L10.6314 6.18675L12.0049 7.53614L5.06514 14.5H0.96875V10.4036L7.88441 3.48795ZM12.0049 7.53614L7.88441 3.48795L10.2941 1.07831C10.6796 0.692771 11.1416 0.5 11.6801 0.5C12.2179 0.5 12.6716 0.692771 13.041 1.07831L14.3904 2.45181C14.7599 2.82129 14.9447 3.27108 14.9447 3.8012C14.9447 4.33133 14.7599 4.78112 14.3904 5.1506L12.0049 7.53614Z" fill="#222222"/> </svg> </i> <span class="font-bold white-space-nowrap m-0"> Schedule_N1 </span> </div> </ng-template> <p> Lorem ipsum dolor sit amet... </p> </p-tabPanel> <p-tabPanel> <ng-template pTemplate="header"> <div class="flex align-items-center gap-2"> <i class="mr-1"> <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M7.88441 3.48795L9.25791 4.83735L2.89646 11.1988V12.5723H4.24586L10.6314 6.18675L12.0049 7.53614L5.06514 14.5H0.96875V10.4036L7.88441 3.48795ZM12.0049 7.53614L7.88441 3.48795L10.2941 1.07831C10.6796 0.692771 11.1416 0.5 11.6801 0.5C12.2179 0.5 12.6716 0.692771 13.041 1.07831L14.3904 2.45181C14.7599 2.82129 14.9447 3.27108 14.9447 3.8012C14.9447 4.33133 14.7599 4.78112 14.3904 5.1506L12.0049 7.53614Z" fill="#222222"/> </svg> </i> <span class="font-bold white-space-nowrap m-0"> Schedule_N2</span> </div> </ng-template> <p> Lorem ipsum </p> </p-tabPanel> </p-tabView> -->
+
+                <div class="tab-wrapper">
+                    <div class="tab-buttons" *ngFor="let item of lstProjectLoadSchedule">
+                        <span class="tab" [ngClass]="item.active ? 'active' : ''">
+                            <a class="" (click)="displayTemplate(edit_schedule, 'Edit Schedule', item)">
+                                <i class="mr-1">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                        (click)="setActive(item)" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.88441 3.48795L9.25791 4.83735L2.89646 11.1988V12.5723H4.24586L10.6314 6.18675L12.0049 7.53614L5.06514 14.5H0.96875V10.4036L7.88441 3.48795ZM12.0049 7.53614L7.88441 3.48795L10.2941 1.07831C10.6796 0.692771 11.1416 0.5 11.6801 0.5C12.2179 0.5 12.6716 0.692771 13.041 1.07831L14.3904 2.45181C14.7599 2.82129 14.9447 3.27108 14.9447 3.8012C14.9447 4.33133 14.7599 4.78112 14.3904 5.1506L12.0049 7.53614Z"
+                                            fill="#222222" />
+                                    </svg>
+                                </i>
+                            </a>
+                            <a (click)="activeSchedule(item)"><span class="font-bold white-space-nowrap m-0"> {{
+                                    item.name }}</span></a>
+                        </span>
+
+
+
+                    </div>
+                    <!-- Add-Button -->
+                    <a class="add_tab" (click)="displayTemplate(add_schedule, 'Add Schedule','')">
+                        <i>
+                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.25 4.25H6.75V7.25H3.75V8.75H6.75V11.75H8.25V8.75H11.25V7.25H8.25V4.25ZM7.5 0.5C3.36 0.5 0 3.86 0 8C0 12.14 3.36 15.5 7.5 15.5C11.64 15.5 15 12.14 15 8C15 3.86 11.64 0.5 7.5 0.5ZM7.5 14C4.1925 14 1.5 11.3075 1.5 8C1.5 4.6925 4.1925 2 7.5 2C10.8075 2 13.5 4.6925 13.5 8C13.5 11.3075 10.8075 14 7.5 14Z"
+                                    fill="#666666" />
+                            </svg>
+                        </i>Add
+                    </a>
+
+                </div>
+                <form [formGroup]="loadScheduleUpdateForm" (ngSubmit)="update()">
+                    <div class="right_view_update">
+                        <p-multiSelect [options]="lstProjectLoadSchedule" formControlName="selectLoadSchedules"
+                            [filter]="false" optionLabel="name" placeholder="Load Schedules" [virtualScroll]="true"
+                            [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" />
+                        <p-button label="Update" type="submit" class="primarybtn" />
+                    </div>
+                </form>
+            </div>
+            <p-panel header="HVAC Products" [toggleable]="true" class="my-2 d-block" collapsed="collapse">
+                <p-table [value]="lstProjectScheduleListViewNAdopter" [tableStyle]="{ 'min-width': '180%' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th><p-checkbox /></th>
+                            <th>Schedule Name</th>
+                            <th>Model Or Existing Unit</th>
+                            <th>Description</th>
+                            <th>Tag</th>
+                            <th>Configure</th>
+                            <th>Pref. Verified</th>
+                            <th>Price</th>
+                            <th>Price Verified</th>
+                            <th>Part Load</th>
+                            <th>Summary</th>
+                            <th>Submittals Required</th>
+                            <th>Upload Docs</th>
+                            <th>Unit Size</th>
+                            <th>Total Price</th>
+                            <th>Quantity</th>
+                            <th>Quote Name</th>
+                            <th>Order Name</th>
+                            <th>Notes</th>
+                            <th>Date Created</th>
+                            <th>Created By</th>
+                            <th>Date Modified</th>
+                            <th>Last Modified By</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td><input type="checkbox" name="user" (click)="setSelectLineItem(item)" /></td>
+                            <td>{{ item.scheduleName }}</td>
+                            <td>{{ item.modelNumber }}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.tag}}</td>
+                            <td class="configure a_table text-center">
+                                <a (click)="editProductConfiguration(item)">
+                                    <i>
+                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_3177_13977)">
+                                                <path
+                                                    d="M15.6876 6.94336C15.3772 5.93548 14.8426 5.01096 14.1239 4.23914L14.6245 1.97508C13.9137 1.40517 13.1205 0.946654 12.2718 0.615234L10.5618 2.18039C9.53415 1.9442 8.46626 1.9442 7.43856 2.18039L5.72716 0.615234C4.87855 0.946654 4.08527 1.40517 3.3745 1.97508L3.87513 4.23773C3.15627 5.00996 2.62164 5.93498 2.31138 6.94336L0.102158 7.64649C-0.0340525 8.54699 -0.0340525 9.46286 0.102158 10.3634L2.31138 11.0665C2.62323 12.0708 3.15776 12.9919 3.87513 13.7609L3.3745 16.0235C4.08527 16.5934 4.87855 17.0519 5.72716 17.3834L7.43716 15.8182C8.46486 16.0544 9.53274 16.0544 10.5604 15.8182L12.2704 17.3834C13.1195 17.0521 13.9133 16.5936 14.6245 16.0235L14.1239 13.7609C14.8426 12.989 15.3772 12.0645 15.6876 11.0566L17.8968 10.3535C18.033 9.45301 18.033 8.53715 17.8968 7.63664L15.6876 6.94336ZM8.9995 12.1873C8.36898 12.1873 7.75262 12.0003 7.22836 11.65C6.7041 11.2997 6.29549 10.8018 6.0542 10.2193C5.81291 9.63676 5.74978 8.99576 5.87279 8.37736C5.9958 7.75895 6.29942 7.19091 6.74527 6.74506C7.19111 6.29922 7.75915 5.99559 8.37756 5.87258C8.99596 5.74958 9.63696 5.81271 10.2195 6.054C10.802 6.29529 11.2999 6.7039 11.6502 7.22816C12.0005 7.75242 12.1875 8.36878 12.1875 8.9993C12.1875 9.8448 11.8516 10.6557 11.2537 11.2535C10.6559 11.8514 9.845 12.1873 8.9995 12.1873Z"
+                                                    fill="#666666" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_3177_13977">
+                                                    <rect width="18" height="18" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </i>
+                                </a>
+                            </td>
+                            <td class="verified  text-center">
+                                <i>
+                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M10.5 19.375C8.6458 19.375 6.83324 18.8252 5.29153 17.795C3.74982 16.7649 2.54821 15.3007 1.83863 13.5877C1.12906 11.8746 0.943406 9.98961 1.30514 8.17103C1.66688 6.35246 2.55976 4.682 3.87088 3.37088C5.182 2.05976 6.85246 1.16688 8.67103 0.805142C10.4896 0.443406 12.3746 0.629062 14.0877 1.33863C15.8007 2.04821 17.2649 3.24982 18.295 4.79153C19.3252 6.33324 19.875 8.1458 19.875 10C19.875 12.4864 18.8873 14.871 17.1291 16.6291C15.371 18.3873 12.9864 19.375 10.5 19.375ZM10.5 1.875C8.89303 1.875 7.32215 2.35153 5.986 3.24431C4.64985 4.1371 3.60845 5.40605 2.99348 6.8907C2.37852 8.37535 2.21762 10.009 2.53112 11.5851C2.84463 13.1612 3.61846 14.6089 4.75476 15.7452C5.89106 16.8816 7.3388 17.6554 8.9149 17.9689C10.491 18.2824 12.1247 18.1215 13.6093 17.5065C15.094 16.8916 16.3629 15.8502 17.2557 14.514C18.1485 13.1779 18.625 11.607 18.625 10C18.625 7.84512 17.769 5.7785 16.2452 4.25476C14.7215 2.73103 12.6549 1.875 10.5 1.875Z"
+                                            fill="#1CA610" />
+                                        <path
+                                            d="M9.04384 13.7501C8.95814 13.7498 8.87342 13.7319 8.79493 13.6975C8.71644 13.6631 8.64587 13.6129 8.58759 13.5501L5.66884 10.4251C5.56911 10.3021 5.51978 10.1459 5.53082 9.9879C5.54185 9.82994 5.61243 9.68206 5.7283 9.57413C5.84416 9.4662 5.99667 9.40627 6.15501 9.40646C6.31335 9.40664 6.46573 9.46691 6.58134 9.5751L9.04384 12.2064L14.4188 6.4501C14.4728 6.38355 14.5399 6.3288 14.6159 6.28926C14.6919 6.24973 14.7753 6.22624 14.8607 6.22027C14.9462 6.2143 15.032 6.22597 15.1128 6.25455C15.1936 6.28313 15.2676 6.32802 15.3303 6.38642C15.393 6.44483 15.443 6.5155 15.4773 6.59405C15.5115 6.6726 15.5292 6.75735 15.5293 6.84304C15.5294 6.92872 15.5119 7.01351 15.4778 7.09214C15.4438 7.17077 15.3939 7.24156 15.3313 7.3001L9.50009 13.5501C9.44182 13.6129 9.37124 13.6631 9.29276 13.6975C9.21427 13.7319 9.12954 13.7498 9.04384 13.7501Z"
+                                            fill="#1CA610" />
+                                    </svg>
+                                </i>
+                            </td>
+                            <td class="a_table text-center">
+                                <a (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">
+                                    <svg width="50" height="36" viewBox="0 0 50 36" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.5" y="0.5" width="49" height="35" rx="3.5" fill="#F9F9F9" />
+                                        <rect x="0.5" y="0.5" width="49" height="35" rx="3.5" stroke="#CCCCCC" />
+                                        <path
+                                            d="M24.9997 9.42578C20.2717 9.42578 16.4258 13.2723 16.4258 18C16.4258 22.7278 20.2717 26.5737 24.9997 26.5737C29.7275 26.5737 33.5737 22.7278 33.5737 18C33.5737 13.2723 29.7275 9.42578 24.9997 9.42578ZM24.9997 25.2213C21.0177 25.2213 17.7782 21.9818 17.7782 18C17.7782 14.0177 21.0177 10.7782 24.9997 10.7782C28.9818 10.7782 32.2213 14.0177 32.2213 18C32.2213 21.9818 28.9818 25.2213 24.9997 25.2213Z"
+                                            fill="#666666" />
+                                        <path
+                                            d="M23.6435 16.3193C23.6435 15.7768 24.4368 15.6842 25.125 15.6842C25.7736 15.6842 26.6599 15.9882 27.4009 16.3724L27.5462 14.8773C27.1756 14.6654 26.3158 14.414 25.4425 14.3615L25.6542 12.8398H24.2385L24.4504 14.3615C22.6248 14.5332 22.0293 15.5915 22.0293 16.478C22.0293 18.7138 26.1964 18.2381 26.1964 19.6134C26.1964 20.1298 25.7073 20.3146 24.8471 20.3146C23.6831 20.3146 22.8096 19.9049 22.3601 19.4812L22.135 21.1616C22.5587 21.413 23.4182 21.6379 24.4504 21.691L24.2385 23.1596H25.6542L25.4425 21.6775C27.5858 21.4922 27.9694 20.3542 27.9694 19.6004C27.9694 16.9414 23.6435 17.6025 23.6435 16.3193Z"
+                                            fill="#666666" />
+                                    </svg>
+                                </a>
+                            </td>
+                            <td class="verified  text-center">
+                                <i>
+                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M10.5 19.375C8.6458 19.375 6.83324 18.8252 5.29153 17.795C3.74982 16.7649 2.54821 15.3007 1.83863 13.5877C1.12906 11.8746 0.943406 9.98961 1.30514 8.17103C1.66688 6.35246 2.55976 4.682 3.87088 3.37088C5.182 2.05976 6.85246 1.16688 8.67103 0.805142C10.4896 0.443406 12.3746 0.629062 14.0877 1.33863C15.8007 2.04821 17.2649 3.24982 18.295 4.79153C19.3252 6.33324 19.875 8.1458 19.875 10C19.875 12.4864 18.8873 14.871 17.1291 16.6291C15.371 18.3873 12.9864 19.375 10.5 19.375ZM10.5 1.875C8.89303 1.875 7.32215 2.35153 5.986 3.24431C4.64985 4.1371 3.60845 5.40605 2.99348 6.8907C2.37852 8.37535 2.21762 10.009 2.53112 11.5851C2.84463 13.1612 3.61846 14.6089 4.75476 15.7452C5.89106 16.8816 7.3388 17.6554 8.9149 17.9689C10.491 18.2824 12.1247 18.1215 13.6093 17.5065C15.094 16.8916 16.3629 15.8502 17.2557 14.514C18.1485 13.1779 18.625 11.607 18.625 10C18.625 7.84512 17.769 5.7785 16.2452 4.25476C14.7215 2.73103 12.6549 1.875 10.5 1.875Z"
+                                            fill="#1CA610" />
+                                        <path
+                                            d="M9.04384 13.7501C8.95814 13.7498 8.87342 13.7319 8.79493 13.6975C8.71644 13.6631 8.64587 13.6129 8.58759 13.5501L5.66884 10.4251C5.56911 10.3021 5.51978 10.1459 5.53082 9.9879C5.54185 9.82994 5.61243 9.68206 5.7283 9.57413C5.84416 9.4662 5.99667 9.40627 6.15501 9.40646C6.31335 9.40664 6.46573 9.46691 6.58134 9.5751L9.04384 12.2064L14.4188 6.4501C14.4728 6.38355 14.5399 6.3288 14.6159 6.28926C14.6919 6.24973 14.7753 6.22624 14.8607 6.22027C14.9462 6.2143 15.032 6.22597 15.1128 6.25455C15.1936 6.28313 15.2676 6.32802 15.3303 6.38642C15.393 6.44483 15.443 6.5155 15.4773 6.59405C15.5115 6.6726 15.5292 6.75735 15.5293 6.84304C15.5294 6.92872 15.5119 7.01351 15.4778 7.09214C15.4438 7.17077 15.3939 7.24156 15.3313 7.3001L9.50009 13.5501C9.44182 13.6129 9.37124 13.6631 9.29276 13.6975C9.21427 13.7319 9.12954 13.7498 9.04384 13.7501Z"
+                                            fill="#1CA610" />
+                                    </svg>
+                                </i>
+                            </td>
+                            <td class="a_table text-center">
+                                <a (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">Link</a>
+                            </td>
+                            <td class="a_table text-center">
+                                <a (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">
+                                    <svg width="18" height="22" viewBox="0 0 18 22" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14.5 0H3.5C2.77065 0 2.07118 0.289731 1.55546 0.805456C1.03973 1.32118 0.75 2.02065 0.75 2.75V19.25C0.75 19.9793 1.03973 20.6788 1.55546 21.1945C2.07118 21.7103 2.77065 22 3.5 22H14.5C15.2293 22 15.9288 21.7103 16.4445 21.1945C16.9603 20.6788 17.25 19.9793 17.25 19.25V2.75C17.25 2.02065 16.9603 1.32118 16.4445 0.805456C15.9288 0.289731 15.2293 0 14.5 0ZM11.75 15.8125V7.5625C11.75 7.38016 11.8224 7.2053 11.9514 7.07636C12.0803 6.94743 12.2552 6.875 12.4375 6.875H13.8125C13.9948 6.875 14.1697 6.94743 14.2986 7.07636C14.4276 7.2053 14.5 7.38016 14.5 7.5625V15.8125C14.5 15.9948 14.4276 16.1697 14.2986 16.2986C14.1697 16.4276 13.9948 16.5 13.8125 16.5H12.4375C12.2552 16.5 12.0803 16.4276 11.9514 16.2986C11.8224 16.1697 11.75 15.9948 11.75 15.8125ZM8.3125 16.5C8.13016 16.5 7.9553 16.4276 7.82636 16.2986C7.69743 16.1697 7.625 15.9948 7.625 15.8125V10.3125C7.625 10.1302 7.69743 9.9553 7.82636 9.82636C7.9553 9.69743 8.13016 9.625 8.3125 9.625H9.6875C9.86984 9.625 10.0447 9.69743 10.1736 9.82636C10.3026 9.9553 10.375 10.1302 10.375 10.3125V15.8125C10.375 15.9948 10.3026 16.1697 10.1736 16.2986C10.0447 16.4276 9.86984 16.5 9.6875 16.5H8.3125ZM4.1875 16.5C4.00516 16.5 3.8303 16.4276 3.70136 16.2986C3.57243 16.1697 3.5 15.9948 3.5 15.8125V13.0625C3.5 12.8802 3.57243 12.7053 3.70136 12.5764C3.8303 12.4474 4.00516 12.375 4.1875 12.375H5.5625C5.74484 12.375 5.9197 12.4474 6.04864 12.5764C6.17757 12.7053 6.25 12.8802 6.25 13.0625V15.8125C6.25 15.9948 6.17757 16.1697 6.04864 16.2986C5.9197 16.4276 5.74484 16.5 5.5625 16.5H4.1875Z"
+                                            fill="#666666" />
+                                    </svg>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="d-flex align-items-center gap-2">
+                                    <label class="mb-0" for="schedule_toggle">Yes</label>
+                                    <p-inputSwitch [(ngModel)]="item.submittalReq" inputId="schedule_toggle"
+                                        (onChange)="updateSubmittalReq(item.id, item.submittalReq)" />
+                                    <label class="mb-0" for="schedule_toggle">No</label>
+                                    <!-- <input type="hidden" formControlName="hdnEditId"> -->
+                                </span>
+                            </td>
+                            <td>
+                                <span class="d-flex align-items-center gap-2 justify-content-center">
+                                    <a class="a_table"
+                                        (click)="openDocUploadPopUp(item.id)">
+                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_3177_14004)">
+                                                <path d="M10.5 13.5H1V3.5H10L11 2.5H16V8" stroke="#666666"
+                                                    stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="round" />
+                                                <path d="M1 3.5V1.5H10L11 2.5L10 3.5H1Z" stroke="#666666"
+                                                    stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="round" />
+                                                <path d="M13 15V7.5" stroke="#666666" stroke-width="1.5"
+                                                    stroke-miterlimit="10" stroke-linejoin="round" />
+                                                <path d="M16 10.5L13 7.5L10 10.5" stroke="#666666" stroke-width="1.5"
+                                                    stroke-miterlimit="10" stroke-linejoin="round" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_3177_14004">
+                                                    <rect width="16" height="16" fill="white"
+                                                        transform="translate(0.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                    <a class="a_table"
+                                        (click)="documentlist(item.id)">
+                                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_3177_14010)">
+                                                <path
+                                                    d="M10.5007 5.41667C13.659 5.41667 16.4757 7.19167 17.8507 10C16.4757 12.8083 13.6673 14.5833 10.5007 14.5833C7.33399 14.5833 4.52565 12.8083 3.15065 10C4.52565 7.19167 7.34232 5.41667 10.5007 5.41667ZM10.5007 3.75C6.33398 3.75 2.77565 6.34167 1.33398 10C2.77565 13.6583 6.33398 16.25 10.5007 16.25C14.6673 16.25 18.2257 13.6583 19.6673 10C18.2257 6.34167 14.6673 3.75 10.5007 3.75ZM10.5007 7.91667C11.6507 7.91667 12.584 8.85 12.584 10C12.584 11.15 11.6507 12.0833 10.5007 12.0833C9.35065 12.0833 8.41732 11.15 8.41732 10C8.41732 8.85 9.35065 7.91667 10.5007 7.91667ZM10.5007 6.25C8.43399 6.25 6.75065 7.93333 6.75065 10C6.75065 12.0667 8.43399 13.75 10.5007 13.75C12.5673 13.75 14.2507 12.0667 14.2507 10C14.2507 7.93333 12.5673 6.25 10.5007 6.25Z"
+                                                    fill="#666666" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_3177_14010">
+                                                    <rect width="20" height="20" fill="white"
+                                                        transform="translate(0.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                </span>
+                            </td>
+                            <td class="text-center">{{item.unitSize}}</td>
+                            <td class="text-center">{{item.totalPrice}}</td>
+                            <td class="text-center">{{item.quantity}}</td>
+                            <td class="a_table text-center"><a
+                                    (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">{{item.quotationID}}</a>
+                            </td>
+                            <td class="a_table text-center"><a
+                                    (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">{{item.orderID}}</a>
+                            </td>
+                            <td class="text-overflow">{{item.notes}}</td>
+                            <td class="text-center">{{item.createdDate| date:'MM/dd/yyyy'}}</td>
+                            <td class="text-center">{{item.createdByUserName}}</td>
+                            <td class="text-center">{{item.modifiedDate| date:'MM/dd/yyyy'}}</td>
+                            <td class="text-center">{{item.modifiedByUserName}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-panel>
+            <p-panel header="Adapter & Curb Products" [toggleable]="true" [(collapsed)]="collapse">
+                <p-table [value]="lstProjectScheduleListViewAdopter" [tableStyle]="{ 'min-width': '138%' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th><p-checkbox /></th>
+                            <th>Schedule Name</th>
+                            <th>Existing Unit</th>
+                            <th>New Unit</th>
+                            <th>KCC Model number</th>
+                            <th>Curb Type</th>
+                            <th>Unit Model No</th>
+                            <th>Tag</th>
+                            <th>Summary</th>
+                            <th>Quantity</th>
+                            <th colspan="4" class="text-center col-th">Price
+                        <tr class="colspan-tr">
+                            <th>Standard</th>
+                            <th>Express</th>
+                            <th>Expedited</th>
+                            <th>Extended</th>
+                        </tr>
+                        </th>
+                        <th>Total Price</th>
+                        <th class="text-center">Upload Docs</th>
+                        <th class="text-center">Quote #</th>
+                        <th class="text-center">Order Name</th>
+                        <th>Date Created</th>
+                        <th>Created By</th>
+                        <th>Last Modified By</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td><input type="checkbox" name="user" (click)="setSelectLineItem(lstProjectScheduleListViewAdopter)" /></td>
+                            <td>{{ item.scheduleName }}</td>
+                            <td>{{ item.eUnitName}}</td>
+                            <td>{{ item.nUnitName}}</td>
+                            <td>{{ item.modelNumber }}</td>
+                            <td>{{ item.curbType}}</td>
+                            <td>{{ item.unitModelNumber}}</td>
+                            <td>{{ item.tag}}</td>
+                            <td class="a_table text-center">
+                                <a (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">
+                                    <svg width="18" height="22" viewBox="0 0 18 22" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14.5 0H3.5C2.77065 0 2.07118 0.289731 1.55546 0.805456C1.03973 1.32118 0.75 2.02065 0.75 2.75V19.25C0.75 19.9793 1.03973 20.6788 1.55546 21.1945C2.07118 21.7103 2.77065 22 3.5 22H14.5C15.2293 22 15.9288 21.7103 16.4445 21.1945C16.9603 20.6788 17.25 19.9793 17.25 19.25V2.75C17.25 2.02065 16.9603 1.32118 16.4445 0.805456C15.9288 0.289731 15.2293 0 14.5 0ZM11.75 15.8125V7.5625C11.75 7.38016 11.8224 7.2053 11.9514 7.07636C12.0803 6.94743 12.2552 6.875 12.4375 6.875H13.8125C13.9948 6.875 14.1697 6.94743 14.2986 7.07636C14.4276 7.2053 14.5 7.38016 14.5 7.5625V15.8125C14.5 15.9948 14.4276 16.1697 14.2986 16.2986C14.1697 16.4276 13.9948 16.5 13.8125 16.5H12.4375C12.2552 16.5 12.0803 16.4276 11.9514 16.2986C11.8224 16.1697 11.75 15.9948 11.75 15.8125ZM8.3125 16.5C8.13016 16.5 7.9553 16.4276 7.82636 16.2986C7.69743 16.1697 7.625 15.9948 7.625 15.8125V10.3125C7.625 10.1302 7.69743 9.9553 7.82636 9.82636C7.9553 9.69743 8.13016 9.625 8.3125 9.625H9.6875C9.86984 9.625 10.0447 9.69743 10.1736 9.82636C10.3026 9.9553 10.375 10.1302 10.375 10.3125V15.8125C10.375 15.9948 10.3026 16.1697 10.1736 16.2986C10.0447 16.4276 9.86984 16.5 9.6875 16.5H8.3125ZM4.1875 16.5C4.00516 16.5 3.8303 16.4276 3.70136 16.2986C3.57243 16.1697 3.5 15.9948 3.5 15.8125V13.0625C3.5 12.8802 3.57243 12.7053 3.70136 12.5764C3.8303 12.4474 4.00516 12.375 4.1875 12.375H5.5625C5.74484 12.375 5.9197 12.4474 6.04864 12.5764C6.17757 12.7053 6.25 12.8802 6.25 13.0625V15.8125C6.25 15.9948 6.17757 16.1697 6.04864 16.2986C5.9197 16.4276 5.74484 16.5 5.5625 16.5H4.1875Z"
+                                            fill="#666666" />
+                                    </svg>
+                                </a>
+                            </td>
+                            <td>{{ item.quantity}}</td>
+                            <td>
+                                <p-tableCheckbox id="check_price" class="check_price" />
+                                <label class="mb-0" for="check_price">{{ item.standardPrice}}</label>
+                            </td>
+                            <td>
+                                <p-tableCheckbox id="check_price" class="check_price" />
+                                <label class="mb-0" for="check_price">{{ item.expeditedPrice}}</label>
+                            </td>
+                            <td>
+                                <p-tableCheckbox id="check_price" class="check_price" />
+                                <label class="mb-0" for="check_price">{{ item.expeditedPrice}}</label>
+                            </td>
+                            <td>
+                                <p-tableCheckbox id="check_price" class="check_price" />
+                                <label class="mb-0" for="check_price">{{ item.extendedPrice}}</label>
+                            </td>
+                            <td>{{ item.totalPrice}}</td>
+                            <td class="a_table text-center">
+                                <span class="d-flex align-items-center gap-2 justify-content-center">
+                                    <a class="a_table"
+                                    (click)="openDocUploadPopUp(item.id)">
+                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_3177_14004)">
+                                                <path d="M10.5 13.5H1V3.5H10L11 2.5H16V8" stroke="#666666"
+                                                    stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="round" />
+                                                <path d="M1 3.5V1.5H10L11 2.5L10 3.5H1Z" stroke="#666666"
+                                                    stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="round" />
+                                                <path d="M13 15V7.5" stroke="#666666" stroke-width="1.5"
+                                                    stroke-miterlimit="10" stroke-linejoin="round" />
+                                                <path d="M16 10.5L13 7.5L10 10.5" stroke="#666666" stroke-width="1.5"
+                                                    stroke-miterlimit="10" stroke-linejoin="round" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_3177_14004">
+                                                    <rect width="16" height="16" fill="white"
+                                                        transform="translate(0.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                    <a class="a_table"
+                                    (click)="documentlist(item.id)">
+                                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_3177_14010)">
+                                                <path
+                                                    d="M10.5007 5.41667C13.659 5.41667 16.4757 7.19167 17.8507 10C16.4757 12.8083 13.6673 14.5833 10.5007 14.5833C7.33399 14.5833 4.52565 12.8083 3.15065 10C4.52565 7.19167 7.34232 5.41667 10.5007 5.41667ZM10.5007 3.75C6.33398 3.75 2.77565 6.34167 1.33398 10C2.77565 13.6583 6.33398 16.25 10.5007 16.25C14.6673 16.25 18.2257 13.6583 19.6673 10C18.2257 6.34167 14.6673 3.75 10.5007 3.75ZM10.5007 7.91667C11.6507 7.91667 12.584 8.85 12.584 10C12.584 11.15 11.6507 12.0833 10.5007 12.0833C9.35065 12.0833 8.41732 11.15 8.41732 10C8.41732 8.85 9.35065 7.91667 10.5007 7.91667ZM10.5007 6.25C8.43399 6.25 6.75065 7.93333 6.75065 10C6.75065 12.0667 8.43399 13.75 10.5007 13.75C12.5673 13.75 14.2507 12.0667 14.2507 10C14.2507 7.93333 12.5673 6.25 10.5007 6.25Z"
+                                                    fill="#666666" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_3177_14010">
+                                                    <rect width="20" height="20" fill="white"
+                                                        transform="translate(0.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                </span>
+                            </td>
+                            <td class="a_table text-center">
+                                <a (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">{{
+                                    item.quotationID}}</a>
+                            </td>
+                            <td class="a_table text-center">
+                                <a (click)="displayTemplate(embededPopUp, 'Embedded Pop Up','')">{{ item.orderID}}</a>
+                            </td>
+                            <td class="text-center">{{item.createdDate| date:'MM/dd/yyyy'}}</td>
+                            <td class="text-center">{{item.createdByUserName}}</td>
+                            <td class="text-center">{{item.modifiedByUserName}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-panel>
+
+        </div>
+    </div>
+</div>
+<!-- Edit Schedule -->
+
+<p-dialog id="editSchedule" header="{{currentTemplateHeader}}" [(visible)]="visible" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '22vw' }" [draggable]="false"
+    [resizable]="false">
+    <ng-container *ngTemplateOutlet="currentTemplate"></ng-container>
+</p-dialog>
+
+<ng-template #edit_schedule>
+    <form [formGroup]="editScheduleForm" (ngSubmit)="editSchedule()">
+        <div class="row mx-0 w-100 mb-3">
+            <div class="col-12 col-md-12 col-sm-12 p-0 d-flex align-items-center w-100">
+                <p-inputSwitch [(ngModel)]="checked" (onChange)="schduleActiveChange($event)" inputId="schedule_toggle"
+                    formControlName="chhkIsSchduleActive" />
+                <label class="mb-0" for="schedule_toggle">Schedule is {{ checked ? 'Active' : 'InActive'}}</label>
+                <input type="hidden" formControlName="hdnEditId">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <label class="mb-0 nowrap" for="schedulename">Schedule Name</label>
+                <input pInputText type="text" placeholder="Enter Here" formControlName="txtEditScheduleName">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <label class="mb-0 nowrap" for="notes">Notes</label>
+                <textarea placeholder="Enter Here" rows="5" cols="30" formControlName="txtEditNotes" pInputTextarea
+                    [autoResize]="true"> </textarea>
+            </div>
+
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+            <p-button label="Save" type="submit" class="primarybtn" />
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #add_schedule>
+    <form [formGroup]="addScheduleForm" (ngSubmit)="addSchedule()">
+        <div class="row mx-0 w-100 mb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <label class="mb-0 nowrap" for="status">Schedule Name</label>
+                <input pInputText type="text" formControlName="txtScheduleName" placeholder="Enter Here" />
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <label class="mb-0 nowrap" for="status">Description</label>
+                <input pInputText type="text" placeholder="Enter Here" formControlName="txtDescription" />
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <label class="mb-0 nowrap" for="status">Notes</label>
+                <input pInputText type="text" placeholder="Enter Here" formControlName="txtNotes" />
+            </div>
+
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+            <p-button label="Add Schedule" type="submit" class="primarybtn" />
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #edit_basic>
+
+    <div class="row mx-0 w-100 mb-3">
+        <div class="col-lg-4 col-md-4 col-sm-12"> Current Project Name: </div>
+        <div class="col-lg-6 col-md-6 col-sm-12"><strong>Project Name 01</strong></div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12"> Schedule Name: </div>
+        <div class="col-lg-6 col-md-6 col-sm-12"><strong>Schedule_N1</strong></div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12"> Project Line: </div>
+        <div class="col-lg-6 col-md-4 col-sm-12"><strong>Project Line #01</strong></div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+            <label class="mb-0 nowrap" for="tag">Tag</label>
+            <input pInputText type="text" id="tag" placeholder="Enter Here" />
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+            <label class="mb-0 nowrap" for="quantity">Quantity</label>
+            <input pInputText type="text" id="quanity" placeholder="Enter Here" />
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+            <label class="mb-0 nowrap" for="notes">Notes</label>
+            <textarea placeholder="Enter Here" rows="5" cols="30" formControlName="txtEditNotes" pInputTextarea
+                    [autoResize]="true"> </textarea>
+        </div>
+
+    </div>
+    <div class="d-flex align-items-center justify-content-end">
+        <p-button label="Add Schedule" class="primarybtn" />
+    </div>
+
+</ng-template>
+<ng-template #embededPopUp>
+    <div class="row mx-0 w-100 mb-3">
+        <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+            <label class="mb-0 nowrap" for="status">CPQ Embedded window showing worksheet</label>
+        </div>
+    </div>
+</ng-template>
+ <!-- upload-dialog -->
+<p-dialog header="Upload Document" [(visible)]="uploadDoc" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '42vw' }" [draggable]="false"
+    [resizable]="false" class="upload_pop_up">
+    <form [formGroup]="uploadDocForm" (ngSubmit)="uploadDocuments()">
+        <div class="row mx-0 w-100">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0 mb-12">
+                <input type="hidden" formControlName="lineItemUploadDoc" />
+                <p-fileUpload #fileuploader name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                    [multiple]="true" accept="" maxFileSize="1000000" (onUpload)="onTemplatedUpload()"
+                    (onSelect)="onSelectedFiles($event)">
+                    <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback"
+                        let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+                        <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
+                            <div class="flex gap-2 browse_btn">
+                                <p-button (onClick)="choose($event, chooseCallback)" [rounded]="true" [outlined]="true"
+                                    class="browse_file" label="Browse File" />
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles"
+                        let-removeFileCallback="removeFileCallback"
+                        let-removeUploadedFileCallback="removeUploadedFileCallback">
+                        <div *ngIf="files?.length > 0" class="w-100" style="max-height: 190px; overflow-y: auto;">
+                            <div class="flex flex-wrap p-0 sm:p-5 gap-5 upload_progress">
+                                <div *ngFor="let file of files; let i = index"
+                                    class="card gap-12 flex flex-row surface-border align-items-baseline gap-3 position-relative mb-12 border-0">
+                                    <div>
+                                        <svg width="28" height="29" viewBox="0 0 28 29" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1563_9140)">
+                                                <path
+                                                    d="M5.83333 2.4209C4.54463 2.4209 3.5 3.4709 3.5 4.75423V14.0876V18.7542V25.7542C3.5 27.0376 4.54463 28.0876 5.83333 28.0876H22.1667C23.4558 28.0876 24.5 27.0376 24.5 25.7542V18.7542V14.0876V9.4209L17.5 2.4209H5.83333Z"
+                                                    fill="#9B9B9B" />
+                                                <path
+                                                    d="M5.83333 1.25391C4.54463 1.25391 3.5 2.30391 3.5 3.58724V12.9206V17.5872V24.5872C3.5 25.8706 4.54463 26.9206 5.83333 26.9206H22.1667C23.4558 26.9206 24.5 25.8706 24.5 24.5872V17.5872V12.9206V8.25391L17.5 1.25391H5.83333Z"
+                                                    fill="#C8C8C8" />
+                                                <path d="M10.5013 5.9209H8.16797V22.2542H10.5013V5.9209Z"
+                                                    fill="#1ABC9C" />
+                                                <path
+                                                    d="M8.16667 4.75391C7.52232 4.75391 7 5.27622 7 5.92057V8.25391V9.42057V11.7539V12.9206V15.2539V16.4206V18.7539V19.9206V22.2539C7 22.8979 7.52232 23.4206 8.16667 23.4206H10.5H11.6667H15.1667H16.3333H19.8333C20.4773 23.4206 21 22.8979 21 22.2539V19.9206V18.7539V16.4206V12.9206V9.42057V8.25391V5.92057C21 5.27622 20.4773 4.75391 19.8333 4.75391H16.3333H15.1667H10.5H8.16667ZM8.16667 5.92057H10.5V8.25391H8.16667V5.92057ZM11.6667 5.92057H15.1667V8.25391H11.6667V5.92057ZM16.3333 5.92057H19.8333V8.25391H16.3333V5.92057ZM8.16667 9.42057H10.5V11.7539H8.16667V9.42057ZM11.6667 9.42057H15.1667V11.7539H11.6667V9.42057ZM16.3333 9.42057H19.8333V11.7539H16.3333V9.42057ZM8.16667 12.9206H10.5V15.2539H8.16667V12.9206ZM11.6667 12.9206H15.1667V15.2539H11.6667V12.9206ZM16.3333 12.9206H19.8333V15.2539H16.3333V12.9206ZM8.16667 16.4206H10.5V18.7539H8.16667V16.4206ZM11.6667 16.4206H15.1667V18.7539H11.6667V16.4206ZM16.3333 16.4206H19.8333V18.7539H16.3333V16.4206ZM8.16667 19.9206H10.5V22.2539H8.16667V19.9206ZM11.6667 19.9206H15.1667V22.2539H11.6667V19.9206ZM16.3333 19.9206H19.8333V22.2539H16.3333V19.9206Z"
+                                                    fill="#FAFFFE" />
+                                                <path
+                                                    d="M24.5 8.25391L17.5 1.25391V5.92057C17.5 7.20391 18.5442 8.25391 19.8333 8.25391H24.5Z"
+                                                    fill="#9B9B9B" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_1563_9140">
+                                                    <rect width="28" height="28" fill="white"
+                                                        transform="translate(0 0.0869141)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                    </div>
+                                    <div
+                                        class="position-absolute d-flex align-items-center justify-content-between progress_data_info">
+                                        <span class="upload_info">{{ file.name }}</span>
+                                        <span class="upload_info">{{ formatSize(file.size) }}</span>
+                                    </div>
+                                    <p-progressBar [value]="totalSizePercent" [showValue]="false"
+                                        styleClass="md:w-20rem h-1rem w-full md:ml-auto"
+                                        [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+                                        <span class="white-space-nowrap">{{ totalSize }}</span>
+                                    </p-progressBar>
+                                    <p-button class="trash"
+                                        (click)="onRemoveTemplatingFile($event, file, removeFileCallback, i)">
+                                        <i>
+                                            <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M4.08203 12.3369C3.7612 12.3369 3.48664 12.2228 3.25836 11.9945C3.0297 11.7658 2.91536 11.4911 2.91536 11.1702V3.58691H2.33203V2.42025H5.2487V1.83691H8.7487V2.42025H11.6654V3.58691H11.082V11.1702C11.082 11.4911 10.9679 11.7658 10.7396 11.9945C10.5109 12.2228 10.2362 12.3369 9.91536 12.3369H4.08203ZM9.91536 3.58691H4.08203V11.1702H9.91536V3.58691ZM5.2487 10.0036H6.41536V4.75358H5.2487V10.0036ZM7.58203 10.0036H8.7487V4.75358H7.58203V10.0036Z"
+                                                    fill="#666666" />
+                                            </svg>
+                                        </i>
+                                    </p-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="uploadedFiles?.length > 0">
+                            <h5>Completed</h5>
+                            <div class="flex flex-wrap p-0 sm:p-5 gap-5">
+                                <div *ngFor="let file of uploadedFiles; let i = index"
+                                    class="card m-0 px-6 flex flex-column border-1 surface-border align-items-center gap-3">
+                                    <div>
+                                        <svg width="28" height="29" viewBox="0 0 28 29" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1563_9140)">
+                                                <path
+                                                    d="M5.83333 2.4209C4.54463 2.4209 3.5 3.4709 3.5 4.75423V14.0876V18.7542V25.7542C3.5 27.0376 4.54463 28.0876 5.83333 28.0876H22.1667C23.4558 28.0876 24.5 27.0376 24.5 25.7542V18.7542V14.0876V9.4209L17.5 2.4209H5.83333Z"
+                                                    fill="#9B9B9B" />
+                                                <path
+                                                    d="M5.83333 1.25391C4.54463 1.25391 3.5 2.30391 3.5 3.58724V12.9206V17.5872V24.5872C3.5 25.8706 4.54463 26.9206 5.83333 26.9206H22.1667C23.4558 26.9206 24.5 25.8706 24.5 24.5872V17.5872V12.9206V8.25391L17.5 1.25391H5.83333Z"
+                                                    fill="#C8C8C8" />
+                                                <path d="M10.5013 5.9209H8.16797V22.2542H10.5013V5.9209Z"
+                                                    fill="#1ABC9C" />
+                                                <path
+                                                    d="M8.16667 4.75391C7.52232 4.75391 7 5.27622 7 5.92057V8.25391V9.42057V11.7539V12.9206V15.2539V16.4206V18.7539V19.9206V22.2539C7 22.8979 7.52232 23.4206 8.16667 23.4206H10.5H11.6667H15.1667H16.3333H19.8333C20.4773 23.4206 21 22.8979 21 22.2539V19.9206V18.7539V16.4206V12.9206V9.42057V8.25391V5.92057C21 5.27622 20.4773 4.75391 19.8333 4.75391H16.3333H15.1667H10.5H8.16667ZM8.16667 5.92057H10.5V8.25391H8.16667V5.92057ZM11.6667 5.92057H15.1667V8.25391H11.6667V5.92057ZM16.3333 5.92057H19.8333V8.25391H16.3333V5.92057ZM8.16667 9.42057H10.5V11.7539H8.16667V9.42057ZM11.6667 9.42057H15.1667V11.7539H11.6667V9.42057ZM16.3333 9.42057H19.8333V11.7539H16.3333V9.42057ZM8.16667 12.9206H10.5V15.2539H8.16667V12.9206ZM11.6667 12.9206H15.1667V15.2539H11.6667V12.9206ZM16.3333 12.9206H19.8333V15.2539H16.3333V12.9206ZM8.16667 16.4206H10.5V18.7539H8.16667V16.4206ZM11.6667 16.4206H15.1667V18.7539H11.6667V16.4206ZM16.3333 16.4206H19.8333V18.7539H16.3333V16.4206ZM8.16667 19.9206H10.5V22.2539H8.16667V19.9206ZM11.6667 19.9206H15.1667V22.2539H11.6667V19.9206ZM16.3333 19.9206H19.8333V22.2539H16.3333V19.9206Z"
+                                                    fill="#FAFFFE" />
+                                                <path
+                                                    d="M24.5 8.25391L17.5 1.25391V5.92057C17.5 7.20391 18.5442 8.25391 19.8333 8.25391H24.5Z"
+                                                    fill="#9B9B9B" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_1563_9140">
+                                                    <rect width="28" height="28" fill="white"
+                                                        transform="translate(0 0.0869141)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <span class="font-semibold">{{ file.name }}</span>
+                                    <div>{{ formatSize(file.size) }}</div>
+                                    <p-button icon="pi pi-times" [outlined]="true" [rounded]="true" severity="danger" />
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="file"> </ng-template>
+                    <ng-template pTemplate="empty">
+                        <div class="drag_drop flex align-items-center justify-content-center flex-column">
+                            <i class="">
+                                <svg width="38" height="23" viewBox="0 0 38 23" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_1563_9116)">
+                                        <rect width="38" height="22" transform="translate(0 0.0869141)" fill="white" />
+                                        <path
+                                            d="M30.6104 9.60457C29.9112 4.19571 25.196 0 19.5 0C15.0904 0 11.26 2.53157 9.5112 6.52143C6.0744 7.53028 3.5 10.7171 3.5 14.1429C3.5 18.4753 7.0888 22 11.5 22H29.1C32.6296 22 35.5 19.1809 35.5 15.7143C35.4975 14.3057 35.0146 12.9385 34.1283 11.831C33.242 10.7236 32.0035 9.93969 30.6104 9.60457ZM21.1 14.1429V18.8571H17.9V14.1429H13.1L19.5 6.28571L25.9 14.1429H21.1Z"
+                                            fill="url(#paint0_linear_1563_9116)" />
+                                    </g>
+                                    <defs>
+                                        <linearGradient id="paint0_linear_1563_9116" x1="19.5" y1="0" x2="19.5" y2="22"
+                                            gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#DA2129" />
+                                            <stop offset="0.63" stop-color="#FF6B3D" />
+                                            <stop offset="1" stop-color="#DA2129" />
+                                        </linearGradient>
+                                        <clipPath id="clip0_1563_9116">
+                                            <rect width="38" height="22" fill="white"
+                                                transform="translate(0 0.0869141)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </i>
+                            <p class="mb-0">Drag and drop files OR</p>
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 p-0 mb-12">
+            <label class="mb-2" for="description">Description </label>
+            <input pInputText type="text" formControlName="uploadDocumentDescription" placeholder="Type here">
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2">
+            <p-button label="Upload" type="submit" class="primarybtn" />
+            <p-button label="Cancel" (onClick)="cancelUploadDoc()" class="tertiarybtn" />
+        </div>
+    </form>
+</p-dialog>
+<p-dialog header="Project Document List" [(visible)]="documentList" [modal]="true" class="documentList"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '56vw' }" [draggable]="false"
+  [resizable]="false">
+  <form [formGroup]="listDocForm" (ngSubmit)="deleteDocuments()">
+  <div class="d-flex align-items-center justify-content-end gap-2 w-100 my-2">
+    <p-button label="Add Project Document" (onClick)="openDocUploadListPopUp()" class="primarybtn" />
+    <p-button label="Delete Selected Document" type="submit" class="primarybtn" />
+    <input type="hidden" formControlName="lineItemViewDoc" />
+  </div>
+  <p-table [value]="lstLineitemDocs" [tableStyle]="{ 'min-width': '100%' }" class="height_limit">
+    <ng-template pTemplate="header">
+      <tr>
+        <th><p-tableCheckbox /></th>
+        <th>File Name</th>
+        <th>Description</th>
+        <th>Uploaded By</th>
+        <th>Uploaded On</th>
+        <th>Download</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item >
+      <tr>
+        <td><input type="checkbox" name="user" (click)="setSelectLineItem(item)" /></td>
+        <td>{{item.fileName}}</td>
+        <td>{{item.documentDescription}}</td>
+        <td>{{item.uploadedByName}}</td>
+        <td>{{item.uploadedOn| date:'MM/dd/yyyy'}}</td>
+        <td><a (click)="downloadDocuments(item.docName)">
+                <i>
+                    <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg"> <rect y="0.5" width="22" height="22" rx="2" fill="#EBEBEB" /> <mask id="mask0_2053_8177" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="4" width="14" height="15"> <rect x="4" y="4.5" width="14" height="14" fill="#D9D9D9" /> </mask> <g mask="url(#mask0_2053_8177)"> <path d="M14.9961 13.2402V15.4961H5.97266V13.2402H4.46875V15.4961C4.46875 16.3232 5.14551 17 5.97266 17H14.9961C15.8232 17 16.5 16.3232 16.5 15.4961V13.2402H14.9961ZM14.2441 10.2324L13.1839 9.17217L11.2363 11.1122V4.96875H9.73242V11.1122L7.78486 9.17217L6.72461 10.2324L10.4844 13.9922L14.2441 10.2324Z" fill="#8B8B8B" /> </g> </svg>
+                </i>
+            </a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  </form>
+</p-dialog>

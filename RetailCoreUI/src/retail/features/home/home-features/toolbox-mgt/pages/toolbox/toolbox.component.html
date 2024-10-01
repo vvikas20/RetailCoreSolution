@@ -1,0 +1,630 @@
+<!-- <p>project-schedule works!</p> -->
+<div class="project-user-list">
+  <div class="main-heading d-block mb-2">
+    <div class="col-lg-6 page-heading w-100 p-0">
+      <h1 class="">Toolbox</h1>
+    </div>
+  </div>
+  <div class="left-filter d-flex align-items-center gap-2">
+    <form [formGroup]="frmTextSearch" (ngSubmit)="searchTextAnnouncementList()">
+      <input id="searchall" formControlName="txtSearch" class="search" placeholder="Search here..."
+        [style]="{ width: '18.875rem' }" />
+      <p-button label="Search" class="primarybtn br-1 pr-3" type="submit" />
+    </form>
+    <p-button label="Advance Search" class="primarybtn" (click)="advance()" />
+  </div>
+  <div class="main-content mt-2">
+    <div class="card">
+      <div class="table_filter d-flex align-items-center justify-content-end">
+        <div class="right-filter col-lg-5 p-0">
+          <div class="d-flex align-items-center justify-content-end gap-2">
+            <p-button label="Add New Announcement" class="primarybtn" (click)="restore()" />
+          </div>
+        </div>
+      </div>
+      <div class="tab-view-wrapper">
+        <div class="table">
+          <p-table #dt1 [value]="lstAnnouncementListView" [scrollable]="true" scrollHeight="400px"
+            [tableStyle]="{ 'min-width': '125%' }" [paginator]="true"
+            [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>S.No.</th>
+                <th>Announcement&nbsp;Type<p-columnFilter type="text" field="headerText" display="menu" /></th>
+                <th>Product&nbsp;Type<p-columnFilter type="text" field="productFamilyName" display="menu" /></th>
+                <th>Sub&nbsp;Product<p-columnFilter type="text" field="subProductTypeName" display="menu" /></th>
+                <th>Brand<p-columnFilter type="text" field="brandName" display="menu" /></th>
+                <th>Title<p-columnFilter type="text" field="title" display="menu" /></th>
+                <th>Message<p-columnFilter type="text" field="message" display="menu" /></th>
+                <th>Author<p-columnFilter type="text" field="createdByUserName" display="menu" /></th>
+                <th>Start&nbsp;Date<p-columnFilter type="text" field="startDate" display="menu" /></th>
+                <th>End&nbsp;Date<p-columnFilter type="text" field="endDate" display="menu" /></th>
+                <th>Access&nbsp;to&nbsp;User&nbsp;Roles</th>
+                <th>Status<p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                <th>KCC&nbsp;Owners</th>
+                <th alignFrozen="right" pFrozenColumn>Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{item.sNo}}</td>
+                <td>{{item.headerText}}</td>
+                <td>{{item.productFamilyName}}</td>
+                <td>{{item.subProductTypeName}}</td>
+                <td>{{item.brandName}}</td>
+                <td>{{item.title}}</td>
+                <td [innerHTML]="item.message" style="max-width: 27%; word-break: break-word;"></td>
+                <td>{{item.createdByUserName}}</td>
+                <td>{{item.startDate}}</td>
+                <td>{{item.endDate}}</td>
+                <td>{{item.assignTo}}</td>
+                <td>{{ item.isActive ? 'Active' : 'InActive'}}</td>
+                <td>{{item.owners}}</td>
+                <td alignFrozen="right" pFrozenColumn class="a_table text-center">
+                  <span class="d-flex align-items-center gap-10 justify-content-center">
+                    <a (click)="history(item)" pTooltip="View">
+                      <i>
+                        <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns=" http://www.w3.org/2000/svg">
+                          <path d="M1 8C1 8 3.90909 3 9 3C14.0909 3 17 8 17 8C17 8 14.0909 13 9 13C3.90909 13 1 8 1 8Z"
+                            stroke="#666666" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                          <path
+                            d="M9 10C10.1046 10 11 9.10457 11 8C11 6.89543 10.1046 6 9 6C7.89543 6 7 6.89543 7 8C7 9.10457 7.89543 10 9 10Z"
+                            stroke="#666666" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </i>
+                    </a>
+                    <a (click)="edit_details(item)" pTooltip="Edit">
+                      <i>
+                        <svg width="14" height="14" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M4.94828 2.13425L5.93104 3.09811L1.37931 7.642V8.62306H2.34483L6.91379 4.06196L7.89655 5.02582L2.93103 10H0V7.07401L4.94828 2.13425ZM7.89655 5.02582L4.94828 2.13425L6.67241 0.413081C6.94827 0.137694 7.27885 0 7.66414 0C8.04897 0 8.37356 0.137694 8.63793 0.413081L9.60345 1.39415C9.86782 1.65806 10 1.97935 10 2.358C10 2.73666 9.86782 3.05795 9.60345 3.32186L7.89655 5.02582Z"
+                            fill="#666666" />
+                        </svg>
+                      </i>
+                    </a>
+                    <a (click)="deletePop(item.id)" pTooltip="Delete">
+                      <p-toast />
+                      <p-confirmDialog />
+                      <i>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_27_79)">
+                            <path
+                              d="M11.9999 14.6666H3.99992V5.33331H2.66659V14.4666C2.66659 15.2 3.26659 16 3.99992 16H11.9999C12.7333 16 13.3333 15.2 13.3333 14.4666V5.33331H11.9999V14.6666ZM9.99992 2.66665V1.33331H5.99992V2.66665H1.33325V3.99998H14.6666V2.66665H9.99992ZM5.99992 6.66665V13.3333H7.33325V6.66665H5.99992ZM8.66658 6.66665V13.3333H9.99992V6.66665H8.66658Z"
+                              fill="#666666" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_27_79">
+                              <rect width="16" height="16" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </i>
+                    </a>
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog header="Advance Search" [(visible)]="visible" [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '36vw' }" [draggable]="false"
+  [resizable]="false">
+  <div class="row mx-0 w-100 mb-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+      <label class="mb-0 nowrap" for="schedulename">Search Field</label>
+      <p-dropdown placeholder="Search Fields" [showClear]="false" class="w-100" />
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+      <label class="mb-0 nowrap" for="schedulename">Equals</label>
+      <p-dropdown placeholder="Search Fields" [showClear]="false" class="w-100" />
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+      <label class="mb-0 nowrap" for="schedulename">Search Text</label>
+      <input pInputText type="text" placeholder="Project Name">
+    </div>
+
+  </div>
+  <div class="d-flex align-items-center justify-content-end gap-2">
+    <p-button label="Clear" class="tertiarybtn" />
+    <p-button label="Search" class="primarybtn" />
+  </div>
+</p-dialog>
+<form [formGroup]="formAddNewAnnouncememt" (ngSubmit)="addNewAnnouncememt()">
+  <p-dialog header="Add New Announcememt" [(visible)]="display" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false" class="restore_pop">
+    <div class="filter py-2 mb-3">
+      <div class="row mx-0 w-100">
+        <div class="col-lg-3 col-md-4 col-ms-12 pl-0 mb-2">
+          <label class="" for="schedulename"><b>Main Header:</b><span class="text-danger">*</span></label>
+          <p-dropdown placeholder="Select" [options]="lstMainHeder" optionLabel="name" [filter]="true" filterBy="name"
+            [showClear]="true" class="w-100" formControlName="selectMainHeader"
+            (ngModelChange)="headerChange($event)" />
+          <div class="text-danger"
+            *ngIf="formAddNewAnnouncememt.controls['selectMainHeader'].invalid && (formAddNewAnnouncememt.controls['selectMainHeader'].touched  || formAddNewAnnouncememt.controls['selectMainHeader'].dirty || isPreAddFormSubmitted)">
+            <span class="required_text"
+              *ngIf="formAddNewAnnouncememt.controls['selectMainHeader'].errors?.['required']">Main Header
+              required</span>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-ms-12 mb-2" [hidden]="prdVisible">
+          <label class="" for="issuearea"><b>Product Type:</b><span class="text-danger">*</span></label>
+          <p-dropdown placeholder="Select" [options]="lstProductType" optionLabel="name" [filter]="true" filterBy="name"
+            [showClear]="true" (ngModelChange)='fillSubProducTypes($event)' class="w-100"
+            formControlName="selectIProductType" />
+          <div class="text-danger"
+            *ngIf="formAddNewAnnouncememt.controls['selectIProductType'].invalid && (formAddNewAnnouncememt.controls['selectIProductType'].touched  || formAddNewAnnouncememt.controls['selectIProductType'].dirty || isPreAddFormSubmitted)">
+            <span class="required_text"
+              *ngIf="formAddNewAnnouncememt.controls['selectIProductType'].errors?.['required']">Product Type
+              required</span>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-ms-12 mb-2" [hidden]="subPrdVisible">
+          <label class="" for="projectname"><b>Sub Product:</b><span class="text-danger">*</span></label>
+          <p-dropdown placeholder="Select" [options]="lstSubProductType" optionLabel="name" [filter]="true"
+            filterBy="name" [showClear]="true" class="w-100" formControlName="selectISubProductType" />
+          <div class="text-danger"
+            *ngIf="formAddNewAnnouncememt.controls['selectISubProductType'].invalid && (formAddNewAnnouncememt.controls['selectISubProductType'].touched  || formAddNewAnnouncememt.controls['selectISubProductType'].dirty || isPreAddFormSubmitted)">
+            <span class="required_text"
+              *ngIf="formAddNewAnnouncememt.controls['selectISubProductType'].errors?.['required']">Sub Product Type
+              required</span>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-ms-12 pr-0 mb-2" [hidden]="brandVisible">
+          <label class="" for="issuetype"><b>Brand:</b><span class="text-danger">*</span></label>
+          <p-dropdown placeholder="Select" [options]="lstBrand" optionLabel="name" [filter]="true" filterBy="name"
+            [showClear]="true" class="w-100" formControlName="selectIBrand" />
+          <div class="text-danger"
+            *ngIf="formAddNewAnnouncememt.controls['selectIBrand'].invalid && (formAddNewAnnouncememt.controls['selectIBrand'].touched  || formAddNewAnnouncememt.controls['selectIBrand'].dirty || isPreAddFormSubmitted)">
+            <span class="required_text"
+              *ngIf="formAddNewAnnouncememt.controls['selectIBrand'].errors?.['required']">Brand Type
+              required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-end gap-2 mt-2">
+      <p-button label="Submit" (onClick)="nextAddAnnouncememt()" class="primarybtn small" />
+      <p-button label="Cancel" (onClick)="cancel()" class="tertiarybtn small" />
+    </div>
+
+  </p-dialog>
+  <p-dialog header="Add Announcememt" [(visible)]="add" [modal]="true" class="edit_announce"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '70vw' }" [draggable]="false"
+    [resizable]="false">
+    <p class="m-0 by-1 py-1 info">
+      <span class="head-span" [hidden]="prdVisible"><b>Product Type:</b></span><span
+        [hidden]="prdVisible">{{selectIProductTypeLabel}}</span>
+      <span class="head-span" [hidden]="subPrdVisible"><b>Sub Product:</b></span><span [hidden]="subPrdVisible">
+        {{selectISubProductTypeLabel}}</span>
+      <span class="head-span" [hidden]="brandVisible"><b>Brand:</b></span><span
+        [hidden]="brandVisible">{{selectIBrandLabel}}<br></span>
+      <span class="head-span"><b>Main Header:</b></span><span>{{mainHeaderLabel}}</span>
+    </p>
+    <div class="row mx-0 w-100 mt-3" style="font-size: 14px;">
+      <div class="col-lg-12 col-md-12 col-ms-12 p-0 mb-2">
+        <label class="mb-0 nowrap" for="schedulename"><b>Title:</b><span class="text-danger">*</span></label>
+        <input pInputText type="text" formControlName="txtTitle" placeholder="Type Title Here">
+        <div class="text-danger"
+          *ngIf="formAddNewAnnouncememt.controls['txtTitle'].invalid && (formAddNewAnnouncememt.controls['txtTitle'].touched  || formAddNewAnnouncememt.controls['txtTitle'].dirty || isAddFormSubmitted)">
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['txtTitle'].errors?.['required']">Title
+            required</span>
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['txtTitle'].errors?.['minlength']">Minimum
+            4 characters required</span>
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['txtTitle'].errors?.['maxlength']">Maximum
+            100 characters allowed</span>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-ms-12 p-0 mb-2">
+        <label class="mb-0 nowrap" for="schedulename"><b>Message:</b><span class="text-danger">*</span></label>
+        <p-editor formControlName="txtMessage" [style]="{ height: '200px' }" />
+        <div class="text-danger"
+          *ngIf="formAddNewAnnouncememt.controls['txtMessage'].invalid && (formAddNewAnnouncememt.controls['txtMessage'].touched  || formAddNewAnnouncememt.controls['txtMessage'].dirty || isAddFormSubmitted)">
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['txtMessage'].errors?.['required']">
+            Message required</span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>Access To:</b><span class="text-danger">*</span></label>
+        <p-multiSelect [options]="lstAccessTo" formControlName="selectAccessTo" [filter]="false" optionLabel="name"
+          placeholder="Access To" [virtualScroll]="true" [virtualScrollItemSize]="43"
+          class="multiselect-custom-virtual-scroll"  />
+        <div class="text-danger"
+          *ngIf="formAddNewAnnouncememt.controls['selectAccessTo'].invalid && (formAddNewAnnouncememt.controls['selectAccessTo'].touched  || formAddNewAnnouncememt.controls['selectAccessTo'].dirty || isAddFormSubmitted)">
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['selectAccessTo'].errors?.['required']">
+            Access To required</span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>Add Owners:</b><span class="text-danger">*</span></label>
+        <p-multiSelect [options]="lstOwnersTo" formControlName="selectOwners" [filter]="false" optionLabel="name"
+          placeholder="Add Owners" [virtualScroll]="true" [virtualScrollItemSize]="43"
+          class="multiselect-custom-virtual-scroll" />
+        <div class="text-danger"
+          *ngIf="formAddNewAnnouncememt.controls['selectOwners'].invalid && (formAddNewAnnouncememt.controls['selectOwners'].touched  || formAddNewAnnouncememt.controls['selectOwners'].dirty || isAddFormSubmitted)">
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['selectOwners'].errors?.['required']">
+            Owners required</span>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>Start Date:</b><span class="text-danger">*</span></label>
+        <p-calendar [iconDisplay]="'input'" [minDate]="minDate" [showIcon]="true" inputId="icondisplay" formControlName="txtStartDate" />
+        <div class="text-danger"
+          *ngIf="formAddNewAnnouncememt.controls['txtStartDate'].invalid && (formAddNewAnnouncememt.controls['txtStartDate'].touched  || formAddNewAnnouncememt.controls['txtStartDate'].dirty || isAddFormSubmitted)">
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['txtStartDate'].errors?.['required']">
+            Start Date required</span>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>End Date:</b><span class="text-danger">*</span></label>
+        <p-calendar [iconDisplay]="'input'" [minDate]="minDate" [showIcon]="true" inputId="icondisplay" formControlName="txtEndDate" />
+        <div class="text-danger"
+          *ngIf="formAddNewAnnouncememt.controls['txtEndDate'].invalid && (formAddNewAnnouncememt.controls['txtEndDate'].touched  || formAddNewAnnouncememt.controls['txtEndDate'].dirty || isAddFormSubmitted)">
+          <span class="required_text" *ngIf="formAddNewAnnouncememt.controls['txtEndDate'].errors?.['required']">
+            End Date required</span>
+        </div>
+        <div class="text-danger" [hidden]="isValidDate">
+          <span class="required_text">
+            End Date cannot be less than Start Date.</span>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-12 pr-0 overflow-hidden">
+        <label class="mb-0 nowrap" for="schedulename"><b>Select Attachment:</b></label>
+        <p-button class="primarybtn" label="Upload" (click)="onUpload()" />
+      </div>
+      <div class="d-flex align-items-center justify-content-end gap-2 w-100 mt-3">
+        <p-button label="Save" type="Submit" class="primarybtn" />
+        <p-button label="Cancel" (onClick)="cancelAnnouncememt()" class="tertiarybtn" />
+      </div>
+    </div>
+  </p-dialog>
+</form>
+<form [formGroup]="formEditNewAnnouncememt" (ngSubmit)="editAnnouncememt()">
+  <p-dialog header="Edit Announcememt" [(visible)]="edit" [modal]="true" class="edit_announce"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '70vw' }" [draggable]="false"
+    [resizable]="false">
+    <p class="m-0 by-1 py-1 info">
+      <span class="head-span"><b>Product Type:</b></span><span>{{selectIProductTypeLabel}}</span>
+      <span class="head-span"><b>Sub Product:</b></span><span> {{selectISubProductTypeLabel}}</span>
+      <span class="head-span"><b>Brand:</b></span><span>{{selectIBrandLabel}}</span>
+      <br>
+      <span class="head-span"><b>Main Header:</b></span><span>{{mainHeaderLabel}}</span>
+      <input type="hidden" formControlName="hdnAnnouncementId" />
+      <input type="hidden" formControlName="hdnbrandId" />
+      <input type="hidden" formControlName="hdnproductFamilyID" />
+      <input type="hidden" formControlName="hdnsubProductTypeId" />
+    </p>
+    <div class="row mx-0 w-100 mt-3" style="font-size: 14px;">
+      <div class="col-lg-12 col-md-12 col-ms-12 p-0 mb-2">
+        <label class="mb-0 nowrap" for="schedulename"><b>Title:</b><span class="text-danger">*</span></label>
+        <input pInputText type="text" formControlName="txtTitle" placeholder="Type Title Here">
+        <div class="text-danger"
+          *ngIf="formEditNewAnnouncememt.controls['txtTitle'].invalid && (formEditNewAnnouncememt.controls['txtTitle'].touched  || formEditNewAnnouncememt.controls['txtTitle'].dirty || isEditFormSubmitted)">
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['txtTitle'].errors?.['required']">Title
+            required</span>
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['txtTitle'].errors?.['minlength']">Minimum
+            4 characters required</span>
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['txtTitle'].errors?.['maxlength']">Maximum
+            100 characters allowed</span>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-ms-12 p-0 mb-2">
+        <label class="mb-0 nowrap" for="schedulename"><b>Message:</b><span class="text-danger">*</span></label>
+        <p-editor formControlName="txtMessage" [style]="{ height: '200px' }" />
+        <div class="text-danger" [hidden]="isMsgEditFormSubmitted">
+          <span class="required_text">
+            Message required</span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>Access To:</b><span class="text-danger">*</span></label>
+        <p-multiSelect [options]="lstAccessTo" formControlName="selectAccessTo" [filter]="false" optionLabel="name"
+          placeholder="Access To" [virtualScroll]="true" [virtualScrollItemSize]="43"
+          class="multiselect-custom-virtual-scroll" />
+        <div class="text-danger"
+          *ngIf="formEditNewAnnouncememt.controls['selectAccessTo'].invalid && (formEditNewAnnouncememt.controls['selectAccessTo'].touched  || formEditNewAnnouncememt.controls['selectAccessTo'].dirty || isEditFormSubmitted)">
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['selectAccessTo'].errors?.['required']">
+            Access To required</span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>Add Owners:</b><span class="text-danger">*</span></label>
+        <p-multiSelect [options]="lstOwnersTo" formControlName="selectOwners" [filter]="false" optionLabel="name"
+          placeholder="Add Owners" [virtualScroll]="true" [virtualScrollItemSize]="43"
+          class="multiselect-custom-virtual-scroll" />
+        <div class="text-danger"
+          *ngIf="formEditNewAnnouncememt.controls['selectOwners'].invalid && (formEditNewAnnouncememt.controls['selectOwners'].touched  || formEditNewAnnouncememt.controls['selectOwners'].dirty || isEditFormSubmitted)">
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['selectOwners'].errors?.['required']">
+            Owners required</span>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>Start Date:</b><span class="text-danger">*</span></label>
+        <p-calendar [iconDisplay]="'input'" [minDate]="minDate" [showIcon]="true" inputId="icondisplay" formControlName="txtStartDate" />
+        <div class="text-danger"
+          *ngIf="formEditNewAnnouncememt.controls['txtStartDate'].invalid && (formEditNewAnnouncememt.controls['txtStartDate'].touched  || formEditNewAnnouncememt.controls['txtStartDate'].dirty || isEditFormSubmitted)">
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['txtStartDate'].errors?.['required']">
+            Start Date required</span>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 pl-0">
+        <label class="mb-0 nowrap" for="schedulename"><b>End Date:</b><span class="text-danger">*</span></label>
+        <p-calendar [iconDisplay]="'input'" [minDate]="minDate" [showIcon]="true" inputId="icondisplay" formControlName="txtEndDate" />
+        <div class="text-danger"
+          *ngIf="formEditNewAnnouncememt.controls['txtEndDate'].invalid && (formEditNewAnnouncememt.controls['txtEndDate'].touched  || formEditNewAnnouncememt.controls['txtEndDate'].dirty || isEditFormSubmitted)">
+          <span class="required_text" *ngIf="formEditNewAnnouncememt.controls['txtEndDate'].errors?.['required']">
+            End Date required</span>
+        </div>
+        <div class="text-danger" [hidden]="isValidDate">
+          <span class="required_text">
+            End Date cannot be less than Start Date.</span>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 pr-0 overflow-hidden">
+        <label class="mb-0 nowrap" for="schedulename"><b>Select Attachment:</b></label>
+        <p-button class="primarybtn" label="View/Upload" (click)="onEditViewUpload()" />
+      </div>
+      <div class="d-flex align-items-center justify-content-end gap-2 w-100 mt-3">
+        <p-button label="Save" type="Submit" class="primarybtn" />
+        <p-button label="Cancel" (onClick)="cancelEditAnnouncememt()" class="tertiarybtn" />
+      </div>
+    </div>
+  </p-dialog>
+</form>
+<p-dialog header="View Announcememt" [(visible)]="view" [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '56vw' }" [draggable]="false"
+  [resizable]="false">
+  <p class="m-0 by-1 py-1 info">
+    <span class="head-span"><b>Product Type:</b></span><span>{{viewAnnouncememt.productFamilyName}}</span>
+    <span class="head-span"><b>Sub Product:</b></span><span>{{viewAnnouncememt.subProductTypeName}}</span>
+    <span class="head-span"><b>Brand:</b></span><span>{{viewAnnouncememt.brandName}}</span>
+    <br>
+    <span class="head-span"><b>Main Header:</b></span><span>{{viewAnnouncememt.headerText}}</span>
+  </p>
+  <div class="row mx-0 w-100 mt-4" style="font-size: 14px;">
+    <div class="col-lg-2 mb-2"><b>Title:</b></div>
+    <div class="col-lg-10 color-black font-small">{{viewAnnouncememt.title}}</div>
+    <div class="col-lg-2 mb-5"><b>Message:</b></div>
+    <div class="col-lg-10 color-black font-small">  
+      <div [innerHTML]="viewAnnouncememt.message"></div>
+    </div>
+    <div class="col-lg-2 mb-2"><b>Access To:</b></div>
+    <div class="col-lg-10 color-black font-small">{{viewAnnouncememt.assignTo}}</div>
+    <div class="col-lg-2 mb-2"><b>Owners:</b></div>
+    <div class="col-lg-10 color-black font-small">{{viewAnnouncememt.owners}}</div>
+    <div class="col-lg-2 mb-2"><b>Status:</b></div>
+    <div class="col-lg-10 color-black font-small">{{ viewAnnouncememt.isActive ? 'Active' : 'InActive'}}</div>
+    <div class="col-lg-2 mb-2"><b>Attachment:</b></div>
+
+    <div class="col-lg-10 color-blue font-small">
+      <a (click)="downloadDocuments(item.docName)" class="ml-2 color-blue"
+        *ngFor="let item of viewAnnouncememt.announcementDocuments">
+        {{item.docName}}
+      </a>
+    </div>
+
+    <div class="col-lg-2 mb-2"><b>Start Date:</b></div>
+    <div class="col-lg-10 color-black font-small">{{viewAnnouncememt.startDate| date:'MM/dd/yyyy'}}</div>
+    <div class="col-lg-2 mb-2"><b>End Date:</b></div>
+    <div class="col-lg-10 color-black font-small">{{viewAnnouncememt.endDate| date:'MM/dd/yyyy'}}</div>
+  </div>
+</p-dialog>
+<form [formGroup]="formDeleteNewAnnouncememt" (ngSubmit)="deleteAnnouncememt()">
+  <p-dialog header="Delete" [(visible)]="deletepop" [modal]="true" class="deletePop"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '23vw' }" [draggable]="false"
+    [resizable]="false">
+    <input type="hidden" formControlName="hdnAnnouncementId" />
+    <p>Are you sure to delete this announcement?</p>
+    <div class="d-flex align-items-center justify-content-end gap-2 w-100 mt-3">
+      <p-button label="No" (onClick)="closeDeletePopup()" class="tertiarybtn" />
+      <p-button label="Yes" type="submit" class="primarybtn" />
+    </div>
+  </p-dialog>
+</form>
+<p-dialog header="Upload Document" [(visible)]="show" [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '42vw' }" [draggable]="false"
+  [resizable]="false" class="upload_pop_up">
+  <form [formGroup]="uploadDocForm" (ngSubmit)="uploadDocuments()">
+    <div class="row mx-0 w-100">
+      <div class="col-lg-12 col-md-12 col-sm-12 p-0 mb-12">
+        <input type="hidden" formControlName="hdnDocUploadAnnouncementId" />
+        <p-fileUpload #fileuploader name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php"
+          [multiple]="true" maxFileSize="1000000" (onUpload)="onTemplatedUpload()"
+          (onSelect)="onSelectedFiles($event)">
+          <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback"
+            let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+            <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
+              <div class="flex gap-2 browse_btn">
+                <p-button (onClick)="choose($event, chooseCallback)" [rounded]="true" [outlined]="true"
+                  class="browse_file" label="Browse File" />
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles"
+            let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
+            <div *ngIf="files?.length > 0" class="w-100" style="max-height: 190px; overflow-y: auto;">
+              <div class="flex flex-wrap p-0 sm:p-5 gap-5 upload_progress">
+                <div *ngFor="let file of files; let i = index"
+                  class="card gap-12 flex flex-row surface-border align-items-baseline gap-3 position-relative mb-12 border-0">
+                  <div>
+                    <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_1563_9140)">
+                        <path
+                          d="M5.83333 2.4209C4.54463 2.4209 3.5 3.4709 3.5 4.75423V14.0876V18.7542V25.7542C3.5 27.0376 4.54463 28.0876 5.83333 28.0876H22.1667C23.4558 28.0876 24.5 27.0376 24.5 25.7542V18.7542V14.0876V9.4209L17.5 2.4209H5.83333Z"
+                          fill="#9B9B9B" />
+                        <path
+                          d="M5.83333 1.25391C4.54463 1.25391 3.5 2.30391 3.5 3.58724V12.9206V17.5872V24.5872C3.5 25.8706 4.54463 26.9206 5.83333 26.9206H22.1667C23.4558 26.9206 24.5 25.8706 24.5 24.5872V17.5872V12.9206V8.25391L17.5 1.25391H5.83333Z"
+                          fill="#C8C8C8" />
+                        <path d="M10.5013 5.9209H8.16797V22.2542H10.5013V5.9209Z" fill="#1ABC9C" />
+                        <path
+                          d="M8.16667 4.75391C7.52232 4.75391 7 5.27622 7 5.92057V8.25391V9.42057V11.7539V12.9206V15.2539V16.4206V18.7539V19.9206V22.2539C7 22.8979 7.52232 23.4206 8.16667 23.4206H10.5H11.6667H15.1667H16.3333H19.8333C20.4773 23.4206 21 22.8979 21 22.2539V19.9206V18.7539V16.4206V12.9206V9.42057V8.25391V5.92057C21 5.27622 20.4773 4.75391 19.8333 4.75391H16.3333H15.1667H10.5H8.16667ZM8.16667 5.92057H10.5V8.25391H8.16667V5.92057ZM11.6667 5.92057H15.1667V8.25391H11.6667V5.92057ZM16.3333 5.92057H19.8333V8.25391H16.3333V5.92057ZM8.16667 9.42057H10.5V11.7539H8.16667V9.42057ZM11.6667 9.42057H15.1667V11.7539H11.6667V9.42057ZM16.3333 9.42057H19.8333V11.7539H16.3333V9.42057ZM8.16667 12.9206H10.5V15.2539H8.16667V12.9206ZM11.6667 12.9206H15.1667V15.2539H11.6667V12.9206ZM16.3333 12.9206H19.8333V15.2539H16.3333V12.9206ZM8.16667 16.4206H10.5V18.7539H8.16667V16.4206ZM11.6667 16.4206H15.1667V18.7539H11.6667V16.4206ZM16.3333 16.4206H19.8333V18.7539H16.3333V16.4206ZM8.16667 19.9206H10.5V22.2539H8.16667V19.9206ZM11.6667 19.9206H15.1667V22.2539H11.6667V19.9206ZM16.3333 19.9206H19.8333V22.2539H16.3333V19.9206Z"
+                          fill="#FAFFFE" />
+                        <path d="M24.5 8.25391L17.5 1.25391V5.92057C17.5 7.20391 18.5442 8.25391 19.8333 8.25391H24.5Z"
+                          fill="#9B9B9B" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_1563_9140">
+                          <rect width="28" height="28" fill="white" transform="translate(0 0.0869141)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+
+                  </div>
+                  <div class="position-absolute d-flex align-items-center justify-content-between progress_data_info">
+                    <span class="upload_info">{{ file.name }}</span>
+                    <span class="upload_info">{{ formatSize(file.size) }}</span>
+                  </div>
+                  <p-progressBar [value]="totalSizePercent" [showValue]="false"
+                    styleClass="md:w-20rem h-1rem w-full md:ml-auto"
+                    [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+                    <span class="white-space-nowrap">{{ totalSize }}</span>
+                  </p-progressBar>
+                  <p-button class="trash" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, i)">
+                    <i>
+                      <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M4.08203 12.3369C3.7612 12.3369 3.48664 12.2228 3.25836 11.9945C3.0297 11.7658 2.91536 11.4911 2.91536 11.1702V3.58691H2.33203V2.42025H5.2487V1.83691H8.7487V2.42025H11.6654V3.58691H11.082V11.1702C11.082 11.4911 10.9679 11.7658 10.7396 11.9945C10.5109 12.2228 10.2362 12.3369 9.91536 12.3369H4.08203ZM9.91536 3.58691H4.08203V11.1702H9.91536V3.58691ZM5.2487 10.0036H6.41536V4.75358H5.2487V10.0036ZM7.58203 10.0036H8.7487V4.75358H7.58203V10.0036Z"
+                          fill="#666666" />
+                      </svg>
+                    </i>
+                  </p-button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="uploadedFiles?.length > 0">
+              <h5>Completed</h5>
+              <div class="flex flex-wrap p-0 sm:p-5 gap-5">
+                <div *ngFor="let file of uploadedFiles; let i = index"
+                  class="card m-0 px-6 flex flex-column border-1 surface-border align-items-center gap-3">
+                  <div>
+                    <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_1563_9140)">
+                        <path
+                          d="M5.83333 2.4209C4.54463 2.4209 3.5 3.4709 3.5 4.75423V14.0876V18.7542V25.7542C3.5 27.0376 4.54463 28.0876 5.83333 28.0876H22.1667C23.4558 28.0876 24.5 27.0376 24.5 25.7542V18.7542V14.0876V9.4209L17.5 2.4209H5.83333Z"
+                          fill="#9B9B9B" />
+                        <path
+                          d="M5.83333 1.25391C4.54463 1.25391 3.5 2.30391 3.5 3.58724V12.9206V17.5872V24.5872C3.5 25.8706 4.54463 26.9206 5.83333 26.9206H22.1667C23.4558 26.9206 24.5 25.8706 24.5 24.5872V17.5872V12.9206V8.25391L17.5 1.25391H5.83333Z"
+                          fill="#C8C8C8" />
+                        <path d="M10.5013 5.9209H8.16797V22.2542H10.5013V5.9209Z" fill="#1ABC9C" />
+                        <path
+                          d="M8.16667 4.75391C7.52232 4.75391 7 5.27622 7 5.92057V8.25391V9.42057V11.7539V12.9206V15.2539V16.4206V18.7539V19.9206V22.2539C7 22.8979 7.52232 23.4206 8.16667 23.4206H10.5H11.6667H15.1667H16.3333H19.8333C20.4773 23.4206 21 22.8979 21 22.2539V19.9206V18.7539V16.4206V12.9206V9.42057V8.25391V5.92057C21 5.27622 20.4773 4.75391 19.8333 4.75391H16.3333H15.1667H10.5H8.16667ZM8.16667 5.92057H10.5V8.25391H8.16667V5.92057ZM11.6667 5.92057H15.1667V8.25391H11.6667V5.92057ZM16.3333 5.92057H19.8333V8.25391H16.3333V5.92057ZM8.16667 9.42057H10.5V11.7539H8.16667V9.42057ZM11.6667 9.42057H15.1667V11.7539H11.6667V9.42057ZM16.3333 9.42057H19.8333V11.7539H16.3333V9.42057ZM8.16667 12.9206H10.5V15.2539H8.16667V12.9206ZM11.6667 12.9206H15.1667V15.2539H11.6667V12.9206ZM16.3333 12.9206H19.8333V15.2539H16.3333V12.9206ZM8.16667 16.4206H10.5V18.7539H8.16667V16.4206ZM11.6667 16.4206H15.1667V18.7539H11.6667V16.4206ZM16.3333 16.4206H19.8333V18.7539H16.3333V16.4206ZM8.16667 19.9206H10.5V22.2539H8.16667V19.9206ZM11.6667 19.9206H15.1667V22.2539H11.6667V19.9206ZM16.3333 19.9206H19.8333V22.2539H16.3333V19.9206Z"
+                          fill="#FAFFFE" />
+                        <path d="M24.5 8.25391L17.5 1.25391V5.92057C17.5 7.20391 18.5442 8.25391 19.8333 8.25391H24.5Z"
+                          fill="#9B9B9B" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_1563_9140">
+                          <rect width="28" height="28" fill="white" transform="translate(0 0.0869141)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="font-semibold">{{ file.name }}</span>
+                  <div>{{ formatSize(file.size) }}</div>
+                  <p-button icon="pi pi-times" [outlined]="true" [rounded]="true" severity="danger" />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="file"> </ng-template>
+          <ng-template pTemplate="empty">
+            <div class="drag_drop flex align-items-center justify-content-center flex-column">
+              <i class="">
+                <svg width="38" height="23" viewBox="0 0 38 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_1563_9116)">
+                    <rect width="38" height="22" transform="translate(0 0.0869141)" fill="white" />
+                    <path
+                      d="M30.6104 9.60457C29.9112 4.19571 25.196 0 19.5 0C15.0904 0 11.26 2.53157 9.5112 6.52143C6.0744 7.53028 3.5 10.7171 3.5 14.1429C3.5 18.4753 7.0888 22 11.5 22H29.1C32.6296 22 35.5 19.1809 35.5 15.7143C35.4975 14.3057 35.0146 12.9385 34.1283 11.831C33.242 10.7236 32.0035 9.93969 30.6104 9.60457ZM21.1 14.1429V18.8571H17.9V14.1429H13.1L19.5 6.28571L25.9 14.1429H21.1Z"
+                      fill="url(#paint0_linear_1563_9116)" />
+                  </g>
+                  <defs>
+                    <linearGradient id="paint0_linear_1563_9116" x1="19.5" y1="0" x2="19.5" y2="22"
+                      gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#DA2129" />
+                      <stop offset="0.63" stop-color="#FF6B3D" />
+                      <stop offset="1" stop-color="#DA2129" />
+                    </linearGradient>
+                    <clipPath id="clip0_1563_9116">
+                      <rect width="38" height="22" fill="white" transform="translate(0 0.0869141)" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </i>
+              <p class="mb-0">Drag and drop files OR</p>
+            </div>
+          </ng-template>
+        </p-fileUpload>
+        <div class="text-danger" [hidden]="isDocUploaded">
+          <span class="required_text">Document required</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 p-0 mb-12">
+      <label class="mb-2" for="description"><b>Description:</b> <span class="text-danger">*</span></label>
+      <input pInputText type="text" formControlName="uploadDocumentDescription" placeholder="Type here">
+      <div class="text-danger"
+        *ngIf="uploadDocForm.controls['uploadDocumentDescription'].invalid && (uploadDocForm.controls['uploadDocumentDescription'].touched  || uploadDocForm.controls['uploadDocumentDescription'].dirty || isAddFormDocUpload)">
+        <span class="required_text"
+          *ngIf="uploadDocForm.controls['uploadDocumentDescription'].errors?.['required']">Description required</span>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-end gap-2">
+      <p-button label="Upload" type="submit" class="primarybtn" />
+      <p-button label="Cancel" (onClick)="cancelUploadDoc()" class="tertiarybtn" />
+    </div>
+  </form>
+</p-dialog>
+<p-dialog header="Announcememt Document List" [(visible)]="documentList" [modal]="true" class="documentList"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '56vw' }" [draggable]="false"
+  [resizable]="false">
+  <form [formGroup]="listDocForm" (ngSubmit)="deleteDocuments()">
+    <div class="d-flex align-items-center justify-content-end gap-2 w-100 my-2">
+      <p-button label="Add Announcememt Document" (onClick)="openDocUploadListPopUp()" class="primarybtn" />
+      <p-button label="Delete Selected Document" type="submit" class="primarybtn" />
+      <input type="hidden" formControlName="lineItemViewDoc" />
+    </div>
+    <p-table [value]="lstLineitemDocs" [tableStyle]="{ 'min-width': '100%' }" class="height_limit">
+      <ng-template pTemplate="header">
+        <tr>
+          <th><input type="checkbox" name="user" (click)="selectAllDocs()" /></th>
+          <th>File Name</th>
+          <th>Description</th>
+          <th>Uploaded By</th>
+          <th>Uploaded On</th>
+          <th>Download</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td><input type="checkbox" name="user" [checked]="item.isSelected" (click)="setSelectLineItem(item)" /></td>
+          <td>{{item.docName}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.uploadedByName}}</td>
+          <td>{{item.createdDate| date:'MM/dd/yyyy'}}</td>
+          <td><a (click)="downloadDocuments(item.docName)">
+              <i>
+                <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect y="0.5" width="22" height="22" rx="2" fill="#EBEBEB" />
+                  <mask id="mask0_2053_8177" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="4" width="14"
+                    height="15">
+                    <rect x="4" y="4.5" width="14" height="14" fill="#D9D9D9" />
+                  </mask>
+                  <g mask="url(#mask0_2053_8177)">
+                    <path
+                      d="M14.9961 13.2402V15.4961H5.97266V13.2402H4.46875V15.4961C4.46875 16.3232 5.14551 17 5.97266 17H14.9961C15.8232 17 16.5 16.3232 16.5 15.4961V13.2402H14.9961ZM14.2441 10.2324L13.1839 9.17217L11.2363 11.1122V4.96875H9.73242V11.1122L7.78486 9.17217L6.72461 10.2324L10.4844 13.9922L14.2441 10.2324Z"
+                      fill="#8B8B8B" />
+                  </g>
+                </svg>
+              </i>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+</p-dialog>
