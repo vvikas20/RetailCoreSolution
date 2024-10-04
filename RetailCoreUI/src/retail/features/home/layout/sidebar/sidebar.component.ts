@@ -4,28 +4,30 @@ import { Router } from '@angular/router';
 import { MenuManagementService } from '../../services/menu-mangement.service';
 import { LayoutService } from '../../../../core/services/layout.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UI_Modules } from '../../../../shared/modules/ui-modules.export';
+import { Utility } from '../../../../core/utility/utility';
 
 @Component({
   selector: 'retail-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, UI_Modules],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   providers: [MenuManagementService]
 })
 export class SidebarComponent {
   selectedMenu = '';
-  toggleStateClass = "";
-  lstLeftMenu: Array<any> = [];
+  toggleState: boolean = false;
+  menuItems: Array<any> = [];
   _viewSVG:any= '';
 
   constructor(private router: Router
     , private menuManagementService: MenuManagementService
-    , private layoutService: LayoutService
+    , public layoutService: LayoutService
   , private sanitizer: DomSanitizer) { }
 
   setActive(selectedItem: any) {
-    this.lstLeftMenu.forEach(item => item.active = false);
+    this.menuItems.forEach(item => item.active = false);
     selectedItem.active = true;
     this.navigateToUrl(selectedItem.url);
   }
@@ -35,27 +37,19 @@ export class SidebarComponent {
   }
 
   ngOnInit() {
+    this.menuItems = this.menuManagementService.appMenuItems;
     // this.fillLeftMenu();
     this.layoutService.toggleObervable.subscribe((expand) => {
-      this.toggleStateClass = expand ? "open" : "";
+      this.toggleState = expand;
     });
   }
+
   fillLeftMenu() {
-    this.menuManagementService.getLeftSideMenus().subscribe((menus) => {
-      this.lstLeftMenu = menus
-        .filter(menu => menu.isActive) // Filter by isActive
-        .map((menu) => {
-          return {
-            name: menu.name,
-            parent: menu.parentId,
-            active: false,
-            url: menu.routePath,
-            child: menu.child,
-            menuOrder: menu.menuOrder,
-            menuIcon:this.sanitizer.bypassSecurityTrustHtml(menu.menuIcon)
-          };
-        })
-        .sort((a, b) => a.menuOrder.localeCompare(b.menuOrder));
+    this.menuManagementService.getMenuItems().subscribe((menus) => {
+      this.menuItems = menus;
+    }, (err) => {
+      // this.lstLeftMenu = Utility.innerJoin(this.menuManagementService.lstAppMenu, this.menuManagementService.lstAppMenu, 'validationKey', 'validationKey');
+      this.menuItems = []
     });
   }
 }

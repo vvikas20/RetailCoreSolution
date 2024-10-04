@@ -14,11 +14,13 @@ export class LayoutService {
   constructor() { }
 
   expandSidebar(){
-    this.toggleSubject.next(true);
+    this.toggleState = true;
+    this.toggleSubject.next(this.toggleState);
   }
 
   collapseSidebar(){
-    this.toggleSubject.next(false);
+    this.toggleState = false;
+    this.toggleSubject.next(this.toggleState);
   }
 
   toggleSidebar(){

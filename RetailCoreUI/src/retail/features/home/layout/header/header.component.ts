@@ -9,7 +9,6 @@ import { LoggerService } from '../../../../core/services/logger.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { DataPersistanceService } from '../../../../core/services/data-persistance.service';
-import { AnnouncementService } from '../../home-features/toolbox-mgt/services/announcement.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -18,7 +17,7 @@ import { MenuItem } from 'primeng/api';
   imports: [UI_Modules, FormsModule, angularModules, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  providers: [SidebarComponent, AnnouncementService],
+  providers: [SidebarComponent],
 })
 export class HeaderComponent {
   items: MenuItem[] | undefined;
@@ -33,8 +32,7 @@ export class HeaderComponent {
 
   constructor(private router: Router, private auth: AuthenticationService
     , private layoutService: LayoutService
-    , private dataPersistenceService: DataPersistanceService
-    , private announcementService: AnnouncementService) { }
+    , private dataPersistenceService: DataPersistanceService) { }
 
     ngOnInit() {
       // this.fillAnnouncementList("");

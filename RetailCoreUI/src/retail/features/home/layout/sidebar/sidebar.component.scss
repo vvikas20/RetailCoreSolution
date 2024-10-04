@@ -5,7 +5,7 @@ span {display: block !important; -webkit-transition: all 0.3s ease-in-out;-o-tra
 .menu_item { margin-bottom: 1rem; 
     a {display: flex; align-items: center; gap: var(--value_8);  text-decoration: none; padding: 6px; &:hover {text-decoration: none;}-webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
     i {display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;-webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
-    span {font-size: var(--value_14); font-family: var(--font-medium); color: #ffffff; font-weight: 500; display: none; -webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
+    span {font-size: 14px; font-family: var(--font-medium); color: #000000; font-weight: 500; -webkit-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
 }
 ::ng-deep .menu_item.active { 
     a{background: #ffffff; border-radius: 4px; 

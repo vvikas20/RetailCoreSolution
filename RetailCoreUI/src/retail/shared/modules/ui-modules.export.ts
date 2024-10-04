@@ -43,10 +43,14 @@ import { MenubarModule } from 'primeng/menubar';
 import { KnobModule } from 'primeng/knob';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuModule } from 'primeng/menu';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 
 
 
-const UI_Modules = [RatingModule, TagModule, KnobModule, MenubarModule, InputGroupAddonModule, IconFieldModule, InputIconModule, ButtonModule, InputTextModule, DropdownModule, CardModule, SplitterModule,FloatLabelModule,CheckboxModule, PasswordModule,StepperModule, AutoFocusModule,AvatarModule,AvatarGroupModule,StyleClassModule, ConfirmPopupModule, ToastModule,DialogModule,TooltipModule,RadioButtonModule, TabViewModule, TableModule, InputGroupModule, ListboxModule, CalendarModule, FileUploadModule, ProgressBarModule,BadgeModule, InputOtpModule, InputSwitchModule, InputTextareaModule, DynamicDialogModule, PanelModule, DividerModule, AutoCompleteModule, MultiSelectModule, ConfirmDialogModule, EditorModule, TreeSelectModule, RippleModule   ];
+
+const UI_Modules = [BreadcrumbModule, MenuModule, SidebarModule, RatingModule, TagModule, KnobModule, MenubarModule, InputGroupAddonModule, IconFieldModule, InputIconModule, ButtonModule, InputTextModule, DropdownModule, CardModule, SplitterModule,FloatLabelModule,CheckboxModule, PasswordModule,StepperModule, AutoFocusModule,AvatarModule,AvatarGroupModule,StyleClassModule, ConfirmPopupModule, ToastModule,DialogModule,TooltipModule,RadioButtonModule, TabViewModule, TableModule, InputGroupModule, ListboxModule, CalendarModule, FileUploadModule, ProgressBarModule,BadgeModule, InputOtpModule, InputSwitchModule, InputTextareaModule, DynamicDialogModule, PanelModule, DividerModule, AutoCompleteModule, MultiSelectModule, ConfirmDialogModule, EditorModule, TreeSelectModule, RippleModule   ];
 
 export { UI_Modules };

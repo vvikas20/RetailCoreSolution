@@ -5,6 +5,12 @@ import { HomeComponent } from './home.component';
 import { ConfiguratorComponent } from './components/configurator/configurator.component';
 import { authGuard } from '../../core/guards/auth.guard';
 import { HomeResolverService } from './resolvers/home-resolver.service';
+import { ManageUsersComponent } from './pages/manage-users/manage-users.component';
+import { ManageRolesComponent } from './pages/manage-roles/manage-roles.component';
+import { ManageRoleLevelsComponent } from './pages/manage-role-levels/manage-role-levels.component';
+import { ManageProductsComponent } from './pages/manage-products/manage-products.component';
+import { ManageProductCatgoriesComponent } from './pages/manage-product-catgories/manage-product-catgories.component';
+import { ManageOrdersComponent } from './pages/manage-orders/manage-orders.component';
 
 const Home_Routes: Routes = [
     {
@@ -14,10 +20,13 @@ const Home_Routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardComponent },
             { path: 'user-profile', component: UserProfileComponent },
-            { path: 'test-configurator', component: ConfiguratorComponent },
-            { path: 'featureone', loadChildren: () => import('./home-features/featureone/featureone-routing').then(feature => feature.Featureone_Routes) },
-            { path: 'toolbox-mgt', loadChildren: () => import('./home-features/toolbox-mgt/toolbox-mgt-routing').then(feature => feature.ToolboxMgtComponent_Routes) },
-            { path: 'administration', loadChildren: () => import('./home-features/administration/administration-routing').then(feature => feature.Administration_Routes) },
+            { path: 'manage-users', component: ManageUsersComponent },
+            { path: 'manage-roles', component: ManageRolesComponent },
+            { path: 'manage-role-level', component: ManageRoleLevelsComponent },
+            { path: 'manage-products', component: ManageProductsComponent },
+            { path: 'manage-product-categories', component: ManageProductCatgoriesComponent },
+            { path: 'manage-orders', component: ManageOrdersComponent }
+
         ]
     }
 ];

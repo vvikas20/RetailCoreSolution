@@ -4,24 +4,24 @@ import { LoggerService } from "../../../core/services/logger.service";
 import { Observable, map } from "rxjs";
 import { ApiResponse } from "../../../core/models/api-response.model";
 import { ApiEndPoints } from "../../../config/api-end-points";
-import { IMenu } from "../models/menu.models";
 import { appMenus } from "../../../config/app-menus";
 import { Utility } from "../../../core/utility/utility";
+import { MenuItem } from "primeng/api";
 
 @Injectable()
 export class MenuManagementService {
-  lstAppMenu = appMenus;
+  appMenuItems: Array<MenuItem> = appMenus;
   constructor(
     private http: HttpService,
     private loggerService: LoggerService
   ) { }
 
-  getLeftSideMenus(): Observable<Array<IMenu>> {
+  getMenuItems(): Observable<Array<MenuItem>> {
     return this.http
-      .get<ApiResponse<Array<IMenu>>>(ApiEndPoints.leftSideMenu)
+      .get<ApiResponse<Array<MenuItem>>>(ApiEndPoints.leftSideMenu)
       .pipe(
         map((menus) => {
-          return Utility.innerJoin(menus.result, this.lstAppMenu, 'menu_Key', 'validationKey');
+          return Utility.innerJoin(menus.result, this.appMenuItems, 'menu_Key', 'validationKey');
         })
       );
   }
