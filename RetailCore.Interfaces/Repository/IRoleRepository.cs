@@ -10,5 +10,6 @@ namespace RetailCore.Interfaces.Repository
     public interface IRoleRepository : IRepository<RetailCore.Entities.EntityModels.Role>
     {
         IEnumerable<RetailCore.Entities.EntityModels.Permission> GetPermissionByRoleId(Guid roleId);
+        bool RoleCoscadeDelete(Guid roleId);
     }
 }

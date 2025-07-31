@@ -100,6 +100,10 @@ namespace RetailCore.Services
             var existingUser = this._userRepository.GetById(user.UserId);
             if (existingUser != null)
             {
+                user.CreatedBy = existingUser.CreatedBy;
+                user.CreatedDate = existingUser.CreatedDate;
+                user.IsDeleted= existingUser.IsDeleted;
+
                 this._userRepository.Update(user.ToEntityModel(existingUser));
                 this._unitOfWork.Commit();
                 return user;

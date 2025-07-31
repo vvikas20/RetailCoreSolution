@@ -19,6 +19,7 @@ namespace RetailCore.ServiceContracts
         int GetRoleLevelCount();
         bool AddRoleLevelPermissionTypes(Guid roleLevelId, List<PermissionType> permissionTypes);
         bool UpdateRoleLevelPermissionTypes(Guid roleLevelId, List<PermissionType> permissionTypes);
+        IEnumerable<PermissionType> GetRoleLevelPermissionTypes(Guid roleLevelId);
         IEnumerable<Permission> GetRoleLevelPermissions(Guid roleLevelId);
     }
 }

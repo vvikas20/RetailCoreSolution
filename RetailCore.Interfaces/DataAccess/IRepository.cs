@@ -20,5 +20,6 @@ namespace RetailCore.Interfaces.DataAccess
         T Get(Expression<Func<T, bool>> where);
         IEnumerable<T> GetAll();
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
+        IEnumerable<T> GetAllWithInclude(params Expression<Func<T, object>>[] includeProperties);
     }
 }

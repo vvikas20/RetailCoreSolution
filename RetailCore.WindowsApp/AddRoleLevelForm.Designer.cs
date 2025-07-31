@@ -39,8 +39,11 @@
             label1 = new Label();
             label5 = new Label();
             textBoxRoleLevel = new TextBox();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            chkSelectAll = new CheckBox();
             checkedListBoxPermissionTypes = new CheckedListBox();
             tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -58,7 +61,7 @@
             tableLayoutPanel1.Controls.Add(label1, 0, 4);
             tableLayoutPanel1.Controls.Add(label5, 0, 3);
             tableLayoutPanel1.Controls.Add(textBoxRoleLevel, 1, 3);
-            tableLayoutPanel1.Controls.Add(checkedListBoxPermissionTypes, 1, 4);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 4);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -175,13 +178,39 @@
             textBoxRoleLevel.Size = new Size(224, 23);
             textBoxRoleLevel.TabIndex = 3;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(chkSelectAll, 0, 0);
+            tableLayoutPanel2.Controls.Add(checkedListBoxPermissionTypes, 0, 1);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(150, 123);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(224, 200);
+            tableLayoutPanel2.TabIndex = 1;
+            // 
+            // chkSelectAll
+            // 
+            chkSelectAll.AutoSize = true;
+            chkSelectAll.Location = new Point(3, 3);
+            chkSelectAll.Name = "chkSelectAll";
+            chkSelectAll.Size = new Size(123, 19);
+            chkSelectAll.TabIndex = 0;
+            chkSelectAll.Text = "Select/Deselect All";
+            chkSelectAll.UseVisualStyleBackColor = true;
+            chkSelectAll.CheckedChanged += chkSelectAll_CheckedChanged;
+            // 
             // checkedListBoxPermissionTypes
             // 
             checkedListBoxPermissionTypes.Dock = DockStyle.Fill;
             checkedListBoxPermissionTypes.FormattingEnabled = true;
-            checkedListBoxPermissionTypes.Location = new Point(150, 123);
+            checkedListBoxPermissionTypes.Location = new Point(3, 28);
             checkedListBoxPermissionTypes.Name = "checkedListBoxPermissionTypes";
-            checkedListBoxPermissionTypes.Size = new Size(224, 200);
+            checkedListBoxPermissionTypes.Size = new Size(218, 169);
             checkedListBoxPermissionTypes.TabIndex = 4;
             // 
             // AddRoleLevelForm
@@ -197,6 +226,8 @@
             Load += AddRoleForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -214,5 +245,7 @@
         private Label label5;
         private TextBox textBoxRoleLevel;
         private CheckedListBox checkedListBoxPermissionTypes;
+        private TableLayoutPanel tableLayoutPanel2;
+        private CheckBox chkSelectAll;
     }
 }

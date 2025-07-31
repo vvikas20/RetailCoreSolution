@@ -6,6 +6,9 @@ namespace RetailCore.WindowsApp
 {
     public partial class MainForm : Form
     {
+        bool uiInprogress = false;
+        int activeTabPageIndex = 0;
+
         private readonly ICurrentUserService _currentUserService;
         private readonly IRoleService _roleService;
         private readonly IRoleLevelService _roleLevelService;
@@ -45,6 +48,7 @@ namespace RetailCore.WindowsApp
 
         private void SetupUI()
         {
+            uiInprogress = true;
 
             string loggedInUser = string.IsNullOrEmpty(this._currentUserService.Username) ? "Guest" : this._currentUserService.Username;
             this.Text = $"Welcome - {loggedInUser}";
@@ -205,6 +209,14 @@ namespace RetailCore.WindowsApp
             }
 
             dataGridViewProducts.DataSource = productDatatable;
+
+            //Set the active tab page to the first one
+            if (tabControl1.TabCount > 0)
+            {
+                tabControl1.SelectedIndex = activeTabPageIndex;
+            }
+
+            uiInprogress = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -328,9 +340,48 @@ namespace RetailCore.WindowsApp
             this.SetupUI();
         }
 
+        private void dataGridViewUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //write code to edit user
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_ADD_USER")) == false)
+            {
+                MessageBox.Show("You do not have permission to edit user", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var row = dataGridViewUsers.Rows[e.RowIndex].DataBoundItem as DataRowView;
+            var userId = Guid.Parse(row.Row["UserId"].ToString());
+            var currentRow = _userService.GetUserById(userId);
+            if (currentRow != null)
+            {
+                addUserForm.SetUIForExistingUser(currentRow);
+                addUserForm.ShowDialog();
+            }
+            SetupUI();
+        }
+
+        private void dataGridViewRoleLevels_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //write code to edit role level 
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLE_LEVELS")) == false)
+            {
+                MessageBox.Show("You do not have permission to edit role level", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var row = dataGridViewRoleLevels.Rows[e.RowIndex].DataBoundItem as DataRowView;
+            var roleLevelId = Guid.Parse(row.Row["RoleLevelId"].ToString());
+            var currentRow = _roleLevelService.GetRoleLevelById(roleLevelId);
+            if (currentRow != null)
+            {
+                addRoleLevelForm.SetUIForExistingRoleLevel(currentRow);
+                addRoleLevelForm.ShowDialog();
+            }
+
+            SetupUI();
+        }
+
         private void dataGridViewRoles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLES")) == false)
+            if (_currentUserService.Permissions.Any(x => x.Equals("KEY_MANAGE_ROLES")) == false)
             {
                 MessageBox.Show("You do not have permission to edit role", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -344,6 +395,93 @@ namespace RetailCore.WindowsApp
                 addRoleForm.SetUIForExistingRole(currentRow);
                 addRoleForm.ShowDialog();
             }
+
+            SetupUI();
         }
+
+        private void dataGridViewRoleLevels_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewRoles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                // Check if any rows are selected
+                if (dataGridViewRoles.SelectedRows.Count > 0)
+                {
+                    // Confirm deletion
+                    DialogResult result = MessageBox.Show(
+                        "Are you sure you want to delete the selected row(s)?",
+                        "Confirm Delete",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Delete selected rows (handles multiple selection)
+                        foreach (DataGridViewRow row in dataGridViewRoles.SelectedRows)
+                        {
+                            if (!row.IsNewRow) // Prevent deleting the "new row" if present
+                            {
+                                var dataRow = row.DataBoundItem as DataRowView;
+                                var roleId = Guid.Parse(Convert.ToString(dataRow.Row["RoleId"]));
+
+                                // Call the service to delete the role
+                                _roleService.DeleteRole(roleId);
+
+                                dataGridViewRoles.Rows.Remove(row);
+                            }
+                        }
+                    }
+                    e.Handled = true; // Mark the event as handled
+                }
+            }
+        }
+
+        private void dataGridViewUsers_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                // Check if any rows are selected
+                if (dataGridViewUsers.SelectedRows.Count > 0)
+                {
+                    // Confirm deletion
+                    DialogResult result = MessageBox.Show(
+                        "Are you sure you want to delete the selected row(s)?",
+                        "Confirm Delete",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Delete selected rows (handles multiple selection)
+                        foreach (DataGridViewRow row in dataGridViewUsers.SelectedRows)
+                        {
+                            if (!row.IsNewRow) // Prevent deleting the "new row" if present
+                            {
+                                var dataRow = row.DataBoundItem as DataRowView;
+                                var userId = Guid.Parse(Convert.ToString(dataRow.Row["UserId"]));
+
+                                // Call the service to delete the role
+                                _userService.DeleteUser(userId);
+
+                                dataGridViewUsers.Rows.Remove(row);
+                            }
+                        }
+                    }
+                    e.Handled = true; // Mark the event as handled
+                }
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == -1 || uiInprogress) return;
+            activeTabPageIndex = tabControl1.SelectedIndex;
+        }
+
+      
     }
 }

@@ -31,16 +31,19 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             tbxRoleID = new TextBox();
             label4 = new Label();
-            textBox2 = new TextBox();
+            tbxRoleDisplayName = new TextBox();
             cbxRoleLevel = new ComboBox();
             label3 = new Label();
             label1 = new Label();
             btnSave = new Button();
-            textBox1 = new TextBox();
+            tbxRoleName = new TextBox();
             label2 = new Label();
             label5 = new Label();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            chkSelectAll = new CheckBox();
             checkedListBoxPermission = new CheckedListBox();
             tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -50,15 +53,15 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(tbxRoleID, 1, 0);
             tableLayoutPanel1.Controls.Add(label4, 0, 0);
-            tableLayoutPanel1.Controls.Add(textBox2, 1, 3);
+            tableLayoutPanel1.Controls.Add(tbxRoleDisplayName, 1, 3);
             tableLayoutPanel1.Controls.Add(cbxRoleLevel, 1, 1);
             tableLayoutPanel1.Controls.Add(label3, 0, 3);
             tableLayoutPanel1.Controls.Add(label1, 0, 1);
             tableLayoutPanel1.Controls.Add(btnSave, 1, 5);
-            tableLayoutPanel1.Controls.Add(textBox1, 1, 2);
+            tableLayoutPanel1.Controls.Add(tbxRoleName, 1, 2);
             tableLayoutPanel1.Controls.Add(label2, 0, 2);
             tableLayoutPanel1.Controls.Add(label5, 0, 4);
-            tableLayoutPanel1.Controls.Add(checkedListBoxPermission, 1, 4);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 4);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -95,11 +98,11 @@
             // 
             // textBox2
             // 
-            textBox2.Dock = DockStyle.Fill;
-            textBox2.Location = new Point(123, 93);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(246, 23);
-            textBox2.TabIndex = 3;
+            tbxRoleDisplayName.Dock = DockStyle.Fill;
+            tbxRoleDisplayName.Location = new Point(123, 93);
+            tbxRoleDisplayName.Name = "textBox2";
+            tbxRoleDisplayName.Size = new Size(246, 23);
+            tbxRoleDisplayName.TabIndex = 3;
             // 
             // cbxRoleLevel
             // 
@@ -148,11 +151,11 @@
             // 
             // textBox1
             // 
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(123, 63);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(246, 23);
-            textBox1.TabIndex = 2;
+            tbxRoleName.Dock = DockStyle.Fill;
+            tbxRoleName.Location = new Point(123, 63);
+            tbxRoleName.Name = "textBox1";
+            tbxRoleName.Size = new Size(246, 23);
+            tbxRoleName.TabIndex = 2;
             // 
             // label2
             // 
@@ -178,13 +181,40 @@
             label5.Text = "Role Permissions";
             label5.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(chkSelectAll, 0, 0);
+            tableLayoutPanel2.Controls.Add(checkedListBoxPermission, 0, 1);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(123, 123);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(246, 286);
+            tableLayoutPanel2.TabIndex = 9;
+            // 
+            // chkSelectAll
+            // 
+            chkSelectAll.AutoSize = true;
+            chkSelectAll.Dock = DockStyle.Fill;
+            chkSelectAll.Location = new Point(3, 3);
+            chkSelectAll.Name = "chkSelectAll";
+            chkSelectAll.Size = new Size(240, 19);
+            chkSelectAll.TabIndex = 0;
+            chkSelectAll.Text = "Select/Deselect All";
+            chkSelectAll.UseVisualStyleBackColor = true;
+            chkSelectAll.CheckedChanged += chkSelectAll_CheckedChanged;
+            // 
             // checkedListBoxPermission
             // 
             checkedListBoxPermission.Dock = DockStyle.Fill;
             checkedListBoxPermission.FormattingEnabled = true;
-            checkedListBoxPermission.Location = new Point(123, 123);
+            checkedListBoxPermission.Location = new Point(3, 28);
             checkedListBoxPermission.Name = "checkedListBoxPermission";
-            checkedListBoxPermission.Size = new Size(246, 286);
+            checkedListBoxPermission.Size = new Size(240, 255);
             checkedListBoxPermission.TabIndex = 4;
             // 
             // AddRoleForm
@@ -200,6 +230,8 @@
             Load += AddRoleForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -212,10 +244,12 @@
         private Label label1;
         private TextBox tbxRoleID;
         private Label label4;
-        private TextBox textBox2;
+        private TextBox tbxRoleDisplayName;
         private Button btnSave;
-        private TextBox textBox1;
+        private TextBox tbxRoleName;
         private Label label5;
         private CheckedListBox checkedListBoxPermission;
+        private TableLayoutPanel tableLayoutPanel2;
+        private CheckBox chkSelectAll;
     }
 }

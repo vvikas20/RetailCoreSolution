@@ -38,7 +38,7 @@ namespace RetailCore.WindowsApp
                 addedRole = this._roleService.AddRole(new BusinessObjects.BusinessObjects.Role
                 {
                     RoleId = Guid.Parse(this.tbxRoleID.Text),
-                    RoleName = this.textBox1.Text,
+                    RoleName = this.tbxRoleName.Text,
                     RoleLevelId = Guid.Parse(Convert.ToString(this.cbxRoleLevel.SelectedValue)),
                     CreatedBy = _currentUserService.UserId,
                     CreatedDate = DateTime.Now,
@@ -49,7 +49,7 @@ namespace RetailCore.WindowsApp
                 addedRole = this._roleService.UpdateRole(new BusinessObjects.BusinessObjects.Role
                 {
                     RoleId = existingRole.RoleId,
-                    RoleName = this.textBox1.Text,
+                    RoleName = this.tbxRoleName.Text,
                     RoleLevelId = Guid.Parse(Convert.ToString(this.cbxRoleLevel.SelectedValue)),
                     ModifiedBy = _currentUserService.UserId,
                     ModifiedDate = DateTime.Now,
@@ -63,23 +63,27 @@ namespace RetailCore.WindowsApp
 
             if (addedRole.RoleId != default(Guid))
             {
-                MessageBox.Show("Role Added Successfully", "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string message = existingRole == null ? "Role Added Successfully" : "Role Updated Successfully";
+                MessageBox.Show(message, "Administrator", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            this.existingRole = null;
             this.Close();
         }
 
         private void AddRoleForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            existingRole= null;
         }
 
         private void AddRoleForm_Load(object sender, EventArgs e)
         {
             this.tbxRoleID.Text = Guid.NewGuid().ToString();
-            this.textBox1.Text = string.Empty;
-            this.textBox2.Text = string.Empty;
+            this.tbxRoleName.Text = string.Empty;
+            this.tbxRoleDisplayName.Text = string.Empty;
+
+            this.cbxRoleLevel.DataSource = null;
+            this.cbxRoleLevel.Items.Clear();
+
             this.cbxRoleLevel.DataSource = this._roleLevelService.GetRoleLevels();
             this.cbxRoleLevel.DisplayMember = "RoleLevelName";
             this.cbxRoleLevel.ValueMember = "RoleLevelId";
@@ -87,7 +91,8 @@ namespace RetailCore.WindowsApp
             if (existingRole != null)
             {
                 tbxRoleID.Text = existingRole.RoleId.ToString();
-                textBox1.Text = existingRole.RoleName;
+                tbxRoleName.Text = existingRole.RoleName;
+                tbxRoleDisplayName.Text = existingRole.RoleName;
 
                 cbxRoleLevel.SelectedValue = existingRole.RoleLevelId;
                 var rolePermissions = _roleService.GetPermissionByRoleId(existingRole.RoleId);
@@ -105,10 +110,13 @@ namespace RetailCore.WindowsApp
             {
                 this.btnSave.Text = "Save";
             }
+
         }
 
         private void cbxRoleLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cbxRoleLevel.SelectedItem == null) return;
+
             var selectedRoleLevelId = ((BusinessObjects.BusinessObjects.RoleLevel)cbxRoleLevel.SelectedItem).RoleLevelId;
             checkedListBoxPermission.DataSource = this._roleLevelService.GetRoleLevelPermissions(selectedRoleLevelId);
             checkedListBoxPermission.DisplayMember = "PermissionDisplayName";
@@ -117,6 +125,18 @@ namespace RetailCore.WindowsApp
             for (int i = 0; i < checkedListBoxPermission.Items.Count; i++)
             {
                 checkedListBoxPermission.SetItemChecked(i, false);
+            }
+        }
+
+        private void chkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            // Check or uncheck all items in the checked list box based on the checkbox state
+            if (checkedListBoxPermission.Items.Count > 0)
+            {
+                for (int i = 0; i < checkedListBoxPermission.Items.Count; i++)
+                {
+                    checkedListBoxPermission.SetItemChecked(i, chkSelectAll.Checked);
+                }
             }
         }
     }

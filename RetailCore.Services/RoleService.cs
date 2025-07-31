@@ -41,7 +41,7 @@ namespace RetailCore.Services
             var role = _roleRepository.GetById(roleId);
             if (role != null)
             {
-                _roleRepository.Delete(role);
+                _roleRepository.RoleCoscadeDelete(role.RoleId);
                 _unitOfWork.Commit();
                 return true;
             }
@@ -80,6 +80,10 @@ namespace RetailCore.Services
             var existingRole = _roleRepository.GetById(role.RoleId);
             if (existingRole != null)
             {
+                role.CreatedBy = existingRole.CreatedBy;
+                role.CreatedDate = existingRole.CreatedDate;
+                role.IsDeleted = existingRole.IsDeleted;
+
                 _roleRepository.Update(role.ToEntityModel(existingRole));
                 _unitOfWork.Commit();
                 return role;

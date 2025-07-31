@@ -69,6 +69,10 @@ namespace RetailCore.Services
             var existingRoleLevel = this._roleLevelRepository.GetById(roleLevel.RoleLevelId);
             if (existingRoleLevel != null)
             {
+                roleLevel.CreatedDate = existingRoleLevel.CreatedDate;
+                roleLevel.CreatedBy = existingRoleLevel.CreatedBy;
+                roleLevel.IsDeleted = existingRoleLevel.IsDeleted;
+
                 this._roleLevelRepository.Update(roleLevel.ToEntityModel(existingRoleLevel));
                 this._unitOfWork.Commit();
             }
@@ -88,7 +92,7 @@ namespace RetailCore.Services
                     CreatedDate = DateTime.Now
                 });
             }
-
+            this._unitOfWork.Commit();
             return true;
         }
 
@@ -111,7 +115,7 @@ namespace RetailCore.Services
                     CreatedDate = DateTime.Now
                 });
             }
-
+            this._unitOfWork.Commit();
             return true;
         }
 
@@ -121,6 +125,17 @@ namespace RetailCore.Services
             foreach (var permission in _roleLevelRepository.GetRoleLevelDefaultPermissions(roleLevelId))
             {
                 permissionTypes.Add(permission.ToBusinessObject());
+            }
+            return permissionTypes;
+        }
+
+        public IEnumerable<PermissionType> GetRoleLevelPermissionTypes(Guid roleLevelId)
+        {
+            //Fetch the role level permission types from the repository
+            IList<PermissionType> permissionTypes = new List<PermissionType>();
+            foreach (var permissionType in _roleLevelPermissionTypeMappingRepository.GetRoleLevelPermissionTypes(roleLevelId))
+            {
+                permissionTypes.Add(permissionType.ToBusinessObject());
             }
             return permissionTypes;
         }

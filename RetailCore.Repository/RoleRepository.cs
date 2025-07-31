@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RetailCore.Entities.EntityModels;
 using RetailCore.Interfaces.DataAccess;
+using RetailCore.Persistance;
 using RetailCore.Persistance.Context;
 using RetailCore.Persistance.DataAccess;
 using System;
@@ -25,6 +26,41 @@ namespace RetailCore.Repository
             }
 
             return new List<Permission>();
+        }
+
+        public bool RoleCoscadeDelete(Guid roleId)
+        {
+            var entityToDelete = base.dbset.Include(x => x.Users)
+                                           .Include(x => x.RolePermissions)
+                                           .FirstOrDefault(x => x.RoleId == roleId);
+            if (entityToDelete != null)
+            {
+                //Delete the RoleLevel associated with the Role
+                if (entityToDelete.RoleLevel != null)
+                {
+                    base.dataContext.Entry(entityToDelete.RoleLevel).State = EntityState.Deleted;
+                }
+
+                //Detach the CreatedBy and ModifiedBy User objects to prevent their deletion
+                if (entityToDelete.CreatedByNavigation != null)
+                {
+                    base.dataContext.Entry(entityToDelete.CreatedByNavigation).State = EntityState.Detached;
+                }
+                if (entityToDelete.ModifiedByNavigation != null)
+                {
+                    base.dataContext.Entry(entityToDelete.ModifiedByNavigation).State = EntityState.Detached;
+                }
+
+                // Detach the Permission objects from RolePermissions to prevent their deletion
+                foreach (var rolePermission in entityToDelete.RolePermissions)
+                {
+                    base.dataContext.Entry(rolePermission.Permission).State = EntityState.Detached;
+                }
+
+                EntityFrameworkRecursiveDeleter.DeleteEntityWithDependencies(base.dataContext, entityToDelete);
+            }
+
+            return true;
         }
     }
 }

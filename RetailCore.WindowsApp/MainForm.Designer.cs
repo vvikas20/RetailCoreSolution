@@ -51,6 +51,7 @@
             tableLayoutPanel7 = new TableLayoutPanel();
             button3 = new Button();
             dataGridViewProducts = new DataGridView();
+            tabPageManageOrders = new TabPage();
             tabPageMyProfile = new TabPage();
             panel2 = new Panel();
             splitContainer1 = new SplitContainer();
@@ -86,7 +87,6 @@
             tableLayoutPanel3 = new TableLayoutPanel();
             button2 = new Button();
             tabPage4 = new TabPage();
-            tabPageManageOrders = new TabPage();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRoles).BeginInit();
             tabControl1.SuspendLayout();
@@ -148,9 +148,11 @@
             dataGridViewRoles.Dock = DockStyle.Fill;
             dataGridViewRoles.Location = new Point(3, 38);
             dataGridViewRoles.Name = "dataGridViewRoles";
+            dataGridViewRoles.ReadOnly = true;
             dataGridViewRoles.Size = new Size(780, 375);
             dataGridViewRoles.TabIndex = 0;
             dataGridViewRoles.CellDoubleClick += dataGridViewRoles_CellDoubleClick;
+            dataGridViewRoles.KeyDown += dataGridViewRoles_KeyDown;
             // 
             // tabControl1
             // 
@@ -167,6 +169,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(800, 450);
             tabControl1.TabIndex = 1;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPageUsers
             // 
@@ -201,8 +204,11 @@
             dataGridViewUsers.Dock = DockStyle.Fill;
             dataGridViewUsers.Location = new Point(3, 43);
             dataGridViewUsers.Name = "dataGridViewUsers";
+            dataGridViewUsers.ReadOnly = true;
             dataGridViewUsers.Size = new Size(780, 370);
             dataGridViewUsers.TabIndex = 0;
+            dataGridViewUsers.CellDoubleClick += dataGridViewUsers_CellDoubleClick;
+            dataGridViewUsers.KeyDown += dataGridViewUsers_KeyDown;
             // 
             // panel1
             // 
@@ -277,8 +283,11 @@
             dataGridViewRoleLevels.Dock = DockStyle.Fill;
             dataGridViewRoleLevels.Location = new Point(3, 38);
             dataGridViewRoleLevels.Name = "dataGridViewRoleLevels";
+            dataGridViewRoleLevels.ReadOnly = true;
             dataGridViewRoleLevels.Size = new Size(780, 375);
             dataGridViewRoleLevels.TabIndex = 0;
+            dataGridViewRoleLevels.CellDoubleClick += dataGridViewRoleLevels_CellDoubleClick;
+            dataGridViewRoleLevels.KeyDown += dataGridViewRoleLevels_KeyDown;
             // 
             // tabPageRoles
             // 
@@ -333,6 +342,7 @@
             dataGridViewProductCategory.Dock = DockStyle.Fill;
             dataGridViewProductCategory.Location = new Point(3, 38);
             dataGridViewProductCategory.Name = "dataGridViewProductCategory";
+            dataGridViewProductCategory.ReadOnly = true;
             dataGridViewProductCategory.Size = new Size(786, 381);
             dataGridViewProductCategory.TabIndex = 0;
             // 
@@ -381,6 +391,16 @@
             dataGridViewProducts.Name = "dataGridViewProducts";
             dataGridViewProducts.Size = new Size(780, 375);
             dataGridViewProducts.TabIndex = 0;
+            // 
+            // tabPageManageOrders
+            // 
+            tabPageManageOrders.Location = new Point(4, 24);
+            tabPageManageOrders.Name = "tabPageManageOrders";
+            tabPageManageOrders.Padding = new Padding(3);
+            tabPageManageOrders.Size = new Size(792, 422);
+            tabPageManageOrders.TabIndex = 6;
+            tabPageManageOrders.Text = "Manage Orders";
+            tabPageManageOrders.UseVisualStyleBackColor = true;
             // 
             // tabPageMyProfile
             // 
@@ -772,16 +792,6 @@
             tabPage4.Name = "tabPage4";
             tabPage4.Size = new Size(200, 100);
             tabPage4.TabIndex = 0;
-            // 
-            // tabPageManageOrder
-            // 
-            tabPageManageOrders.Location = new Point(4, 24);
-            tabPageManageOrders.Name = "tabPageManageOrders";
-            tabPageManageOrders.Padding = new Padding(3);
-            tabPageManageOrders.Size = new Size(792, 422);
-            tabPageManageOrders.TabIndex = 6;
-            tabPageManageOrders.Text = "Manage Orders";
-            tabPageManageOrders.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
