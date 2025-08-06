@@ -54,16 +54,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{6B21E1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.WindowsApp", "RetailCore.WindowsApp\RetailCore.WindowsApp.csproj", "{43B7A942-CFD6-479C-81A0-F1392DBA2E61}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RetailCoreUI", "RetailCoreUI", "{B783A71A-0C83-4BB3-BC64-28D52C3DD198}"
-	ProjectSection(SolutionItems) = preProject
-		RetailCoreUI\ReadMe.txt = RetailCoreUI\ReadMe.txt
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.WebApp", "RetailCore.WebApp\RetailCore.WebApp.csproj", "{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{E2393396-D343-43B8-8398-EE75409CBD43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCore.SourceGenerator", "RetailCore.SourceGenerator\RetailCore.SourceGenerator.csproj", "{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RetailCoreUI", "RetailCoreUI\", "{E355FB9A-D557-93AE-9403-A7E9E53CC68C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_52935"
+		Debug.AspNetCompiler.PhysicalPath = "RetailCoreUI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52935\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_52935"
+		Release.AspNetCompiler.PhysicalPath = "RetailCoreUI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52935\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "52935"
+		SlnRelativePath = "RetailCoreUI\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +155,10 @@ Global
 		{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E355FB9A-D557-93AE-9403-A7E9E53CC68C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E355FB9A-D557-93AE-9403-A7E9E53CC68C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E355FB9A-D557-93AE-9403-A7E9E53CC68C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E355FB9A-D557-93AE-9403-A7E9E53CC68C}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,9 +179,9 @@ Global
 		{F31FCAD9-A5F9-4B9D-9495-2F7A43DD7CF3} = {D4108461-5B82-4540-ACFE-F70D57A07FCE}
 		{4DA0FE9F-9A53-45F8-A8BF-6BD157E554E5} = {D2226FE4-84D7-4FA8-A615-385F8501E6F0}
 		{43B7A942-CFD6-479C-81A0-F1392DBA2E61} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
-		{B783A71A-0C83-4BB3-BC64-28D52C3DD198} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
 		{2C8FA7C5-B2F3-45A2-B138-882E47EE3FF1} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
 		{DA20C072-9C82-4B9E-95CE-1CD0D07D08E3} = {E2393396-D343-43B8-8398-EE75409CBD43}
+		{E355FB9A-D557-93AE-9403-A7E9E53CC68C} = {6B21E1F7-4A93-4B71-9970-30AD87409214}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A96C250B-AEF0-49B3-A567-46097720006A}
